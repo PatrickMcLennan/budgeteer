@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "lib": ["es5", "es6", "dom"],
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "es5"
+  },
+  "linterOptions": {
+    "exclude": "src/utils/auth.ts"
+  },
+  "include": ["src/**/*", "src/utils/index.d.ts"],
+  "exclude": ["node_modules", ".vscode"]
+}
