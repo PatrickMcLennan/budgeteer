@@ -27,8 +27,9 @@ export const fbLoginInit = () => {
     fjs.parentNode.insertBefore(js, fjs);
   })(document, 'script', 'facebook-jssdk');
 };
-export const fbLogIn = (cb: Function) => {
-  FB.login((response: any) => {
+
+export const fbLogIn = cb => {
+  FB.login(response => {
     const {
       authResponse: { accessToken, userID }
     } = response;
