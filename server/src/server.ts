@@ -25,7 +25,7 @@ app.put('/edit/:id', putEditEvent);
 app.delete('/delete/:id', deleteEvent);
 
 app.post('/login-with-facebook', postLoginWithFacebook);
-app.post('/newEvent', postNewEvent);
+app.post('/newEvent/:eventId/:facebookId', postNewEvent);
 
 app.listen(PORT, () => {
   connect(

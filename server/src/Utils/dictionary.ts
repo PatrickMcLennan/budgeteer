@@ -17,7 +17,7 @@ export interface IEvent extends Document {
   day: Number;
   startTime: Number;
   endTime: Number;
-  id: String;
+  id: string;
   cost: Number;
 }
 
@@ -32,8 +32,8 @@ export interface ICalendar {
 }
 
 export interface IUser extends Document {
-  facebookID: String;
+  name: String;
+  facebookId: String;
   accessToken: String;
   events?: IEvent[];
-  json?: Function;
 }

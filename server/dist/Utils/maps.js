@@ -1,0 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.WEEKDAYS = new Map();
+exports.WEEKDAYS.set(0, 'Sunday');
+exports.WEEKDAYS.set(1, 'Monday');
+exports.WEEKDAYS.set(2, 'Tuesday');
+exports.WEEKDAYS.set(3, 'Wednesday');
+exports.WEEKDAYS.set(4, 'Thursday');
+exports.WEEKDAYS.set(5, 'Friday');
+exports.WEEKDAYS.set(6, 'Saturday');
+exports.MONTHS = new Map();
+exports.MONTHS.set(0, 'January');
+exports.MONTHS.set(1, 'February');
+exports.MONTHS.set(2, 'March');
+exports.MONTHS.set(3, 'April');
+exports.MONTHS.set(4, 'May');
+exports.MONTHS.set(5, 'June');
+exports.MONTHS.set(6, 'July');
+exports.MONTHS.set(7, 'August');
+exports.MONTHS.set(8, 'September');
+exports.MONTHS.set(9, 'October');
+exports.MONTHS.set(10, 'November');
+exports.MONTHS.set(11, 'December');
+//# sourceMappingURL=maps.js.map

@@ -39,7 +39,7 @@ const UserSchema: Schema<IUser> = new Schema(
       type: String,
       required: true
     },
-    facebookID: {
+    facebookId: {
       type: Number,
       required: true
     },

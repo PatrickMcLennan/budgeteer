@@ -20,7 +20,7 @@ export const postLoginWithFacebook = async (req: Request, res: Response) => {
       });
     } else {
       const newUser = new User({
-        facebookID: userID,
+        facebookId: userID,
         name: userJSON.name,
         accessToken,
         events: []
