@@ -14,7 +14,7 @@ export const putEditEvent = async (req: Request, res: Response) => {
     await user.events.remove(eventsSearch[0]);
     await user.events.save(event);
     res.json({
-      status: 500,
+      status: 200,
       data: `${event.name} has been updated within ${user.name}'s account`,
       events: userMongo.events
     });

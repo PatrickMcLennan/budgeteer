@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Event, User } from '../Utils';
+import { IServerResponse, User } from '../Utils';
 import * as expressVal from 'express-validator';
 import { sanitizeBody } from 'express-validator/filter';
 
@@ -12,7 +12,7 @@ export const postNewEvent = async (req: Request, res: Response) => {
   const eventExists = eventsSearch.length >= 1 ? true : false;
 
   if (eventExists) {
-    res.json({
+    return res.json({
       status: 500,
       data: `There are ${
         eventsSearch.length
@@ -22,7 +22,7 @@ export const postNewEvent = async (req: Request, res: Response) => {
   } else {
     await event.save();
     await userMongo.events.push(event);
-    res.json({
+    return res.json({
       status: 200,
       data: `The event was succesfully created and added to ${
         userMongo.name

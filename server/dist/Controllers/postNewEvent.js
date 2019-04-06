@@ -49,25 +49,22 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 eventsSearch = userMongo.events.map(function (savedEvents) { return savedEvents.id === event.id; });
                 eventExists = eventsSearch.length >= 1 ? true : false;
                 if (!eventExists) return [3, 2];
-                res.json({
-                    status: 500,
-                    data: "There are " + eventsSearch.length + " event(s) already in here with that I.D",
-                    events: userMongo.events
-                });
-                return [3, 5];
+                return [2, res.json({
+                        status: 500,
+                        data: "There are " + eventsSearch.length + " event(s) already in here with that I.D",
+                        events: userMongo.events
+                    })];
             case 2: return [4, event.save()];
             case 3:
                 _b.sent();
                 return [4, userMongo.events.push(event)];
             case 4:
                 _b.sent();
-                res.json({
-                    status: 200,
-                    data: "The event was succesfully created and added to " + userMongo.name + "'s Events.",
-                    events: userMongo.events
-                });
-                _b.label = 5;
-            case 5: return [2];
+                return [2, res.json({
+                        status: 200,
+                        data: "The event was succesfully created and added to " + userMongo.name + "'s Events.",
+                        events: userMongo.events
+                    })];
         }
     });
 }); };

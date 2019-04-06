@@ -7,8 +7,5 @@
     "no-empty": true,
     "no-console": false
   },
-  "rulesDirectory": [],
-  "linterOptions": {
-    "exclude": ["src/utils/auth.ts"]
-  }
+  "rulesDirectory": []
 }
