@@ -35,9 +35,9 @@ export const StyledSVGBox = styled.div`
 `;
 
 export const StyledP = styled.p`
+  ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
   font-size: 1.6rem;
   font-style: italic;
-  ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
 
   &:not(:last-child) {
     margin-top: 2vh;

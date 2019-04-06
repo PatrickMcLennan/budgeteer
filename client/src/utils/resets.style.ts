@@ -39,5 +39,5 @@ export const theme = {
     main: 'border-radius: 2.5%'
   },
   flexin: (jc = 'center', ai = 'center', fd = 'row') =>
-    `display: flex; justify-content: ${jc}; align-items: ${ai}; flex-direction: ${fd}`
+    `display: flex; justify-content: ${jc}; align-items: ${ai}; flex-direction: ${fd};`
 };

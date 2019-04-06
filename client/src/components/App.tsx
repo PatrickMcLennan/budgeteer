@@ -63,7 +63,7 @@ class App extends React.Component<{}, IState> {
         <>
           <GlobalStyle />
           <Nav />
-          <LogInModal visible={currentActions === 0 ? true : false} />
+          <LogInModal visible={user ? false : true} />
           {user && (
             <Calendar
               visible={currentActions === 1 ? true : false}
