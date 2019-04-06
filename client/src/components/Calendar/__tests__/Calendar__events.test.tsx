@@ -51,7 +51,7 @@ const events: IEvent[] = [
 const renderCalendar = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Calendar events={events} visible={true} />
+      <Calendar events={events} currentActions={0} />
     </ThemeProvider>
   );
 

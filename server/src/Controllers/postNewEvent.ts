@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IServerResponse, User } from '../Utils';
+import { User } from '../Utils';
 import * as expressVal from 'express-validator';
 import { sanitizeBody } from 'express-validator/filter';
 

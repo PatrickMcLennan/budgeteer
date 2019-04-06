@@ -14,7 +14,7 @@ const events: IEvent | [] = [];
 const renderCalendar = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Calendar events={events} visible={false} />
+      <Calendar events={events} currentActions={1} />
     </ThemeProvider>
   );
 

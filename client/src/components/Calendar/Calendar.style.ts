@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StyledModalProps {
-  visible: boolean;
+  currentActions: boolean;
 }
 
 export const StyledGrid = styled.section`
@@ -14,5 +14,5 @@ export const StyledGrid = styled.section`
   transition-delay: 2s;
 
   ${(props: StyledModalProps): any =>
-    props.visible && 'transform: translateX(0%); opacity: 1;'};
+    props.currentActions && 'transform: translateX(0%); opacity: 1;'};
 `;

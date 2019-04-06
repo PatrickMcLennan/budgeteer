@@ -37,10 +37,3 @@ export interface IUser extends Document {
   accessToken: String;
   events?: IEvent[];
 }
-
-export interface IServerResponse {
-  json: Function;
-  status: number;
-  data: string;
-  events: IEvent[] | [];
-}

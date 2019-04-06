@@ -1,8 +1,8 @@
-export interface IAction {
-  serverCall?: Function;
-  text: string;
-  whenClicked: Function;
-}
+// export interface IAction {
+//   serverCall?: Function;
+//   text: string;
+//   whenClicked: Function;
+// }
 
 export interface IEvent {
   name: string;

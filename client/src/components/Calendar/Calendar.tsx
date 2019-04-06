@@ -5,14 +5,14 @@ import { StyledGrid } from './Calendar.style';
 
 interface IProps {
   events: IEvent[];
-  visible: boolean;
+  currentActions: number;
 }
 
 class Calendar extends React.Component<IProps, {}> {
   render() {
-    const { visible, events } = this.props;
+    const { currentActions, events } = this.props;
     return (
-      <StyledGrid visible={visible} data-testid="calendar">
+      <StyledGrid currentActions={currentActions !== 0} data-testid="calendar">
         {events.length === 0 ? (
           <h6 data-testid="calendar__noEventMessage">
             You have an empty schedule!

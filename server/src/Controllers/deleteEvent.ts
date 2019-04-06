@@ -14,7 +14,8 @@ export const deleteEvent = async (req: Request, res: Response) => {
     res.json({
       status: 200,
       data: 'Event Deleted Successfully',
-      events: userMongo.events
+      events: userMongo.events,
+      hello: 3
     });
   } else {
     res.json({

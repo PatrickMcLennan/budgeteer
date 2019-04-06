@@ -55,7 +55,8 @@ exports.deleteEvent = function (req, res) { return __awaiter(_this, void 0, void
                 res.json({
                     status: 200,
                     data: 'Event Deleted Successfully',
-                    events: userMongo.events
+                    events: userMongo.events,
+                    hello: 3
                 });
                 return [3, 4];
             case 3:

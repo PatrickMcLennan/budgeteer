@@ -47,17 +47,22 @@ class App extends React.Component<{}, IState> {
     console.log('createNewEvent');
   };
 
+  returnToCalendar = () => {
+    this.setState({ currentActions: 1 });
+  };
+
   actionButtonMap = (num: number): Function => {
     const actions = new Map<number, Function>();
     actions.set(0, this.getUser);
     actions.set(1, this.createNewEvent);
+    actions.set(2, this.returnToCalendar);
 
     return actions.get(num);
   };
 
   render() {
     const { currentActions, user } = this.state;
-    const { events } = user;
+    // const { events } = user;
     return (
       <ThemeProvider theme={theme}>
         <>
@@ -65,10 +70,7 @@ class App extends React.Component<{}, IState> {
           <Nav />
           <LogInModal visible={user ? false : true} />
           {user && (
-            <Calendar
-              visible={currentActions === 1 ? true : false}
-              events={events}
-            />
+            <Calendar currentActions={currentActions} events={user.events} />
           )}
           <ActionButton
             display={currentActions}
