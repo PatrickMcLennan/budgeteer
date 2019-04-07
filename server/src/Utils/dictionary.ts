@@ -1,12 +1,11 @@
 import { Document } from 'mongoose';
+import { Response } from 'express';
 
 /**************** INTERFACES ****************/
-export interface IWeather {
-  temperature: Number;
-  current: Number;
-  tomorrow: Number;
-  location: String;
-  icon: URL;
+export interface IServerResponse extends Response {
+  data: string;
+  events?: IEvent | IEvent[] | [];
+  user?: IUser;
 }
 
 export interface IEvent extends Document {
@@ -19,16 +18,6 @@ export interface IEvent extends Document {
   endTime: Number;
   id: string;
   cost: Number;
-}
-
-export interface ICalendar {
-  date: Number;
-  weekDay: String;
-  month: String;
-  city: String;
-  province: String;
-  icon?: URL;
-  events?: IEvent[];
 }
 
 export interface IUser extends Document {

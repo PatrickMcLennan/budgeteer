@@ -47,7 +47,7 @@ exports.deleteEvent = function (req, res) { return __awaiter(_this, void 0, void
             case 1:
                 userMongo = _b.sent();
                 eventsSearch = userMongo.events.map(function (savedEvents) { return savedEvents.id === event.id; });
-                eventExists = eventsSearch.length >= 1 ? true : false;
+                eventExists = eventsSearch.length >= 1;
                 if (!eventExists) return [3, 3];
                 return [4, user.events.remove(event)];
             case 2:
@@ -55,14 +55,14 @@ exports.deleteEvent = function (req, res) { return __awaiter(_this, void 0, void
                 res.json({
                     status: 200,
                     data: 'Event Deleted Successfully',
-                    events: userMongo.events,
-                    hello: 3
+                    events: userMongo.events
                 });
                 return [3, 4];
             case 3:
                 res.json({
                     status: 404,
-                    data: 'No event was found with that I.D'
+                    data: 'No Event was found with that I.D',
+                    events: userMongo.events
                 });
                 _b.label = 4;
             case 4: return [2];

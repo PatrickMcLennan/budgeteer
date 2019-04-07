@@ -47,7 +47,7 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 1:
                 userMongo = _b.sent();
                 eventsSearch = userMongo.events.map(function (savedEvent) { return savedEvent.id === event.id; });
-                eventExists = eventsSearch.length === 1 ? true : false;
+                eventExists = eventsSearch.length === 1;
                 if (!eventExists) return [3, 4];
                 return [4, user.events.remove(eventsSearch[0])];
             case 2:
@@ -64,7 +64,8 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 4:
                 res.json({
                     status: 404,
-                    data: eventsSearch.length + " events were found with that I.D, when there should only be 1."
+                    data: eventsSearch.length + " events were found with that I.D, when there should only be 1.",
+                    events: userMongo.events
                 });
                 _b.label = 5;
             case 5: return [2];

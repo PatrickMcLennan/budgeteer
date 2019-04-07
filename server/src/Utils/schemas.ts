@@ -17,10 +17,6 @@ const EventSchema: Schema<IEvent> = new Schema(
       type: Number,
       required: 'Please enter an end time for the event.'
     },
-    duration: {
-      type: Number,
-      required: true
-    },
     id: {
       type: String,
       required: 'No I.D has been entered.'

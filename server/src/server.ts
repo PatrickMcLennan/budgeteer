@@ -20,12 +20,12 @@ app.use(compression());
 app.use(json());
 app.use(cors());
 
-// app.put('/edit/:id', putEditEvent);
+app.put('/edit/:id', putEditEvent);
 
-// app.delete('/delete/:id', deleteEvent);
+app.delete('/delete/:id', deleteEvent);
 
 app.post('/login-with-facebook', postLoginWithFacebook);
-// app.post('/newEvent/:eventId/:facebookId', postNewEvent);
+app.post('/newEvent/:eventId/:facebookId', postNewEvent);
 
 app.listen(PORT, () => {
   connect(

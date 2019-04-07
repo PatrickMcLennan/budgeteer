@@ -47,7 +47,7 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 1:
                 userMongo = _b.sent();
                 eventsSearch = userMongo.events.map(function (savedEvents) { return savedEvents.id === event.id; });
-                eventExists = eventsSearch.length >= 1 ? true : false;
+                eventExists = eventsSearch.length >= 1;
                 if (!eventExists) return [3, 2];
                 return [2, res.json({
                         status: 500,

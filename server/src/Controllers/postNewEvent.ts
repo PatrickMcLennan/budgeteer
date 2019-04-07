@@ -1,15 +1,13 @@
-import { Request, Response } from 'express';
-import { User } from '../Utils';
-import * as expressVal from 'express-validator';
-import { sanitizeBody } from 'express-validator/filter';
+import { Request } from 'express';
+import { User, IEvent, IServerResponse } from '../Utils';
 
-export const postNewEvent = async (req: Request, res: Response) => {
+export const postNewEvent = async (req: Request, res: IServerResponse) => {
   const { event, user } = req.body;
   const userMongo = await User.findOne({ facebookId: user.facebookId });
   const eventsSearch = userMongo.events.map(
     savedEvents => savedEvents.id === event.id
   );
-  const eventExists = eventsSearch.length >= 1 ? true : false;
+  const eventExists = eventsSearch.length >= 1;
 
   if (eventExists) {
     return res.json({
@@ -17,7 +15,7 @@ export const postNewEvent = async (req: Request, res: Response) => {
       data: `There are ${
         eventsSearch.length
       } event(s) already in here with that I.D`,
-      events: userMongo.events
+      events: <IEvent[] | IEvent>userMongo.events
     });
   } else {
     await event.save();
@@ -27,7 +25,7 @@ export const postNewEvent = async (req: Request, res: Response) => {
       data: `The event was succesfully created and added to ${
         userMongo.name
       }'s Events.`,
-      events: userMongo.events
+      events: <IEvent[] | IEvent>userMongo.events
     });
   }
 };

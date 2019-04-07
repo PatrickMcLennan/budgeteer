@@ -61,7 +61,7 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
                 res.json({
                     status: 200,
                     data: 'Logged in successfully.',
-                    message: userExists
+                    user: userExists
                 });
                 return [3, 6];
             case 4:
@@ -77,7 +77,7 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
                 res.json({
                     status: 200,
                     data: 'New user has been registered + logged in.',
-                    message: newUser
+                    user: newUser
                 });
                 _b.label = 6;
             case 6: return [3, 8];

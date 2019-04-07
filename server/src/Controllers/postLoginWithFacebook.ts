@@ -1,8 +1,11 @@
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { default as fetch } from 'node-fetch';
-import { User, IUser } from '../Utils';
+import { User, IUser, IServerResponse } from '../Utils';
 
-export const postLoginWithFacebook = async (req: Request, res: Response) => {
+export const postLoginWithFacebook = async (
+  req: Request,
+  res: IServerResponse
+) => {
   const { accessToken, userID } = req.body;
   const user = await fetch(
     `https://graph.facebook.com/v3.2/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`
@@ -16,7 +19,7 @@ export const postLoginWithFacebook = async (req: Request, res: Response) => {
       res.json({
         status: 200,
         data: 'Logged in successfully.',
-        message: <IUser>userExists
+        user: <IUser>userExists
       });
     } else {
       const newUser = new User({
@@ -29,7 +32,7 @@ export const postLoginWithFacebook = async (req: Request, res: Response) => {
       res.json({
         status: 200,
         data: 'New user has been registered + logged in.',
-        message: <IUser>newUser
+        user: <IUser>newUser
       });
     }
   } else {
