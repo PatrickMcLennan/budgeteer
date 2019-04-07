@@ -25,6 +25,7 @@ class Calendar extends React.Component<IProps, {}> {
               year,
               month,
               day,
+              date,
               startTime,
               endTime,
               cost,
@@ -37,6 +38,7 @@ class Calendar extends React.Component<IProps, {}> {
                 year={year}
                 month={month}
                 day={day}
+                date={date}
                 startTime={startTime}
                 endTime={endTime}
                 cost={cost}

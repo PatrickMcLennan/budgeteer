@@ -25,6 +25,7 @@ test('<FormModal />', () => {
   const year = getByTestId('form__year');
   const month = getByTestId('form__month');
   const day = getByTestId('form__day');
+  const date = getByTestId('form__date');
   const startTime = getByTestId('form__startTime');
   const endTime = getByTestId('form__endTime');
   const cost = getByTestId('form__cost');
@@ -55,7 +56,8 @@ test('<FormModal />', () => {
   expect(description.textContent).toBe('');
   expect(year.value).toBe(now.getFullYear().toString());
   expect(month.value).toBe(now.getMonth().toString());
-  expect(day.value).toBe(now.getDate().toString());
+  expect(day.value).toBe(now.getDay().toString());
+  expect(date.value).toBe(now.getDate().toString());
   expect(startTime.value).toBe(now.getHours().toString());
   expect(endTime.value).toBe((now.getHours() + 3).toString());
   expect(cost.value).toBe((0).toString());

@@ -18,6 +18,7 @@ const events: IEvent[] = [
     year: 2020,
     month: 2,
     day: 2,
+    date: 4,
     startTime: 5,
     endTime: 7,
     cost: 20
@@ -30,6 +31,7 @@ const events: IEvent[] = [
     year: 2019,
     month: 6,
     day: 10,
+    date: 5,
     startTime: 7,
     endTime: 11,
     cost: 100
@@ -42,6 +44,7 @@ const events: IEvent[] = [
     year: 2019,
     month: 3,
     day: 28,
+    date: 6,
     startTime: 12,
     endTime: 1,
     cost: 6

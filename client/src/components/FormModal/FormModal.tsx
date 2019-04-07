@@ -14,6 +14,7 @@ class FormModal extends React.Component<IProps, IEvent> {
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
     day: new Date().getDay(),
+    date: new Date().getDate(),
     startTime: new Date().getHours(),
     endTime: new Date().getHours() + 3,
     cost: 0
@@ -28,7 +29,8 @@ class FormModal extends React.Component<IProps, IEvent> {
     }));
   };
 
-  handleSubmit = (e: any): void => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
     console.log('hello');
   };
 
@@ -40,6 +42,7 @@ class FormModal extends React.Component<IProps, IEvent> {
       year,
       month,
       day,
+      date,
       startTime,
       endTime,
       cost
@@ -91,6 +94,14 @@ class FormModal extends React.Component<IProps, IEvent> {
           type="number"
           value={day}
           id="day"
+          onChange={this.handleChange}
+          required
+        />
+        <StyledInput
+          data-testid="form__date"
+          type="number"
+          value={date}
+          id="date"
           onChange={this.handleChange}
           required
         />

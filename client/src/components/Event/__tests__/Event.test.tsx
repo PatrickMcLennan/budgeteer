@@ -16,6 +16,7 @@ const fakeEvent = {
   year: 2020,
   month: 2,
   day: 2,
+  date: 8,
   startTime: 5,
   endTime: 7,
   cost: 20

@@ -42,9 +42,9 @@ class App extends React.Component<{}, IState> {
   };
 
   createNewEvent = async (event: IEvent) => {
-    // fetch('https://linkToTheBackEnd/POST/yaddayadda')
-    //   .then(status => status)
-    //   .catch(err => Promise.reject(err));
+    fetch('https://linkToTheBackEnd/POST/yaddayadda')
+      .then(status => status)
+      .catch(err => Promise.reject(err));
     console.log('createNewEvent');
   };
 
