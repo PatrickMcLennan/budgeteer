@@ -10,7 +10,7 @@ export const postLoginWithFacebook = async (req: Request, res: Response) => {
   const userJSON = await user.json();
 
   if (userJSON.id === userID) {
-    const userExists: IUser = await User.findOne({ facebookID: userID });
+    const userExists: IUser = await User.findOne({ facebookId: userID });
 
     if (userExists) {
       res.json({

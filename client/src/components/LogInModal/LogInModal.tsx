@@ -9,11 +9,11 @@ import GithubSVG from '../SVG/GitHubSVG';
 import LinkedInSVG from '../SVG/LinkedInSVG';
 
 interface IProps {
-  visible: boolean;
+  currentActions: number;
 }
 
-const LogInModal = ({ visible }: IProps) => (
-  <StyledModal data-testid="logInModal" visible={visible}>
+const LogInModal = ({ currentActions }: IProps) => (
+  <StyledModal data-testid="logInModal" currentActions={currentActions === 0}>
     <StyledH2>Plan your day with budgeteer</StyledH2>
 
     <StyledSVGBox data-testid="logInModal__svgBox">

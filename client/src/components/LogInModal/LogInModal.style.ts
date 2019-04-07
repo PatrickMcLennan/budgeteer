@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StyledModalProps {
-  visible: boolean;
+  currentActions: boolean;
 }
 
 export const StyledModal = styled.section`
@@ -16,7 +16,8 @@ export const StyledModal = styled.section`
   opacity: 0;
   transition: all 1s ease-in-out;
   ${(props: StyledModalProps): any =>
-    props.visible && 'transform: translateY(0%); opacity: 1; display: none;'};
+    !props.currentActions &&
+    'transform: translateY(0%); opacity: 1; display: none;'};
 `;
 
 export const StyledH2 = styled.h2`

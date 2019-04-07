@@ -14,7 +14,7 @@ const getUser = jest.fn();
 const renderActionButton = () =>
   render(
     <ThemeProvider theme={theme}>
-      <ActionButton display={currentActions} action={getUser} />
+      <ActionButton currentActions={currentActions} action={getUser} />
     </ThemeProvider>
   );
 

@@ -11,7 +11,7 @@ afterEach(cleanup);
 const renderLogInModal = () =>
   render(
     <ThemeProvider theme={theme}>
-      <LogInModal visible={true} />
+      <LogInModal currentActions={1} />
     </ThemeProvider>
   );
 

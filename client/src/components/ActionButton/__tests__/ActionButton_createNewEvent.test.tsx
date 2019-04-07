@@ -14,7 +14,7 @@ const createNewEvent = jest.fn();
 const renderActionButton = () =>
   render(
     <ThemeProvider theme={theme}>
-      <ActionButton display={currentActions} action={createNewEvent} />
+      <ActionButton currentActions={currentActions} action={createNewEvent} />
     </ThemeProvider>
   );
 

@@ -20,6 +20,6 @@ export interface IEvent {
 
 export interface IUser {
   name: string;
-  facebookID: number;
+  facebookId: number;
   events: IEvent[] | [];
 }

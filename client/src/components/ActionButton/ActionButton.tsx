@@ -3,7 +3,7 @@ import StyledButton from './ActionButton.style';
 import LogInSVG from '../SVG/LogInSVG';
 
 interface IProps {
-  display: number;
+  currentActions: number;
   action: Function;
 }
 
@@ -12,10 +12,6 @@ interface IState {
 }
 
 class ActionButton extends React.Component<IProps, IState> {
-  state: IState = {
-    display: this.props.display
-  };
-
   getDisplayMap = (num: number) => {
     const displays = new Map<number, any>();
     displays.set(0, <LogInSVG />);
@@ -25,11 +21,10 @@ class ActionButton extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { display } = this.state;
-    const { action } = this.props;
+    const { action, currentActions } = this.props;
     return (
       <StyledButton data-testid="actionButton" onClick={action}>
-        {this.getDisplayMap(display)}
+        {this.getDisplayMap(currentActions)}
       </StyledButton>
     );
   }

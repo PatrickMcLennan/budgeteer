@@ -25,17 +25,18 @@ class App extends React.Component<{}, IState> {
   getUser = async () => {
     const cb = (
       name: string,
-      facebookID: number,
+      facebookId: number,
       events: IEvent[] | []
     ): void => {
       this.setState({
         user: {
           name,
-          facebookID,
+          facebookId,
           events
         },
         currentActions: 1
       });
+      console.log(name, facebookId, events);
     };
     await fbLogIn(cb);
   };
@@ -53,27 +54,29 @@ class App extends React.Component<{}, IState> {
 
   actionButtonMap = (num: number): Function => {
     const actions = new Map<number, Function>();
-    actions.set(0, this.getUser);
-    actions.set(1, this.createNewEvent);
-    actions.set(2, this.returnToCalendar);
+    actions.set(0, this.getUser); // Log in Page, getUser Modal
+    actions.set(1, this.createNewEvent); // Calendar Page, add new Event action
+    actions.set(2, this.returnToCalendar); // Return to Calendar page, ^^
 
     return actions.get(num);
   };
 
   render() {
-    const { currentActions, user } = this.state;
-    // const { events } = user;
+    const { currentActions } = this.state;
     return (
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
           <Nav />
-          <LogInModal visible={user ? false : true} />
-          {user && (
-            <Calendar currentActions={currentActions} events={user.events} />
+          <LogInModal currentActions={currentActions} />
+          {this.state.user && (
+            <Calendar
+              currentActions={currentActions}
+              events={this.state.user.events}
+            />
           )}
           <ActionButton
-            display={currentActions}
+            currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
           />
         </>

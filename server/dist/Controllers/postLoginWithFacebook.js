@@ -54,7 +54,7 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
             case 2:
                 userJSON = _b.sent();
                 if (!(userJSON.id === userID)) return [3, 7];
-                return [4, Utils_1.User.findOne({ facebookID: userID })];
+                return [4, Utils_1.User.findOne({ facebookId: userID })];
             case 3:
                 userExists = _b.sent();
                 if (!userExists) return [3, 4];
