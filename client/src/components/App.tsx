@@ -54,9 +54,9 @@ class App extends React.Component<{}, IState> {
 
   actionButtonMap = (num: number): Function => {
     const actions = new Map<number, Function>();
-    actions.set(0, this.getUser); // Log in Page, getUser Modal
-    actions.set(1, this.createNewEvent); // Calendar Page, add new Event action
-    actions.set(2, this.returnToCalendar); // Return to Calendar page, ^^
+    actions.set(0, this.getUser);
+    actions.set(1, this.createNewEvent);
+    actions.set(2, this.returnToCalendar);
 
     return actions.get(num);
   };
@@ -69,12 +69,7 @@ class App extends React.Component<{}, IState> {
           <GlobalStyle />
           <Nav />
           <LogInModal currentActions={currentActions} />
-          {this.state.user && (
-            <Calendar
-              currentActions={currentActions}
-              events={this.state.user.events}
-            />
-          )}
+          {this.state.user && <Calendar events={this.state.user.events} />}
           <ActionButton
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}

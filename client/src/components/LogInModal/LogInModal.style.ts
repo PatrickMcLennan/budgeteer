@@ -16,8 +16,7 @@ export const StyledModal = styled.section`
   opacity: 0;
   transition: all 1s ease-in-out;
   ${(props: StyledModalProps): any =>
-    !props.currentActions &&
-    'transform: translateY(0%); opacity: 1; display: none;'};
+    props.currentActions && 'transform: translateY(0%); opacity: 1;'};
 `;
 
 export const StyledH2 = styled.h2`
