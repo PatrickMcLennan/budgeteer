@@ -18,7 +18,7 @@ class App extends React.Component<{}, IState> {
     currentActions: 0
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     fbLoginInit();
   }
 
@@ -41,7 +41,7 @@ class App extends React.Component<{}, IState> {
     await fbLogIn(cb);
   };
 
-  createNewEvent = async (event: IEvent) => {
+  createNewEvent = async (event: IEvent): Promise<void> => {
     fetch('https://linkToTheBackEnd/POST/yaddayadda')
       .then(status => status)
       .catch(err => Promise.reject(err));
