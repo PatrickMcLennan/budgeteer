@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyledButton = styled.button`
   ${({ theme: { flexin } }: any) => flexin()}
   z-index: 100;
-  position: absolute;
+  position: fixed;
   bottom: 5vh;
   right: 5vh;
   height: 10vh;

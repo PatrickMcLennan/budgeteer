@@ -14,8 +14,8 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     position: relative;
-    height: 100vh;
-    width: 100vw;
+    display: grid;
+    grid-template-rows: 1fr 50vh;
     font-family: Arial, Helvetica, sans-serif;
   }
 `;

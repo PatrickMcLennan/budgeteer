@@ -6,7 +6,9 @@ interface StyledModalProps {
 
 export const StyledModal = styled.section`
   ${({ theme: { flexin } }: any) => flexin('space-around', 'center', 'column')}
-  ${({ theme: { borderRadius } }: any) => borderRadius.main}
+  ${({ theme: { borderRadius } }: any) =>
+    borderRadius.main}
+  grid-area: 2 / 1 / -1 / -1;
   margin: 1.5vh 5vh;
   padding: 0 1.5vh;
   text-align: center;
@@ -16,7 +18,11 @@ export const StyledModal = styled.section`
   opacity: 0;
   transition: all 1s ease-in-out;
   ${(props: StyledModalProps): any =>
-    props.currentActions && 'transform: translateY(0%); opacity: 1;'};
+    props.currentActions && `transform: translateY(0%); opacity: 1;`};
+
+  &.displayNone {
+    display: none;
+  }
 `;
 
 export const StyledH2 = styled.h2`

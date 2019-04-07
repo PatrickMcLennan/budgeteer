@@ -28,7 +28,7 @@ test('<ActionButton action={getUser} />', async () => {
   expect(button).toContainElement(logInSVG);
 
   // Styles
-  expect(button).toHaveStyleRule('position', 'absolute');
+  expect(button).toHaveStyleRule('position', 'fixed');
   expect(button).toHaveStyleRule('border-radius', '100%');
   expect(button).toHaveStyleRule('bottom', '5vh');
   expect(button).toHaveStyleRule('right', '5vh');
