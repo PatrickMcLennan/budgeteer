@@ -9,10 +9,12 @@ import FormModal from '../FormModal';
 
 afterEach(cleanup);
 
+const createNewEvent = jest.fn();
+
 const renderFormModal = () =>
   render(
     <ThemeProvider theme={theme}>
-      <FormModal />
+      <FormModal createNewEvent={createNewEvent} />
     </ThemeProvider>
   );
 

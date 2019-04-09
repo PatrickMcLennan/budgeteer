@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "typeScript": "tsc --watch",
+    "tslint": "tsc --watch",
     "nodemon": "nodemon dist/server.js"
   },
   "keywords": [],

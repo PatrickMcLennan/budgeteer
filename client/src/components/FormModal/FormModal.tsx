@@ -4,6 +4,7 @@ import { StyledInput } from './FormModal.style';
 
 interface IProps {
   event?: IEvent;
+  createNewEvent: Function;
 }
 
 class FormModal extends React.Component<IProps, IEvent> {
@@ -29,9 +30,10 @@ class FormModal extends React.Component<IProps, IEvent> {
     }));
   };
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    const { createNewEvent } = this.props;
     e.preventDefault();
-    console.log('hello');
+    return createNewEvent(this.state);
   };
 
   render() {

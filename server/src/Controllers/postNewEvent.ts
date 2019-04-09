@@ -2,8 +2,8 @@ import { Request } from 'express';
 import { User, IEvent, IServerResponse } from '../Utils';
 
 export const postNewEvent = async (req: Request, res: IServerResponse) => {
-  const { event, user } = req.body;
-  const userMongo = await User.findOne({ facebookId: user.facebookId });
+  const { event, facebookId } = req.body;
+  const userMongo = await User.findOne({ facebookId: facebookId });
   const eventsSearch = userMongo.events.map(
     savedEvents => savedEvents.id === event.id
   );
@@ -18,8 +18,8 @@ export const postNewEvent = async (req: Request, res: IServerResponse) => {
       events: <IEvent[] | IEvent>userMongo.events
     });
   } else {
-    await event.save();
-    await userMongo.events.push(event);
+    userMongo.events.push(event);
+    await userMongo.save();
     return res.json({
       status: 200,
       data: `The event was succesfully created and added to ${

@@ -25,7 +25,7 @@ app.put('/edit/:id', putEditEvent);
 app.delete('/delete/:id', deleteEvent);
 
 app.post('/login-with-facebook', postLoginWithFacebook);
-app.post('/newEvent/:eventId/:facebookId', postNewEvent);
+app.post('/newEvent', postNewEvent);
 
 app.listen(PORT, () => {
   connect(
@@ -33,6 +33,6 @@ app.listen(PORT, () => {
     mongoConfig
   )
     .then(() => console.log('Mongo connected'))
-    .catch(err => Promise.reject('Mongo is NOT connected'));
+    .catch(err => Promise.reject(err));
   console.log(`The server is running on Port ${PORT}`);
 });

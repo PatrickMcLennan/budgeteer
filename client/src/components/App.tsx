@@ -41,11 +41,19 @@ class App extends React.Component<{}, IState> {
     await fbLogIn(cb);
   };
 
-  createNewEvent = async (event: IEvent): Promise<void> => {
-    fetch('https://linkToTheBackEnd/POST/yaddayadda')
-      .then(status => status)
-      .catch(err => Promise.reject(err));
-    console.log('createNewEvent');
+  createNewEvent = (event: IEvent): void => {
+    const { facebookId } = this.state.user;
+    fetch('https://localhost:4000/newEvent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ facebookId, event })
+    }).then(response => {
+      if (response.status === 200) {
+        return this.returnToCalendar();
+      }
+    });
   };
 
   returnToCalendar = () => {

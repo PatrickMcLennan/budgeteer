@@ -38,12 +38,12 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("../Utils");
 exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, event, user, userMongo, eventsSearch, eventExists;
+    var _a, event, facebookId, userMongo, eventsSearch, eventExists;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, event = _a.event, user = _a.user;
-                return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
+                _a = req.body, event = _a.event, facebookId = _a.facebookId;
+                return [4, Utils_1.User.findOne({ facebookId: facebookId })];
             case 1:
                 userMongo = _b.sent();
                 eventsSearch = userMongo.events.map(function (savedEvents) { return savedEvents.id === event.id; });
@@ -54,11 +54,10 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                         data: "There are " + eventsSearch.length + " event(s) already in here with that I.D",
                         events: userMongo.events
                     })];
-            case 2: return [4, event.save()];
+            case 2:
+                userMongo.events.push(event);
+                return [4, userMongo.save()];
             case 3:
-                _b.sent();
-                return [4, userMongo.events.push(event)];
-            case 4:
                 _b.sent();
                 return [2, res.json({
                         status: 200,
