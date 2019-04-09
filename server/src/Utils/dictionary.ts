@@ -4,7 +4,7 @@ import { Response } from 'express';
 /**************** INTERFACES ****************/
 export interface IServerResponse extends Response {
   data: string;
-  events?: IEvent | IEvent[] | [];
+  events?: IEvent[] | [];
   user?: IUser;
 }
 

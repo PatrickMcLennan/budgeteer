@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, theme } from '../utils/resets.style';
 import Nav from './Nav/Nav';
 import ActionButton from './ActionButton/ActionButton';
-import { IEvent, IUser } from '../utils/dictionary';
+import { IEvent, IUser, IServerResponse } from '../utils/dictionary';
 import { fbLogIn, fbLoginInit } from '../utils/auth';
 import LogInModal from './LogInModal/LogInModal';
 import Calendar from './Calendar/Calendar';
@@ -20,15 +20,11 @@ class App extends React.Component<{}, IState> {
   };
 
   componentDidMount(): void {
-    fbLoginInit();
+    return fbLoginInit();
   }
 
-  getUser = async () => {
-    const cb = (
-      name: string,
-      facebookId: number,
-      events: IEvent[] | []
-    ): void => {
+  getUser = async (): Promise<void> => {
+    const cb = ({ name, facebookId, events }: IUser): void => {
       this.setState({
         user: {
           name,
@@ -38,10 +34,10 @@ class App extends React.Component<{}, IState> {
         currentActions: 1
       });
     };
-    await fbLogIn(cb);
+    return await fbLogIn(cb);
   };
 
-  createNewEvent = (event: IEvent): void => {
+  createNewEvent = (event: IEvent): any => {
     const { facebookId } = this.state.user;
     fetch('https://localhost:4000/newEvent', {
       method: 'POST',
@@ -49,19 +45,26 @@ class App extends React.Component<{}, IState> {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ facebookId, event })
-    }).then(response => {
-      if (response.status === 200) {
-        return this.returnToCalendar();
-      }
-    });
+    })
+      .then(
+        (response: IServerResponse): void | Promise<any> => {
+          const { user } = this.state;
+          const { status, events, data } = response;
+          user.events = events;
+          return status === 200
+            ? this.setState({ user, currentActions: 1 })
+            : Promise.reject(data);
+        }
+      )
+      .catch(err => console.error(err));
   };
 
-  showEventForm = (event: IEvent): void => {
-    this.setState({ currentActions: 2 });
+  showEventForm = (): void => {
+    return this.setState({ currentActions: 2 });
   };
 
-  returnToCalendar = () => {
-    this.setState({ currentActions: 1 });
+  returnToCalendar = (): void => {
+    return this.setState({ currentActions: 1 });
   };
 
   actionButtonMap = (num: number): Function => {
@@ -86,7 +89,9 @@ class App extends React.Component<{}, IState> {
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
           />
-          <FormModal createNewEvent={this.createNewEvent} />
+          {currentActions === 2 && (
+            <FormModal createNewEvent={this.createNewEvent} />
+          )}
         </>
       </ThemeProvider>
     );

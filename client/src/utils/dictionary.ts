@@ -18,3 +18,9 @@ export interface IUser {
   facebookId: number;
   events: IEvent[] | [];
 }
+
+export interface IServerResponse extends Response {
+  data: string;
+  events?: IEvent[] | [];
+  user?: IUser;
+}
