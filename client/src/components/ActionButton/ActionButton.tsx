@@ -15,8 +15,8 @@ class ActionButton extends React.Component<IProps, IState> {
   getDisplayMap = (num: number) => {
     const displays = new Map<number, any>();
     displays.set(0, <LogInSVG />);
-    displays.set(1, 'x'); // add event, css rotate into +
-    displays.set(2, '+'); // cancel action, css rotate into x
+    displays.set(1, <h6>x</h6>); // add event, css rotate into +
+    displays.set(2, <h6>+</h6>); // cancel action, css rotate into x
 
     return displays.get(num);
   };
@@ -32,3 +32,8 @@ class ActionButton extends React.Component<IProps, IState> {
 }
 
 export default ActionButton;
+
+// currentActions legend:
+// 0: Login modal, no user
+// 1: Calendar view, actionbutton prompting Form Modal
+// 2: Form modal is open, action button cancelling & closing

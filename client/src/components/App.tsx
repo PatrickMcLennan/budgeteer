@@ -37,7 +37,6 @@ class App extends React.Component<{}, IState> {
         },
         currentActions: 1
       });
-      console.log(name, facebookId, events);
     };
     await fbLogIn(cb);
   };
@@ -57,6 +56,10 @@ class App extends React.Component<{}, IState> {
     });
   };
 
+  showEventForm = (event: IEvent): void => {
+    this.setState({ currentActions: 2 });
+  };
+
   returnToCalendar = () => {
     this.setState({ currentActions: 1 });
   };
@@ -64,7 +67,7 @@ class App extends React.Component<{}, IState> {
   actionButtonMap = (num: number): Function => {
     const actions = new Map<number, Function>();
     actions.set(0, this.getUser);
-    actions.set(1, this.createNewEvent);
+    actions.set(1, this.showEventForm);
     actions.set(2, this.returnToCalendar);
 
     return actions.get(num);
@@ -94,5 +97,5 @@ export default App;
 
 // currentActions legend:
 // 0: Login modal, no user
-// 1: Calendar view, user logged in
-// 2:
+// 1: Calendar view, actionbutton prompting Form Modal
+// 2: Form modal is open, action button cancelling & closing

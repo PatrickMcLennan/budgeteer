@@ -9,16 +9,20 @@ interface IProps {
 
 class FormModal extends React.Component<IProps, IEvent> {
   state: IEvent = {
-    name: '',
-    location: '',
-    description: '',
-    year: new Date().getFullYear(),
-    month: new Date().getMonth(),
-    day: new Date().getDay(),
-    date: new Date().getDate(),
-    startTime: new Date().getHours(),
-    endTime: new Date().getHours() + 3,
-    cost: 0
+    name: this.props.event ? this.props.event.name : '',
+    location: this.props.event ? this.props.event.location : '',
+    description: this.props.event ? this.props.event.description : '',
+    year: this.props.event ? this.props.event.year : new Date().getFullYear(),
+    month: this.props.event ? this.props.event.month : new Date().getMonth(),
+    day: this.props.event ? this.props.event.day : new Date().getDay(),
+    date: this.props.event ? this.props.event.date : new Date().getDate(),
+    startTime: this.props.event
+      ? this.props.event.startTime
+      : new Date().getHours(),
+    endTime: this.props.event
+      ? this.props.event.endTime
+      : new Date().getHours() + 3,
+    cost: this.props.event ? this.props.event.cost : 0
   };
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
