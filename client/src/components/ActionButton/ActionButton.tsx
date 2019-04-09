@@ -15,7 +15,8 @@ class ActionButton extends React.Component<IProps, IState> {
   getDisplayMap = (num: number) => {
     const displays = new Map<number, any>();
     displays.set(0, <LogInSVG />);
-    displays.set(1, 'createEvent');
+    displays.set(1, 'x'); // add event, css rotate into +
+    displays.set(2, '+'); // cancel action, css rotate into x
 
     return displays.get(num);
   };

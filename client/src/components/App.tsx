@@ -7,6 +7,7 @@ import { IEvent, IUser } from '../utils/dictionary';
 import { fbLogIn, fbLoginInit } from '../utils/auth';
 import LogInModal from './LogInModal/LogInModal';
 import Calendar from './Calendar/Calendar';
+import FormModal from './FormModal/FormModal';
 
 interface IState {
   user?: IUser;
@@ -82,6 +83,7 @@ class App extends React.Component<{}, IState> {
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
           />
+          <FormModal createNewEvent={this.createNewEvent} />
         </>
       </ThemeProvider>
     );
@@ -89,3 +91,8 @@ class App extends React.Component<{}, IState> {
 }
 
 export default App;
+
+// currentActions legend:
+// 0: Login modal, no user
+// 1: Calendar view, user logged in
+// 2:
