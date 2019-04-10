@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { conditionalExpression } from '@babel/types';
 
 export const StyledH6 = styled.h6`
   font-size: 2.5rem;
@@ -7,7 +8,10 @@ export const StyledH6 = styled.h6`
 `;
 export const StyledGrid = styled.section`
   ${({ theme: { flexin } }: any) => flexin()};
-  ${({ theme: { colors } }: any) => colors.reversedGradient}
+  background-image: radial-gradient(
+    ${({ theme: { colors } }: any) => colors.mainBlue} 60%,
+    ${({ theme: { colors } }: any) => colors.mainGreen}
+  );
   position: absolute;
   left: 0;
   right: 0;

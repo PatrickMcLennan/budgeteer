@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledLogo = styled.h1`
   position: relative;
-  font-size: 5.5rem;
+  font-size: 7.5rem;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
