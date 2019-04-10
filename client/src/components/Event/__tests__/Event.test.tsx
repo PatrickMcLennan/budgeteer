@@ -8,7 +8,7 @@ import Event from '../Event';
 
 afterEach(cleanup);
 
-const fakeEvent = {
+export const fakeEvent = {
   name: 'Dinner with the Queen',
   location: 'England',
   description: 'be polite',

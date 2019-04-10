@@ -135,6 +135,11 @@ class FormModal extends React.Component<IProps, IEvent> {
           onChange={this.handleChange}
           required
         />
+        <StyledInput
+          data-testid="form__submit"
+          type="submit"
+          value={this.props.event ? 'Edit Event' : 'Create Event'}
+        />
       </form>
     );
   }

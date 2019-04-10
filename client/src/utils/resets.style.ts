@@ -12,10 +12,10 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     box-sizing: border-box;
   }
-  body {
+  .container {
     position: relative;
     display: grid;
-    grid-template-rows: 15vh minmax(85vh, 1fr);
+    grid-template-rows: 10vh minmax(90vh, max-content);
     grid-template-columns: 100vw;
     overflow-x: hidden;
     font-family: Arial, Helvetica, sans-serif;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cleanup, render } from 'react-testing-library';
 import 'jest-styled-components';
 import 'jest-dom/extend-expect';
-import { IEvent } from '../../../utils/dictionary';
+import { fakeEvent } from '../../Event/__tests__/Event.test';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../../../utils/resets.style';
 import FormModal from '../FormModal';
@@ -14,7 +14,7 @@ const createNewEvent = jest.fn();
 const renderFormModal = () =>
   render(
     <ThemeProvider theme={theme}>
-      <FormModal createNewEvent={createNewEvent} />
+      <FormModal createNewEvent={createNewEvent} event={fakeEvent} />
     </ThemeProvider>
   );
 
@@ -42,7 +42,6 @@ test('<FormModal />', () => {
     endTime,
     cost
   ];
-  const now = new Date();
 
   expect(form).toBeInTheDocument();
 
@@ -53,14 +52,14 @@ test('<FormModal />', () => {
     expect(input).toHaveStyleRule('border-radius', '2.5%');
   });
 
-  expect(name.textContent).toBe('');
-  expect(location.textContent).toBe('');
-  expect(description.textContent).toBe('');
-  expect(year.value).toBe(now.getFullYear().toString());
-  expect(month.value).toBe(now.getMonth().toString());
-  expect(day.value).toBe(now.getDay().toString());
-  expect(date.value).toBe(now.getDate().toString());
-  expect(startTime.value).toBe(now.getHours().toString());
-  expect(endTime.value).toBe((now.getHours() + 3).toString());
-  expect(cost.value).toBe((0).toString());
+  expect(name.value).toBe('Dinner with the Queen');
+  expect(location.value).toBe('England');
+  expect(description.value).toBe('be polite');
+  expect(year.value).toBe('2020');
+  expect(month.value).toBe('2');
+  expect(day.value).toBe('2');
+  expect(date.value).toBe('8');
+  expect(startTime.value).toBe('5');
+  expect(endTime.value).toBe('7');
+  expect(cost.value).toBe('20');
 });

@@ -22,11 +22,11 @@ test('<Logo />', () => {
   expect(logo.textContent).toBe('budgeteer');
 
   // Styles
-  expect(logo).toHaveStyleRule('font-size', '4.5rem');
+  expect(logo).toHaveStyleRule('font-size', '7.5rem');
   expect(logo).toHaveStyleRule('background-clip', 'text');
   expect(logo).toHaveStyleRule('color', 'transparent');
   expect(logo).toHaveStyleRule(
     'background-image',
-    'linear-gradient( to bottom right, #3498db 48.5%, transparent 48.5%, transparent 51.5%, #2ecc71 51.5% )'
+    'linear-gradient( to bottom right, #3498db 22.5%, #2ecc71 48.5%, transparent 48.5%, transparent 51.5%, #2ecc71 51.5%, #3498db 77.5% )'
   );
 });
