@@ -7,9 +7,11 @@ export const StyledH6 = styled.h6`
 `;
 export const StyledGrid = styled.section`
   ${({ theme: { flexin } }: any) => flexin()};
-  grid-area: 2 / 1 / -1 / -1;
+  ${({ theme: { colors } }: any) => colors.reversedGradient}
   position: absolute;
-  height: 20rem;
-  width: 20rem;
-  background: purple;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
 `;

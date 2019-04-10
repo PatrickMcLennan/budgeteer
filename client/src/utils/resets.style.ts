@@ -28,10 +28,21 @@ export const theme = {
     mainBlue: '#3498db',
     mainGradient: `background-image: linear-gradient(
       to bottom right,
+      #3498db 22.5%,
+      #2ecc71 48.5%,
+      transparent 48.5%,
+      transparent 51.5%,
+      #2ecc71 51.5%, 
+      #3498db 77.5%
+    );`,
+    reversedGradient: `background-image: linear-gradient(
+      to bottom right,
+      #2ecc71 22.5%,
       #3498db 48.5%,
       transparent 48.5%,
       transparent 51.5%,
-      #2ecc71 51.5%
+      #3498db 51.5%,
+      #2ecc71 77.5% 
     );`
   },
   typo: {
