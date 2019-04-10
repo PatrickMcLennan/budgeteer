@@ -5,7 +5,7 @@ import { StyledGrid, StyledH6 } from './Calendar.style';
 
 const Calendar = ({ events }: any) => (
   <StyledGrid data-testid="calendar">
-    {events.length === 0 ? (
+    {!events ? (
       <StyledH6 data-testid="calendar__noEventMessage">
         You have an empty schedule!
       </StyledH6>

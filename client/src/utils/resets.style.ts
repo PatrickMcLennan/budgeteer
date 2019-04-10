@@ -15,7 +15,9 @@ export const GlobalStyle = createGlobalStyle`
   body {
     position: relative;
     display: grid;
-    grid-template-rows: 1fr 50vh;
+    grid-template-rows: 15vh minmax(85vh, 1fr);
+    grid-template-columns: 100vw;
+    overflow-x: hidden;
     font-family: Arial, Helvetica, sans-serif;
   }
 `;

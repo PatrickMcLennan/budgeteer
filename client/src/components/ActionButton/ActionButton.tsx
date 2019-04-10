@@ -13,7 +13,7 @@ interface IState {
 
 class ActionButton extends React.Component<IProps, IState> {
   getDisplayMap = (num: number) => {
-    const displays = new Map<number, any>();
+    const displays = new Map<number, JSX.Element>();
     displays.set(0, <LogInSVG />);
     displays.set(1, <h6>x</h6>); // add event, css rotate into +
     displays.set(2, <h6>+</h6>); // cancel action, css rotate into x

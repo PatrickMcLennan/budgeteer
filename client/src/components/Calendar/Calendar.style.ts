@@ -8,6 +8,7 @@ export const StyledH6 = styled.h6`
 export const StyledGrid = styled.section`
   ${({ theme: { flexin } }: any) => flexin()};
   grid-area: 2 / 1 / -1 / -1;
+  position: absolute;
   height: 20rem;
   width: 20rem;
   background: purple;
