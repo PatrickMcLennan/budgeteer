@@ -3,8 +3,13 @@ import Event from '../Event/Event';
 import { IEvent } from '../../utils/dictionary';
 import { StyledGrid, StyledH6 } from './Calendar.style';
 
-const Calendar = ({ events }: any) => (
-  <StyledGrid data-testid="calendar">
+interface IProps {
+  events?: IEvent[];
+  fade: boolean;
+}
+
+const Calendar = ({ events, fade }: IProps) => (
+  <StyledGrid data-testid="calendar" fade={fade}>
     {!events ? (
       <StyledH6 data-testid="calendar__noEventMessage">
         You have an empty schedule!

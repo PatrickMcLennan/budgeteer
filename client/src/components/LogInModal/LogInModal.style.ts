@@ -8,7 +8,7 @@ export const StyledModal = styled.section`
   ${({ theme: { flexin } }: any) => flexin('space-around', 'center', 'column')}
   ${({ theme: { borderRadius } }: any) =>
     borderRadius.main}
-  grid-area: 2 / 1 / -1 / -1;
+  grid-area: 1 / 1 / -1 / -1;
   margin: 1.5vh 5vh;
   padding: 0 1.5vh;
   text-align: center;

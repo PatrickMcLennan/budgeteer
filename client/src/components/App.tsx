@@ -84,7 +84,12 @@ class App extends React.Component<{}, IState> {
           <GlobalStyle />
           <Nav />
           <LogInModal currentActions={currentActions} />
-          {this.state.user && <Calendar events={this.state.user.events} />}
+          {this.state.user && (
+            <Calendar
+              events={this.state.user.events}
+              fade={this.state.user ? true : false}
+            />
+          )}
           <ActionButton
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
