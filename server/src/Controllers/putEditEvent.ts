@@ -16,20 +16,18 @@ export const putEditEvent = async (
   const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
-    // fix the array
+    user.events.filter(savedEvents => savedEvents.id !== event.id).push(event);
     user.events = eventSort(user.events);
-    res.json({
+    return res.json({
       status: 200,
       data: `${event.name} has been updated within ${user.name}'s account`,
-      events: <IEvent[] | IEvent>user.events
+      events: <IEvent[] | []>user.events
     });
   } else {
-    res.json({
+    return res.json({
       status: 404,
-      data: `${
-        eventsSearch.length
-      } events were found with that I.D, when there should only be 1.`,
-      events: <IEvent[] | IEvent>user.events
+      data: `Multiple events were found with that I.D, when there should only be 1.`,
+      events: <IEvent[] | []>user.events
     });
   }
 };

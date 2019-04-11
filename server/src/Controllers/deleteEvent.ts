@@ -16,8 +16,10 @@ export const deleteEvent = async (
   const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
-    // fix the array you idiot
-    user.events = eventSort(user.events);
+    const newEvents: IEvent[] | [] = user.events.filter(
+      (validEvent: IEvent) => validEvent.id !== event.id
+    );
+    user.events = eventSort(newEvents);
     return res.json({
       status: 200,
       data: 'Event Deleted Successfully',
