@@ -12,17 +12,19 @@ import FormModal from './FormModal/FormModal';
 interface IState {
   user?: IUser;
   currentActions: number;
-  errorMessage: {
-    show: boolean;
-    data: IServerResponse['data'] | string;
+  message: {
+    success: boolean;
+    error: boolean;
+    data: string;
   };
 }
 
 class App extends React.Component<{}, IState> {
   state: IState = {
     currentActions: 0,
-    errorMessage: {
-      show: false,
+    message: {
+      success: false,
+      error: false,
       data: ''
     }
   };
@@ -30,14 +32,6 @@ class App extends React.Component<{}, IState> {
   componentDidMount(): void {
     return fbLoginInit();
   }
-
-  errorMessage = (data: IServerResponse['data']) => {
-    this.setState({ errorMessage: { show: true, data } });
-    return setTimeout(
-      () => this.setState({ errorMessage: { show: false, data: '' } }),
-      2000
-    );
-  };
 
   getUser = async (): Promise<void> => {
     const cb = ({ name, facebookId, events }: IUser): void => {
@@ -57,12 +51,21 @@ class App extends React.Component<{}, IState> {
     const { user } = this.state;
     user.events = events;
     return status === 200
-      ? this.setState({ user, currentActions: 1 })
-      : this.errorMessage(data);
+      ? this.setState({
+          user,
+          currentActions: 1,
+          message: { success: true, error: false, data }
+        })
+      : this.setState({
+          user,
+          currentActions: 1,
+          message: { success: false, error: true, data }
+        });
   };
 
   createNewEvent = (event: IEvent): void => {
-    const { facebookId } = this.state.user;
+    const { user } = this.state;
+    const { facebookId } = user;
     fetch('http://localhost:4000/newEvent', {
       method: 'POST',
       headers: {
@@ -74,11 +77,18 @@ class App extends React.Component<{}, IState> {
         (response: IServerResponse): void | Promise<any> =>
           this.serverCallback(response)
       )
-      .catch(err => this.errorMessage(err));
+      .catch(err => {
+        this.setState({
+          user,
+          currentActions: 1,
+          message: { success: false, error: true, data: err.data }
+        });
+      });
   };
 
   editEvent = (event: IEvent): void => {
-    const { facebookId } = this.state.user;
+    const { user } = this.state;
+    const { facebookId } = user;
     fetch('http://localhost:4000/edit', {
       method: 'PUT',
       headers: {
@@ -90,11 +100,18 @@ class App extends React.Component<{}, IState> {
         (response: IServerResponse): void | Promise<any> =>
           this.serverCallback(response)
       )
-      .catch(err => this.errorMessage(err));
+      .catch(err => {
+        this.setState({
+          user,
+          currentActions: 1,
+          message: { success: false, error: true, data: err.data }
+        });
+      });
   };
 
   deleteEvent = (event: IEvent): void => {
-    const { facebookId } = this.state.user;
+    const { user } = this.state;
+    const { facebookId } = user;
     fetch('http://localhost:4000/delete', {
       method: 'DELETE',
       headers: {
@@ -106,7 +123,13 @@ class App extends React.Component<{}, IState> {
         (response: IServerResponse): void | Promise<any> =>
           this.serverCallback(response)
       )
-      .catch(err => this.errorMessage(err));
+      .catch(err => {
+        this.setState({
+          user,
+          currentActions: 1,
+          message: { success: false, error: true, data: err.data }
+        });
+      });
   };
 
   showEventForm = (): void => {
@@ -127,7 +150,7 @@ class App extends React.Component<{}, IState> {
   };
 
   render() {
-    const { currentActions, errorMessage, user } = this.state;
+    const { currentActions, message, user } = this.state;
     return (
       <ThemeProvider theme={theme}>
         <>
@@ -147,7 +170,7 @@ class App extends React.Component<{}, IState> {
               returnToCalendar={this.returnToCalendar}
             />
           )}
-          {errorMessage.show && <h1>errors</h1>}
+          {message.success || (message.error && <h1>errors</h1>)}
         </>
       </ThemeProvider>
     );
@@ -160,3 +183,12 @@ export default App;
 // 0: Login modal, no user
 // 1: Calendar view, actionbutton prompting Form Modal
 // 2: Form modal is open, action button cancelling & closing
+
+// message = (data: IServerResponse['data']) => {
+//   const result =
+//   this.setState({ message: { error: true, data } });
+//   return setTimeout(
+//     () => this.setState({ message: { show: false, data: '' } }),
+//     2000
+//   );
+// };

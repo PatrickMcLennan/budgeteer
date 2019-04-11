@@ -54,7 +54,7 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 if (!eventExists) return [3, 2];
                 return [2, res.json({
                         status: 500,
-                        data: "There is already an event with that I.D",
+                        data: "That's weird - there's already an event with that I.D.  Please refresh and try again.",
                         events: user.events
                     })];
             case 2:
@@ -66,7 +66,7 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 _b.sent();
                 return [2, res.json({
                         status: 200,
-                        data: event.name + " was succesfully created and added to " + user.name + "'s Events.",
+                        data: event.name + " has been saved",
                         events: user.events
                     })];
         }

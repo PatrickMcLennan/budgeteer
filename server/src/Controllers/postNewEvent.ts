@@ -19,7 +19,7 @@ export const postNewEvent = async (
   if (eventExists) {
     return res.json({
       status: 500,
-      data: `There is already an event with that I.D`,
+      data: `That's weird - there's already an event with that I.D.  Please refresh and try again.`,
       events: <IEvent[] | []>user.events
     });
   } else {
@@ -29,9 +29,7 @@ export const postNewEvent = async (
     await user.save();
     return res.json({
       status: 200,
-      data: `${event.name} was succesfully created and added to ${
-        user.name
-      }'s Events.`,
+      data: `${event.name} has been saved`,
       events: <IEvent[] | []>user.events
     });
   }

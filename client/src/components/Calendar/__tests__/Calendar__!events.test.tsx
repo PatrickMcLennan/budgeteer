@@ -9,10 +9,12 @@ import Calendar from '../Calendar';
 
 afterEach(cleanup);
 
+const events: [] = [];
+
 const renderCalendar = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Calendar fade={true} />
+      <Calendar fade={true} events={events} />
     </ThemeProvider>
   );
 
