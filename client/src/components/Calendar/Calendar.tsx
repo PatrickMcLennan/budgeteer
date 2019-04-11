@@ -4,7 +4,7 @@ import { IEvent } from '../../utils/dictionary';
 import { StyledGrid, StyledH6 } from './Calendar.style';
 
 interface IProps {
-  events?: IEvent[];
+  events: IEvent[] | null;
   fade: boolean;
 }
 

@@ -1,3 +1,4 @@
+// INTERFACES
 export interface IEvent {
   name: string;
   location: string;

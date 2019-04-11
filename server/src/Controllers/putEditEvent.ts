@@ -27,7 +27,7 @@ export const putEditEvent = async (
     });
   } else {
     return res.json({
-      status: 404,
+      status: 500,
       data: `Multiple events were found with that I.D, when there should only be 1.`,
       events: <IEvent[] | []>user.events
     });

@@ -34,35 +34,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var uuid_1 = __importDefault(require("uuid"));
 var Utils_1 = require("../Utils");
 exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, event, facebookId, userMongo, eventsSearch, eventExists;
+    var _a, event, facebookId, user, eventExists;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = req.body, event = _a.event, facebookId = _a.facebookId;
-                return [4, Utils_1.User.findOne({ facebookId: facebookId })];
+                return [4, Utils_1.User.findOne({ user: facebookId })];
             case 1:
-                userMongo = _b.sent();
-                eventsSearch = userMongo.events.map(function (savedEvents) { return savedEvents.id === event.id; });
-                eventExists = eventsSearch.length >= 1;
+                user = _b.sent();
+                eventExists = user.events.includes(event);
                 if (!eventExists) return [3, 2];
                 return [2, res.json({
                         status: 500,
-                        data: "There are " + eventsSearch.length + " event(s) already in here with that I.D",
-                        events: userMongo.events
+                        data: "There is already an event with that I.D",
+                        events: user.events
                     })];
             case 2:
-                userMongo.events.push(event);
-                return [4, userMongo.save()];
+                event.id = uuid_1.default.v4();
+                user.events.push(event);
+                user.events = Utils_1.eventSort(user.events);
+                return [4, user.save()];
             case 3:
                 _b.sent();
                 return [2, res.json({
                         status: 200,
-                        data: "The event was succesfully created and added to " + userMongo.name + "'s Events.",
-                        events: userMongo.events
+                        data: event.name + " was succesfully created and added to " + user.name + "'s Events.",
+                        events: user.events
                     })];
         }
     });

@@ -38,34 +38,32 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("../Utils");
 exports.deleteEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, user, event, userMongo, eventsSearch, eventExists;
+    var _a, facebookId, event, user, eventExists, validEvents;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, user = _a.user, event = _a.event;
-                return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
+                _a = req.body, facebookId = _a.facebookId, event = _a.event;
+                return [4, Utils_1.User.findOne({ facebookId: facebookId })];
             case 1:
-                userMongo = _b.sent();
-                eventsSearch = userMongo.events.map(function (savedEvents) { return savedEvents.id === event.id; });
-                eventExists = eventsSearch.length >= 1;
-                if (!eventExists) return [3, 3];
-                return [4, user.events.remove(event)];
-            case 2:
-                _b.sent();
-                res.json({
-                    status: 200,
-                    data: 'Event Deleted Successfully',
-                    events: userMongo.events
-                });
-                return [3, 4];
-            case 3:
-                res.json({
-                    status: 404,
-                    data: 'No Event was found with that I.D',
-                    events: userMongo.events
-                });
-                _b.label = 4;
-            case 4: return [2];
+                user = _b.sent();
+                eventExists = user.events.includes(event);
+                if (eventExists) {
+                    validEvents = user.events.filter(function (validEvent) { return validEvent.id !== event.id; });
+                    user.events = Utils_1.eventSort(validEvents);
+                    return [2, res.json({
+                            status: 200,
+                            data: 'Event Deleted Successfully',
+                            events: user.events
+                        })];
+                }
+                else {
+                    return [2, res.json({
+                            status: 500,
+                            data: 'No Event was found with that I.D',
+                            events: user.events
+                        })];
+                }
+                return [2];
         }
     });
 }); };

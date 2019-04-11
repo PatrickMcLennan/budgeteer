@@ -56,7 +56,7 @@ class FormModal extends React.Component<IProps, IEvent> {
       cost
     }: IEvent = this.state;
     return (
-      <Backdrop onClick={returnToCalendar}>
+      <>
         <StyledForm data-testid="form" onSubmit={this.handleSubmit}>
           <StyledInput
             data-testid="form__name"
@@ -144,7 +144,8 @@ class FormModal extends React.Component<IProps, IEvent> {
             value={this.props.event ? 'Edit Event' : 'Create Event'}
           />
         </StyledForm>
-      </Backdrop>
+        <Backdrop onClick={returnToCalendar} />
+      </>
     );
   }
 }

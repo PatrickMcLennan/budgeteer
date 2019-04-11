@@ -16,10 +16,10 @@ export const deleteEvent = async (
   const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
-    const newEvents: IEvent[] | [] = user.events.filter(
+    const validEvents: IEvent[] | [] = user.events.filter(
       (validEvent: IEvent): boolean => validEvent.id !== event.id
     );
-    user.events = eventSort(newEvents);
+    user.events = eventSort(validEvents);
     return res.json({
       status: 200,
       data: 'Event Deleted Successfully',
@@ -27,7 +27,7 @@ export const deleteEvent = async (
     });
   } else {
     return res.json({
-      status: 404,
+      status: 500,
       data: 'No Event was found with that I.D',
       events: <IEvent[] | []>user.events
     });

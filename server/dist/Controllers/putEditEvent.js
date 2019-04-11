@@ -38,37 +38,34 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("../Utils");
 exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, user, event, userMongo, eventsSearch, eventExists;
+    var _a, facebookId, event, user, eventExists;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, user = _a.user, event = _a.event;
-                return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
+                _a = req.body, facebookId = _a.facebookId, event = _a.event;
+                return [4, Utils_1.User.findOne({ facebookId: facebookId })];
             case 1:
-                userMongo = _b.sent();
-                eventsSearch = userMongo.events.map(function (savedEvent) { return savedEvent.id === event.id; });
-                eventExists = eventsSearch.length === 1;
-                if (!eventExists) return [3, 4];
-                return [4, user.events.remove(eventsSearch[0])];
-            case 2:
-                _b.sent();
-                return [4, user.events.save(event)];
-            case 3:
-                _b.sent();
-                res.json({
-                    status: 200,
-                    data: event.name + " has been updated within " + user.name + "'s account",
-                    events: userMongo.events
-                });
-                return [3, 5];
-            case 4:
-                res.json({
-                    status: 404,
-                    data: eventsSearch.length + " events were found with that I.D, when there should only be 1.",
-                    events: userMongo.events
-                });
-                _b.label = 5;
-            case 5: return [2];
+                user = _b.sent();
+                eventExists = user.events.includes(event);
+                if (eventExists) {
+                    user.events
+                        .filter(function (savedEvent) { return savedEvent.id !== event.id; })
+                        .push(event);
+                    user.events = Utils_1.eventSort(user.events);
+                    return [2, res.json({
+                            status: 200,
+                            data: event.name + " has been updated within " + user.name + "'s account",
+                            events: user.events
+                        })];
+                }
+                else {
+                    return [2, res.json({
+                            status: 500,
+                            data: "Multiple events were found with that I.D, when there should only be 1.",
+                            events: user.events
+                        })];
+                }
+                return [2];
         }
     });
 }); };

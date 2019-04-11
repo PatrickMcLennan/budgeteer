@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cleanup, render } from 'react-testing-library';
+import { cleanup, render, fireEvent, wait } from 'react-testing-library';
 import 'jest-styled-components';
 import 'jest-dom/extend-expect';
 import { ThemeProvider } from 'styled-components';
@@ -21,7 +21,7 @@ const renderFormModal = () =>
     </ThemeProvider>
   );
 
-test('<FormModal />', () => {
+test('<FormModal />', async () => {
   const { getByTestId } = renderFormModal();
   const form = getByTestId('form');
   const name = getByTestId('form__name');
@@ -68,4 +68,15 @@ test('<FormModal />', () => {
   expect(endTime.value).toBe((now.getHours() + 3).toString());
   expect(cost.value).toBe((0).toString());
   expect(submit.value).toBe('Create Event');
+
+  fireEvent.change(name, { target: { value: 'test name' } });
+  fireEvent.change(location, { target: { value: 'test location' } });
+  fireEvent.change(description, { target: { value: 'test description' } });
+
+  fireEvent.submit(form);
+
+  await wait(() => {
+    expect(createNewEvent).toBeCalledTimes(1);
+    expect(createNewEvent).toReturnWith(undefined);
+  });
 });

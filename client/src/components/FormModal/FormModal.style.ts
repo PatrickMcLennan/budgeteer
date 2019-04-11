@@ -17,6 +17,6 @@ export const StyledForm = styled.form`
 export const StyledInput = styled.input`
   ${({ theme: { borderRadius } }: any) => borderRadius.main};
   grid-area: 1 / 1 / -1 / -1;
-  z-index: 8;
+  z-index: 7;
   border: 0.5px solid black;
 `;

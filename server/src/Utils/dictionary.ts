@@ -1,8 +1,8 @@
 import { Document } from 'mongoose';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 /**************** INTERFACES ****************/
-export interface IClientRequest extends Response {
+export interface IClientRequest extends Request {
   body: {
     facebookId: IUser;
     event: IEvent;
