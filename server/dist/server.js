@@ -24,8 +24,8 @@ var app = express_1.default();
 app.use(compression_1.default());
 app.use(body_parser_1.json());
 app.use(cors_1.default());
-app.put('/edit/:id', Controllers_1.putEditEvent);
-app.delete('/delete/:id', Controllers_1.deleteEvent);
+app.put('/edit', Controllers_1.putEditEvent);
+app.delete('/delete', Controllers_1.deleteEvent);
 app.post('/login-with-facebook', Controllers_1.postLoginWithFacebook);
 app.post('/newEvent', Controllers_1.postNewEvent);
 app.listen(PORT, function () {

@@ -37,7 +37,19 @@ class App extends React.Component<{}, IState> {
     return await fbLogIn(cb);
   };
 
-  createNewEvent = (event: IEvent): any => {
+  serverCallback = ({
+    status,
+    events,
+    data
+  }: IServerResponse): void | Promise<any> => {
+    const { user } = this.state;
+    user.events = events;
+    return status === 200
+      ? this.setState({ user, currentActions: 1 })
+      : Promise.reject(data);
+  };
+
+  createNewEvent = (event: IEvent): void => {
     const { facebookId } = this.state.user;
     fetch('https://localhost:4000/newEvent', {
       method: 'POST',
@@ -47,14 +59,40 @@ class App extends React.Component<{}, IState> {
       body: JSON.stringify({ facebookId, event })
     })
       .then(
-        (response: IServerResponse): void | Promise<any> => {
-          const { user } = this.state;
-          const { status, events, data } = response;
-          user.events = events;
-          return status === 200
-            ? this.setState({ user, currentActions: 1 })
-            : Promise.reject(data);
-        }
+        (response: IServerResponse): void | Promise<any> =>
+          this.serverCallback(response)
+      )
+      .catch(err => console.error(err));
+  };
+
+  editEvent = (event: IEvent): void => {
+    const { facebookId } = this.state.user;
+    fetch('https://localhost:4000/edit', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ facebookId, event })
+    })
+      .then(
+        (response: IServerResponse): void | Promise<any> =>
+          this.serverCallback(response)
+      )
+      .catch(err => console.error(err));
+  };
+
+  deleteEvent = (event: IEvent): void => {
+    const { facebookId } = this.state.user;
+    fetch('https://localhost:4000/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ facebookId, event })
+    })
+      .then(
+        (response: IServerResponse): void | Promise<any> =>
+          this.serverCallback(response)
       )
       .catch(err => console.error(err));
   };

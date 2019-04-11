@@ -20,9 +20,9 @@ app.use(compression());
 app.use(json());
 app.use(cors());
 
-app.put('/edit/:id', putEditEvent);
+app.put('/edit', putEditEvent);
 
-app.delete('/delete/:id', deleteEvent);
+app.delete('/delete', deleteEvent);
 
 app.post('/login-with-facebook', postLoginWithFacebook);
 app.post('/newEvent', postNewEvent);
