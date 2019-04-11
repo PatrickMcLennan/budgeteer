@@ -1,4 +1,5 @@
 import {
+  IUser,
   IEvent,
   IServerResponse,
   IClientRequest,
@@ -11,8 +12,8 @@ export const deleteEvent = async (
   res: IServerResponse
 ) => {
   const { facebookId, event } = req.body;
-  const user = await User.findOne({ facebookId });
-  const eventExists = user.events.includes(event);
+  const user: IUser = await User.findOne({ facebookId });
+  const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
     // fix the array you idiot

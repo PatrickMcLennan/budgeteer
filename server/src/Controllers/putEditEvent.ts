@@ -1,4 +1,5 @@
 import {
+  IUser,
   User,
   IEvent,
   IServerResponse,
@@ -11,13 +12,11 @@ export const putEditEvent = async (
   res: IServerResponse
 ) => {
   const { facebookId, event } = req.body;
-  const user = await User.findOne({ facebookId });
-  const eventExists = user.events.map(
-    (savedEvent: IEvent): boolean => savedEvent.id === event.id
-  );
+  const user: IUser = await User.findOne({ facebookId });
+  const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
-    user.events = user.events.filter(event => event.id !== eventsSearch[0].id);
+    // fix the array
     user.events = eventSort(user.events);
     res.json({
       status: 200,

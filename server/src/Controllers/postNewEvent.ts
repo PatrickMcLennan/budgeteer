@@ -1,4 +1,5 @@
 import {
+  IUser,
   User,
   IEvent,
   IServerResponse,
@@ -11,10 +12,8 @@ export const postNewEvent = async (
   res: IServerResponse
 ) => {
   const { event, facebookId } = req.body;
-  const user = await User.findOne({ facebookId });
-  const eventExists = user.events.map(
-    (savedEvents: IEvent): boolean => savedEvents.id === event.id
-  );
+  const user: IUser = await User.findOne({ facebookId });
+  const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
     user.events.push(event);
