@@ -16,7 +16,9 @@ export const putEditEvent = async (
   const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
-    user.events.filter(savedEvents => savedEvents.id !== event.id).push(event);
+    user.events
+      .filter((savedEvent: IEvent): boolean => savedEvent.id !== event.id)
+      .push(event);
     user.events = eventSort(user.events);
     return res.json({
       status: 200,

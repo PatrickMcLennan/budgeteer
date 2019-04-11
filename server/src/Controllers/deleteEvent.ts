@@ -17,7 +17,7 @@ export const deleteEvent = async (
 
   if (eventExists) {
     const newEvents: IEvent[] | [] = user.events.filter(
-      (validEvent: IEvent) => validEvent.id !== event.id
+      (validEvent: IEvent): boolean => validEvent.id !== event.id
     );
     user.events = eventSort(newEvents);
     return res.json({
