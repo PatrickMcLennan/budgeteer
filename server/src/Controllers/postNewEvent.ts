@@ -1,31 +1,40 @@
-import { Request } from 'express';
-import { User, IEvent, IServerResponse } from '../Utils';
+import {
+  User,
+  IEvent,
+  IServerResponse,
+  IClientRequest,
+  eventSort
+} from '../Utils';
 
-export const postNewEvent = async (req: Request, res: IServerResponse) => {
+export const postNewEvent = async (
+  req: IClientRequest,
+  res: IServerResponse
+) => {
   const { event, facebookId } = req.body;
-  const userMongo = await User.findOne({ facebookId: facebookId });
-  const eventsSearch = userMongo.events.map(
-    savedEvents => savedEvents.id === event.id
+  const user = await User.findOne({ facebookId });
+  const eventExists = user.events.map(
+    (savedEvents: IEvent): boolean => savedEvents.id === event.id
   );
-  const eventExists = eventsSearch.length >= 1;
 
   if (eventExists) {
+    user.events.push(event);
+    user.events = eventSort(user.events);
     return res.json({
       status: 500,
       data: `There are ${
-        eventsSearch.length
+        eventExists.length
       } event(s) already in here with that I.D`,
-      events: <IEvent[] | IEvent>userMongo.events
+      events: <IEvent[] | IEvent>user.events
     });
   } else {
-    userMongo.events.push(event);
-    await userMongo.save();
+    user.events.push(event);
+    await user.save();
     return res.json({
       status: 200,
       data: `The event was succesfully created and added to ${
-        userMongo.name
+        user.name
       }'s Events.`,
-      events: <IEvent[] | IEvent>userMongo.events
+      events: <IEvent[] | IEvent>user.events
     });
   }
 };
