@@ -133,7 +133,10 @@ class App extends React.Component<{}, IState> {
             action={this.actionButtonMap(currentActions)}
           />
           {currentActions === 2 && (
-            <FormModal createNewEvent={this.createNewEvent} />
+            <FormModal
+              createNewEvent={this.createNewEvent}
+              returnToCalendar={this.returnToCalendar}
+            />
           )}
         </>
       </ThemeProvider>

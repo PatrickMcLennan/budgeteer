@@ -10,11 +10,16 @@ import FormModal from '../FormModal';
 afterEach(cleanup);
 
 const createNewEvent = jest.fn();
+const returnToCalendar = jest.fn();
 
 const renderFormModal = () =>
   render(
     <ThemeProvider theme={theme}>
-      <FormModal createNewEvent={createNewEvent} event={fakeEvent} />
+      <FormModal
+        createNewEvent={createNewEvent}
+        event={fakeEvent}
+        returnToCalendar={returnToCalendar}
+      />
     </ThemeProvider>
   );
 

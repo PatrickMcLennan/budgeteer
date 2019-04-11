@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { IEvent } from '../../utils/dictionary';
-import { StyledInput } from './FormModal.style';
+import { StyledInput, StyledForm, Backdrop } from './FormModal.style';
 
 interface IProps {
   event?: IEvent;
   createNewEvent: Function;
+  returnToCalendar: Function;
 }
 
 class FormModal extends React.Component<IProps, IEvent> {
@@ -41,6 +42,7 @@ class FormModal extends React.Component<IProps, IEvent> {
   };
 
   render() {
+    const { returnToCalendar } = this.props;
     const {
       name,
       location,
@@ -54,93 +56,95 @@ class FormModal extends React.Component<IProps, IEvent> {
       cost
     }: IEvent = this.state;
     return (
-      <form data-testid="form" onSubmit={this.handleSubmit}>
-        <StyledInput
-          data-testid="form__name"
-          type="text"
-          value={name}
-          id="name"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__location"
-          type="text"
-          value={location}
-          id="location"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__description"
-          type="text"
-          value={description}
-          id="description"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__year"
-          type="number"
-          value={year}
-          id="year"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__month"
-          type="number"
-          value={month}
-          id="month"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__day"
-          type="number"
-          value={day}
-          id="day"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__date"
-          type="number"
-          value={date}
-          id="date"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__startTime"
-          type="number"
-          value={startTime}
-          id="startTime"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__endTime"
-          type="number"
-          value={endTime}
-          id="endTime"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__cost"
-          type="number"
-          value={cost}
-          id="cost"
-          onChange={this.handleChange}
-          required
-        />
-        <StyledInput
-          data-testid="form__submit"
-          type="submit"
-          value={this.props.event ? 'Edit Event' : 'Create Event'}
-        />
-      </form>
+      <Backdrop onClick={returnToCalendar}>
+        <StyledForm data-testid="form" onSubmit={this.handleSubmit}>
+          <StyledInput
+            data-testid="form__name"
+            type="text"
+            value={name}
+            id="name"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__location"
+            type="text"
+            value={location}
+            id="location"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__description"
+            type="text"
+            value={description}
+            id="description"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__year"
+            type="number"
+            value={year}
+            id="year"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__month"
+            type="number"
+            value={month}
+            id="month"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__day"
+            type="number"
+            value={day}
+            id="day"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__date"
+            type="number"
+            value={date}
+            id="date"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__startTime"
+            type="number"
+            value={startTime}
+            id="startTime"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__endTime"
+            type="number"
+            value={endTime}
+            id="endTime"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__cost"
+            type="number"
+            value={cost}
+            id="cost"
+            onChange={this.handleChange}
+            required
+          />
+          <StyledInput
+            data-testid="form__submit"
+            type="submit"
+            value={this.props.event ? 'Edit Event' : 'Create Event'}
+          />
+        </StyledForm>
+      </Backdrop>
     );
   }
 }
