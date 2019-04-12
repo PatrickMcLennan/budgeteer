@@ -38,9 +38,7 @@ class App extends React.Component<{}, IState> {
     return fbLoginInit();
   }
 
-  serverCallback = ({ status, events, data }: IServerResponse): any => {
-    const { user } = this.state;
-    user.events = events;
+  serverCallback = ({ status, data, user }: IServerResponse): any => {
     return status === 200
       ? this.setState({
           user,

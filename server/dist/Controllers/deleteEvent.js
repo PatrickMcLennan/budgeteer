@@ -47,23 +47,22 @@ exports.deleteEvent = function (req, res) { return __awaiter(_this, void 0, void
             case 1:
                 user = _b.sent();
                 eventExists = user.events.includes(event);
-                if (eventExists) {
-                    validEvents = user.events.filter(function (validEvent) { return validEvent.id !== event.id; });
-                    user.events = Utils_1.eventSort(validEvents);
-                    return [2, res.json({
-                            status: 200,
-                            data: 'Event Deleted Successfully',
-                            events: user.events
-                        })];
-                }
-                else {
-                    return [2, res.json({
-                            status: 500,
-                            data: 'No Event was found with that I.D',
-                            events: user.events
-                        })];
-                }
-                return [2];
+                if (!eventExists) return [3, 3];
+                validEvents = user.events.filter(function (validEvent) { return validEvent.id !== event.id; });
+                user.events = Utils_1.eventSort(validEvents);
+                return [4, user.save()];
+            case 2:
+                _b.sent();
+                return [2, res.json({
+                        code: 200,
+                        data: 'Event Deleted Successfully',
+                        user: user
+                    })];
+            case 3: return [2, res.json({
+                    code: 500,
+                    data: 'No Event was found with that I.D',
+                    user: user
+                })];
         }
     });
 }); };

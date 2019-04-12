@@ -47,25 +47,24 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 1:
                 user = _b.sent();
                 eventExists = user.events.includes(event);
-                if (eventExists) {
-                    user.events
-                        .filter(function (savedEvent) { return savedEvent.id !== event.id; })
-                        .push(event);
-                    user.events = Utils_1.eventSort(user.events);
-                    return [2, res.json({
-                            status: 200,
-                            data: event.name + " has been updated within " + user.name + "'s account",
-                            events: user.events
-                        })];
-                }
-                else {
-                    return [2, res.json({
-                            status: 500,
-                            data: "Multiple events were found with that I.D, when there should only be 1.",
-                            events: user.events
-                        })];
-                }
-                return [2];
+                if (!eventExists) return [3, 3];
+                user.events
+                    .filter(function (savedEvent) { return savedEvent.id !== event.id; })
+                    .push(event);
+                user.events = Utils_1.eventSort(user.events);
+                return [4, user.save()];
+            case 2:
+                _b.sent();
+                return [2, res.json({
+                        code: 200,
+                        message: event.name + " has been updated within " + user.name + "'s account",
+                        user: user
+                    })];
+            case 3: return [2, res.json({
+                    code: 500,
+                    message: "Multiple events were found with that I.D, when there should only be 1.",
+                    user: user
+                })];
         }
     });
 }); };

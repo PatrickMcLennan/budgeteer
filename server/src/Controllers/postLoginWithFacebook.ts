@@ -10,15 +10,15 @@ export const postLoginWithFacebook = async (
   const user = await fetch(
     `https://graph.facebook.com/v3.2/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`
   );
-  const userJSON = await user.json();
+  const userJSON: IUser = await user.json();
 
   if (userJSON.id === userID) {
     const userExists: IUser = await User.findOne({ facebookId: userID });
 
     if (userExists) {
       res.json({
-        status: 200,
-        data: 'Logged in successfully.',
+        code: 200,
+        message: 'Logged in successfully.',
         user: <IUser>userExists
       });
     } else {
@@ -30,8 +30,8 @@ export const postLoginWithFacebook = async (
       });
       await newUser.save();
       res.json({
-        status: 200,
-        data: 'New user has been registered + logged in.',
+        code: 200,
+        message: 'New user has been registered + logged in.',
         user: <IUser>newUser
       });
     }

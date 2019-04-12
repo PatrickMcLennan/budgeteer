@@ -18,9 +18,9 @@ export const postNewEvent = async (
 
   if (eventExists) {
     return res.json({
-      status: 500,
-      data: `That's weird - there's already an event with that I.D.  Please refresh and try again.`,
-      events: <IEvent[] | []>user.events
+      code: 500,
+      message: `That's weird - there's already an event with that I.D.  Please refresh and try again.`,
+      user
     });
   } else {
     event.id = uuid.v4();
@@ -28,9 +28,9 @@ export const postNewEvent = async (
     user.events = eventSort(user.events);
     await user.save();
     return res.json({
-      status: 200,
-      data: `${event.name} has been saved`,
-      events: <IEvent[] | []>user.events
+      code: 200,
+      message: `${event.name} has been saved`,
+      user
     });
   }
 };

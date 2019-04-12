@@ -53,9 +53,9 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 eventExists = user.events.includes(event);
                 if (!eventExists) return [3, 2];
                 return [2, res.json({
-                        status: 500,
-                        data: "That's weird - there's already an event with that I.D.  Please refresh and try again.",
-                        events: user.events
+                        code: 500,
+                        message: "That's weird - there's already an event with that I.D.  Please refresh and try again.",
+                        user: user
                     })];
             case 2:
                 event.id = uuid_1.default.v4();
@@ -65,9 +65,9 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 3:
                 _b.sent();
                 return [2, res.json({
-                        status: 200,
-                        data: event.name + " has been saved",
-                        events: user.events
+                        code: 200,
+                        message: event.name + " has been saved",
+                        user: user
                     })];
         }
     });

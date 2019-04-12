@@ -10,9 +10,9 @@ export interface IClientRequest extends Request {
 }
 
 export interface IServerResponse extends Response {
-  data: string;
-  events?: IEvent[] | [];
-  user?: IUser;
+  message: string;
+  code: number;
+  user: IUser;
 }
 
 export interface IEvent extends Document {
