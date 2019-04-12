@@ -39,7 +39,7 @@ class App extends React.Component<{}, IState> {
     return fbLoginInit();
   }
 
-  serverCallback = ({ status, data, user }: IServerResponse): any => {
+  serverCallback = ({ status, data, user }: IServerResponse): void => {
     return status === 200
       ? this.setState({
           user,
@@ -111,7 +111,6 @@ class App extends React.Component<{}, IState> {
     actions.set(0, this.getUser);
     actions.set(1, this.showEventForm);
     actions.set(2, this.returnToCalendar);
-
     return actions.get(num);
   };
 
@@ -124,9 +123,7 @@ class App extends React.Component<{}, IState> {
           <GlobalStyle />
           <Nav />
           <LogInModal currentActions={currentActions} />
-          {this.state.user && (
-            <Calendar events={user.events} fade={user ? true : false} />
-          )}
+          {this.state.user && <Calendar events={user.events} />}
           <ActionButton
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}

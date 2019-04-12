@@ -14,7 +14,7 @@ const events: [] = [];
 const renderCalendar = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Calendar fade={true} events={events} />
+      <Calendar events={events} />
     </ThemeProvider>
   );
 

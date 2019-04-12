@@ -1,8 +1,4 @@
-import styled, { keyframes } from 'styled-components';
-
-interface StyledGridProps {
-  fade: boolean;
-}
+import styled from 'styled-components';
 
 export const StyledH6 = styled.h6`
   font-size: 2.5rem;
@@ -10,13 +6,12 @@ export const StyledH6 = styled.h6`
   color: black;
 `;
 export const StyledGrid = styled.section`
-  ${({ theme: { flexin } }: any) => flexin()};
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-area: 1 / 1 / -1 / -1;
   background-image: radial-gradient(
     ${({ theme: { colors } }: any) => colors.mainBlue} 5%,
     white 95%
   );
-  grid-area: 1 / 1 / -1 / -1;
-  opacity: 0;
-  transition: all 1s ease-in-out;
-  ${({ fade }: StyledGridProps): any => fade && `opacity: 1;`};
 `;

@@ -5,11 +5,10 @@ import { StyledGrid, StyledH6 } from './Calendar.style';
 
 interface IProps {
   events: IEvent[] | null;
-  fade: boolean;
 }
 
-const Calendar = ({ events, fade }: IProps) => (
-  <StyledGrid data-testid="calendar" fade={fade}>
+const Calendar = ({ events }: IProps) => (
+  <StyledGrid data-testid="calendar">
     {!events ? (
       <StyledH6 data-testid="calendar__noEventMessage">
         You have an empty schedule!
