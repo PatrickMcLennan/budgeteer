@@ -9,7 +9,7 @@ interface IProps {
   currentActions: number;
 }
 
-const Calendar = ({ events, currentActions }: IProps) => (
+const Calendar: React.SFC<IProps> = ({ events, currentActions }) => (
   <StyledGrid data-testid="calendar">
     <Nav />
     {events.length === 0 && currentActions !== 0 ? (

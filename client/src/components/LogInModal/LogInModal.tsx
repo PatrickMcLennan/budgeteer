@@ -12,7 +12,7 @@ interface IProps {
   currentActions: number;
 }
 
-const LogInModal = ({ currentActions }: IProps) => (
+const LogInModal: React.SFC<IProps> = ({ currentActions }) => (
   <StyledModal data-testid="logInModal" currentActions={currentActions === 0}>
     <StyledH2>Plan your day with budgeteer</StyledH2>
 

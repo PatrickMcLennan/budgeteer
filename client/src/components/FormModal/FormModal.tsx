@@ -28,7 +28,6 @@ class FormModal extends React.Component<IProps, IEvent> {
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let { id, value } = e.target;
-    value = value.trim();
     this.setState(prevState => ({
       ...prevState,
       [id]: value

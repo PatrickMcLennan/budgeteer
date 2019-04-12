@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, theme } from '../utils/resets.style';
-import Nav from './Nav/Nav';
 import ActionButton from './ActionButton/ActionButton';
 import { IEvent, IUser, IServerResponse } from '../utils/dictionary';
 import { fbLogIn, fbLoginInit } from '../utils/auth';
@@ -39,7 +38,11 @@ class App extends React.Component<{}, IState> {
     return fbLoginInit();
   }
 
-  serverCallback = ({ success, message, user }: IServerResponse): void => {
+  serverCallback: Function = ({
+    success,
+    message,
+    user
+  }: IServerResponse): void => {
     return success
       ? this.setState({
           user,
@@ -53,11 +56,11 @@ class App extends React.Component<{}, IState> {
         });
   };
 
-  getUser = async (): Promise<void> => {
+  getUser: Function = async (): Promise<void> => {
     return await fbLogIn(this.serverCallback);
   };
 
-  createNewEvent = (event: IEvent): void => {
+  createNewEvent: Function = (event: IEvent): void => {
     const { user } = this.state;
     fetch('http://localhost:4000/newEvent', {
       method: 'POST',
@@ -70,7 +73,7 @@ class App extends React.Component<{}, IState> {
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
-  editEvent = (event: IEvent): void => {
+  editEvent: Function = (event: IEvent): void => {
     const { user } = this.state;
     const { facebookId } = user;
     fetch('http://localhost:4000/edit', {
@@ -84,7 +87,7 @@ class App extends React.Component<{}, IState> {
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
-  deleteEvent = (event: IEvent): void => {
+  deleteEvent: Function = (event: IEvent): void => {
     const { user } = this.state;
     const { facebookId } = user;
     fetch('http://localhost:4000/delete', {
@@ -98,15 +101,15 @@ class App extends React.Component<{}, IState> {
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
-  showEventForm = (): void => {
+  showEventForm: Function = (): void => {
     return this.setState({ currentActions: 2 });
   };
 
-  returnToCalendar = (): void => {
+  returnToCalendar: Function = (): void => {
     return this.setState({ currentActions: 1 });
   };
 
-  actionButtonMap = (num: number): Function => {
+  actionButtonMap: Function = (num: number): Function => {
     const actions = new Map<number, Function>();
     actions.set(0, this.getUser);
     actions.set(1, this.showEventForm);
@@ -116,13 +119,14 @@ class App extends React.Component<{}, IState> {
 
   render() {
     const { currentActions, actionMessage, user } = this.state;
+    const { events } = user;
     const { message, success, error } = actionMessage;
     return (
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
           <LogInModal currentActions={currentActions} />
-          <Calendar events={user.events} currentActions={currentActions} />
+          <Calendar events={events} currentActions={currentActions} />
           <ActionButton
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
