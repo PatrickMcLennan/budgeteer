@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 /**************** INTERFACES ****************/
 export interface IClientRequest extends Request {
   body: {
-    facebookId: IUser;
+    user: IUser;
     event: IEvent;
   };
 }

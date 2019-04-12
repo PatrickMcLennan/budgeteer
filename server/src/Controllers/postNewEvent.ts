@@ -12,8 +12,8 @@ export const postNewEvent = async (
   req: IClientRequest,
   res: IServerResponse
 ) => {
-  const { event, facebookId } = req.body;
-  const user: IUser = await User.findOne({ user: facebookId });
+  const { event, user } = req.body;
+  const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
   const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
@@ -24,13 +24,13 @@ export const postNewEvent = async (
     });
   } else {
     event.id = uuid.v4();
-    user.events.push(event);
-    user.events = eventSort(user.events);
-    await user.save();
+    mongoUser.events.push(event);
+    mongoUser.events = eventSort(mongoUser.events);
+    await mongoUser.save();
     return res.json({
       code: 200,
       message: `${event.name} has been saved`,
-      user
+      user: mongoUser
     });
   }
 };

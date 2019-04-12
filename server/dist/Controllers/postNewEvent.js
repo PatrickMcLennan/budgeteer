@@ -42,14 +42,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var uuid_1 = __importDefault(require("uuid"));
 var Utils_1 = require("../Utils");
 exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, event, facebookId, user, eventExists;
+    var _a, event, user, mongoUser, eventExists;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, event = _a.event, facebookId = _a.facebookId;
-                return [4, Utils_1.User.findOne({ user: facebookId })];
+                _a = req.body, event = _a.event, user = _a.user;
+                return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
             case 1:
-                user = _b.sent();
+                mongoUser = _b.sent();
                 eventExists = user.events.includes(event);
                 if (!eventExists) return [3, 2];
                 return [2, res.json({
@@ -59,15 +59,15 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                     })];
             case 2:
                 event.id = uuid_1.default.v4();
-                user.events.push(event);
-                user.events = Utils_1.eventSort(user.events);
-                return [4, user.save()];
+                mongoUser.events.push(event);
+                mongoUser.events = Utils_1.eventSort(mongoUser.events);
+                return [4, mongoUser.save()];
             case 3:
                 _b.sent();
                 return [2, res.json({
                         code: 200,
                         message: event.name + " has been saved",
-                        user: user
+                        user: mongoUser
                     })];
         }
     });

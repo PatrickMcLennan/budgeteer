@@ -11,20 +11,20 @@ export const deleteEvent = async (
   req: IClientRequest,
   res: IServerResponse
 ) => {
-  const { facebookId, event } = req.body;
-  const user: IUser = await User.findOne({ facebookId });
+  const { user, event } = req.body;
+  const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
   const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
-    const validEvents: IEvent[] = user.events.filter(
+    const validEvents: IEvent[] = mongoUser.events.filter(
       (validEvent: IEvent): boolean => validEvent.id !== event.id
     );
-    user.events = eventSort(validEvents);
-    await user.save();
+    mongoUser.events = eventSort(validEvents);
+    await mongoUser.save();
     return res.json({
       code: 200,
       data: 'Event Deleted Successfully',
-      user
+      user: mongoUser
     });
   } else {
     return res.json({

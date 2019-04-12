@@ -38,27 +38,27 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("../Utils");
 exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, facebookId, event, user, eventExists;
+    var _a, user, event, mongoUser, eventExists;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, facebookId = _a.facebookId, event = _a.event;
-                return [4, Utils_1.User.findOne({ facebookId: facebookId })];
+                _a = req.body, user = _a.user, event = _a.event;
+                return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
             case 1:
-                user = _b.sent();
+                mongoUser = _b.sent();
                 eventExists = user.events.includes(event);
                 if (!eventExists) return [3, 3];
-                user.events
+                mongoUser.events
                     .filter(function (savedEvent) { return savedEvent.id !== event.id; })
                     .push(event);
-                user.events = Utils_1.eventSort(user.events);
+                mongoUser.events = Utils_1.eventSort(mongoUser.events);
                 return [4, user.save()];
             case 2:
                 _b.sent();
                 return [2, res.json({
                         code: 200,
                         message: event.name + " has been updated within " + user.name + "'s account",
-                        user: user
+                        user: mongoUser
                     })];
             case 3: return [2, res.json({
                     code: 500,

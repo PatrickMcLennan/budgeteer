@@ -58,13 +58,12 @@ class App extends React.Component<{}, IState> {
 
   createNewEvent = (event: IEvent): void => {
     const { user } = this.state;
-    const { facebookId } = user;
     fetch('http://localhost:4000/newEvent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ facebookId, event })
+      body: JSON.stringify({ user, event })
     })
       .then((response: IServerResponse): void => this.serverCallback(response))
       .catch((err: IServerResponse): void => this.serverCallback(err));
