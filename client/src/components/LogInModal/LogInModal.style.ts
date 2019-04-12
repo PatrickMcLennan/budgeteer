@@ -12,8 +12,6 @@ export const StyledModal = styled.section`
   margin: 1.5vh 5vh;
   padding: 0 1.5vh;
   text-align: center;
-  box-shadow: inset 0 4px 8px 0 rgba(0, 0, 0, 0.12),
-    inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   transform: translateY(-120%);
   opacity: 0;
   transition: all 1s ease-in-out;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import Event from '../Event/Event';
 import { IEvent } from '../../utils/dictionary';
 import { StyledGrid, StyledH6 } from './Calendar.style';
+import Nav from '../Nav/Nav';
 
 interface IProps {
   events: IEvent[] | null;
@@ -9,6 +10,7 @@ interface IProps {
 
 const Calendar = ({ events }: IProps) => (
   <StyledGrid data-testid="calendar">
+    <Nav />
     {!events ? (
       <StyledH6 data-testid="calendar__noEventMessage">
         You have an empty schedule!
