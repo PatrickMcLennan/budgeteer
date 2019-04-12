@@ -33,6 +33,6 @@ app.listen(PORT, () => {
     mongoConfig
   )
     .then(() => console.log('Mongo connected'))
-    .catch(err => Promise.reject(err));
+    .catch(err => Promise.reject(err).then(err => console.error(err)));
   console.log(`The server is running on Port ${PORT}`);
 });

@@ -6,8 +6,9 @@ interface StyledPProps {
 }
 
 export const StyledP = styled.p`
+  ${({ theme: { elevation } }: any) => elevation.mainInset}
   position: relative;
-  padding: 1rem;
+  padding: 2.5rem;
   font-size: 2rem;
   font-weight: 100;
   letter-spacing: 0.35rem;
@@ -21,15 +22,18 @@ export const StyledP = styled.p`
     height: 1px;
     display: inline-block;
     margin: auto;
+    scale: 0;
     background-color: ${(props: StyledPProps) =>
       props.colorScheme ? theme.colors.mainGreen : 'red'};
+    transform: scale(1);
   }
 
   &::before {
-    top: 0;
+    top: 1.25rem;
   }
   &::after {
-    bottom: 0;
+    bottom: 1.25rem;
+    transform-origin: 100%;
   }
 `;
 

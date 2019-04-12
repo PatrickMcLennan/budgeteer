@@ -15,9 +15,8 @@ export const StyledGrid = styled.section`
   display: grid;
   margin: 2.5vw;
   padding: 1rem;
-  grid-template-rows: 17.5vh repeat(auto-fill, 100px);
+  grid-template-rows: repeat(auto-fill, 125px);
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-auto-flow: row;
   grid-area: 1 / 1 / -1 / -1;
   grid-gap: 1rem;
   align-items: center;

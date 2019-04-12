@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
   ${({ theme: { flexin } }: any) => flexin()}
-  z-index: 100;
+  ${({ theme: { elevation } }: any) => elevation.mainInset}
+  z-index: 10;
   position: fixed;
   bottom: 5vh;
   right: 5vh;

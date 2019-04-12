@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledDiv = styled.div`
-  border: 1px solid black;
-  background-color: white;
+  ${({ theme: { elevation } }: any) => elevation.mainInset}
+  background-color: rgba(255,255,255,.8);
   align-self: stretch;
 `;
