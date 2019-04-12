@@ -8,6 +8,7 @@ import { fbLogIn, fbLoginInit } from '../utils/auth';
 import LogInModal from './LogInModal/LogInModal';
 import Calendar from './Calendar/Calendar';
 import FormModal from './FormModal/FormModal';
+import Message from './Message/Message';
 
 interface IState {
   user: IUser;
@@ -116,6 +117,7 @@ class App extends React.Component<{}, IState> {
 
   render() {
     const { currentActions, message, user } = this.state;
+    const { data } = message;
     return (
       <ThemeProvider theme={theme}>
         <>
@@ -135,7 +137,8 @@ class App extends React.Component<{}, IState> {
               returnToCalendar={this.returnToCalendar}
             />
           )}
-          {message.success || (message.error && <h1>errors</h1>)}
+          {message.success && <Message result="success" data={data} />}
+          {message.error && <Message result="success" data={data} />}
         </>
       </ThemeProvider>
     );
