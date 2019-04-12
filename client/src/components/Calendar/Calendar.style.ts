@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
 export const StyledH6 = styled.h6`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
+  grid-area: 2 / 1 / -1 / -1;
+  text-align: center;
+  margin-top: 1.5rem;
   color: black;
   font-size: 2.5rem;
   font-weight: 100;
+  opacity: 0.5;
 `;
 export const StyledGrid = styled.section`
   position: relative;
   display: grid;
   margin: 2.5vw;
-  grid-template-rows: 5vh repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: 17.5vh repeat(auto-fit, minmax(250px, 1fr));
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-flow: row;
   grid-area: 1 / 1 / -1 / -1;

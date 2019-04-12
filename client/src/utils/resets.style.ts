@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     grid-template-rows: minmax(100vh, max-content);
     grid-template-columns: 100vw;
     overflow-x: hidden;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
   }
 `;
 
