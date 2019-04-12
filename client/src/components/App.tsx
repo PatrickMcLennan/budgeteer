@@ -39,11 +39,11 @@ class App extends React.Component<{}, IState> {
   }
 
   serverCallback: Function = ({
-    success,
     message,
+    success,
     user
   }: IServerResponse): void => {
-    return success
+    success
       ? this.setState({
           user,
           currentActions: 1,
