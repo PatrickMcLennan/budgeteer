@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyledDiv } from './Message.style';
+import { StyledDiv, StyledP } from './Message.style';
 
 interface IProps {
   result: boolean;
@@ -7,8 +7,10 @@ interface IProps {
 }
 
 const Message = ({ result, message }: IProps) => (
-  <StyledDiv colorScheme={result} data-testid="actionMessage">
-    <p data-testid="actionMessage__message">{message}</p>
+  <StyledDiv data-testid="actionMessage">
+    <StyledP colorScheme={result} data-testid="actionMessage__message">
+      {message}
+    </StyledP>
   </StyledDiv>
 );
 
