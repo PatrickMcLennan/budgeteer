@@ -64,7 +64,8 @@ export const StyledDiv = styled.div`
   left: 50%;
   z-index: 7;
   text-align: center;
-  transform: scaleX(0);
+  transform: scaleX(0) translateX(0);
+  transform-origin: 100%;
   ${(props: StyledMessageProps) =>
     props.success &&
     css`
