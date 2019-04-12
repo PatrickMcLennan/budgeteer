@@ -10,7 +10,7 @@ import Calendar from './Calendar/Calendar';
 import FormModal from './FormModal/FormModal';
 
 interface IState {
-  user?: IUser;
+  user: IUser;
   currentActions: number;
   message: {
     success: boolean;
@@ -21,6 +21,11 @@ interface IState {
 
 class App extends React.Component<{}, IState> {
   state: IState = {
+    user: {
+      name: '',
+      facebookId: 0,
+      events: []
+    },
     currentActions: 0,
     message: {
       success: false,
@@ -32,20 +37,6 @@ class App extends React.Component<{}, IState> {
   componentDidMount(): void {
     return fbLoginInit();
   }
-
-  getUser = async (): Promise<void> => {
-    const cb = ({ name, facebookId, events }: IUser): void => {
-      this.setState({
-        user: {
-          name,
-          facebookId,
-          events
-        },
-        currentActions: 1
-      });
-    };
-    return await fbLogIn(cb);
-  };
 
   serverCallback = ({ status, events, data }: IServerResponse): any => {
     const { user } = this.state;
@@ -63,6 +54,10 @@ class App extends React.Component<{}, IState> {
         });
   };
 
+  getUser = async (): Promise<void> => {
+    return await fbLogIn(this.serverCallback);
+  };
+
   createNewEvent = (event: IEvent): void => {
     const { user } = this.state;
     const { facebookId } = user;
@@ -73,17 +68,8 @@ class App extends React.Component<{}, IState> {
       },
       body: JSON.stringify({ facebookId, event })
     })
-      .then(
-        (response: IServerResponse): void | Promise<any> =>
-          this.serverCallback(response)
-      )
-      .catch(err => {
-        this.setState({
-          user,
-          currentActions: 1,
-          message: { success: false, error: true, data: err.data }
-        });
-      });
+      .then((response: IServerResponse): void => this.serverCallback(response))
+      .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
   editEvent = (event: IEvent): void => {
@@ -96,17 +82,8 @@ class App extends React.Component<{}, IState> {
       },
       body: JSON.stringify({ facebookId, event })
     })
-      .then(
-        (response: IServerResponse): void | Promise<any> =>
-          this.serverCallback(response)
-      )
-      .catch(err => {
-        this.setState({
-          user,
-          currentActions: 1,
-          message: { success: false, error: true, data: err.data }
-        });
-      });
+      .then((response: IServerResponse): void => this.serverCallback(response))
+      .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
   deleteEvent = (event: IEvent): void => {
@@ -119,17 +96,8 @@ class App extends React.Component<{}, IState> {
       },
       body: JSON.stringify({ facebookId, event })
     })
-      .then(
-        (response: IServerResponse): void | Promise<any> =>
-          this.serverCallback(response)
-      )
-      .catch(err => {
-        this.setState({
-          user,
-          currentActions: 1,
-          message: { success: false, error: true, data: err.data }
-        });
-      });
+      .then((response: IServerResponse): void => this.serverCallback(response))
+      .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
   showEventForm = (): void => {

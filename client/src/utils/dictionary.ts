@@ -22,6 +22,7 @@ export interface IUser {
 
 export interface IServerResponse extends Response {
   data: string;
-  events?: IEvent[] | [];
+  status: number;
+  events: IEvent[] | [];
   user?: IUser;
 }
