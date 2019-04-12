@@ -31,7 +31,7 @@ app.post('/newEvent', Controllers_1.postNewEvent);
 app.listen(PORT, function () {
     mongoose_1.connect(process.env.MONGO, Utils_1.mongoConfig)
         .then(function () { return console.log('Mongo connected'); })
-        .catch(function (err) { return Promise.reject(err); });
+        .catch(function (err) { return Promise.reject(err).then(function (err) { return console.error(err); }); });
     console.log("The server is running on Port " + PORT);
 });
 //# sourceMappingURL=server.js.map

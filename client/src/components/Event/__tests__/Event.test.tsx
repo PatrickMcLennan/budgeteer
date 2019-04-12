@@ -44,9 +44,9 @@ test('<Event {...fakeEvent} />', () => {
   expect(name.textContent).toBe('Dinner with the Queen');
   expect(location.textContent).toBe('England');
   expect(description.textContent).toBe('be polite');
-  expect(date.textContent).toBe('2 / 2 / 8 / 2020');
-  expect(startTime.textContent).toBe('5');
-  expect(endTime.textContent).toBe('7');
+  expect(date.textContent).toBe('Tuesday March 8 2020');
+  expect(startTime.textContent).toBe('5 A.M');
+  expect(endTime.textContent).toBe('7 A.M');
   expect(cost.textContent).toBe('$20');
 
   // Styles

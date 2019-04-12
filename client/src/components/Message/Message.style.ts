@@ -1,11 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { theme } from '../../utils/resets.style';
 
-interface StyledPProps {
-  colorScheme: boolean;
+interface StyledMessageProps {
+  success: boolean;
+  error: boolean;
 }
 
-export const StyledP = styled.p`
+export const StyledP = styled.p<StyledMessageProps>`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   position: relative;
   padding: 2.5rem;
@@ -23,8 +24,8 @@ export const StyledP = styled.p`
     display: inline-block;
     margin: auto;
     scale: 0;
-    background-color: ${(props: StyledPProps) =>
-      props.colorScheme ? theme.colors.mainGreen : 'red'};
+    background-color: ${(props: StyledMessageProps) =>
+      props.success ? theme.colors.mainGreen : 'red'};
     transform: scale(1);
   }
 
@@ -45,4 +46,6 @@ export const StyledDiv = styled.div`
   transform: translateX(-50%);
   z-index: 7;
   text-align: center;
+  transform: scale(0);
+  transform: ${(props: StyledMessageProps) => props.success && `scale(1);`};
 `;

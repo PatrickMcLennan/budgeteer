@@ -10,7 +10,11 @@ afterEach(cleanup);
 const renderActionMessage = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Message result={true} message="This has been a great success" />
+      <Message
+        success={true}
+        error={false}
+        message="This has been a great success"
+      />
     </ThemeProvider>
   );
 

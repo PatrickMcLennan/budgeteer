@@ -133,8 +133,7 @@ class App extends React.Component<{}, IState> {
               returnToCalendar={this.returnToCalendar}
             />
           )}
-          {success && <Message result={success} message={message} />}
-          {error && <Message result={success} message={message} />}
+          <Message success={success} error={error} message={message} />
         </>
       </ThemeProvider>
     );

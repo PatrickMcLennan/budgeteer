@@ -7,8 +7,27 @@ const EventSchema: Schema<IEvent> = new Schema(
       type: String,
       required: 'Please enter a name for the event.'
     },
-    location: String,
-    date: Date,
+    location: {
+      type: String,
+      required: 'Please provide a location'
+    },
+    description: String,
+    year: {
+      type: Number,
+      required: 'Please provide a year.'
+    },
+    month: {
+      type: Number,
+      required: 'Please provide a month'
+    },
+    day: {
+      type: Number,
+      required: 'Please provide a day'
+    },
+    date: {
+      type: Number,
+      required: 'Please provide a date'
+    },
     startTime: {
       type: Number,
       required: 'Please enter a start time for the event.'

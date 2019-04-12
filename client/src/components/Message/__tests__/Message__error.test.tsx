@@ -10,7 +10,7 @@ afterEach(cleanup);
 const renderActionMessage = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Message result={false} message="This has been a failure" />
+      <Message success={false} error={true} message="This has been a failure" />
     </ThemeProvider>
   );
 
