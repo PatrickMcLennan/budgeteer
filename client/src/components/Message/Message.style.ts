@@ -12,7 +12,6 @@ export const StyledDiv = styled.div`
   left: 50%;
   transform: translateX(-50%);
   z-index: 7;
-  border: 1px solid purple;
   text-align: center;
 
   &::before {

@@ -21,7 +21,7 @@ export interface IUser {
 }
 
 export interface IServerResponse extends Response {
+  success: boolean;
   message: string;
-  status: number;
   user: IUser;
 }

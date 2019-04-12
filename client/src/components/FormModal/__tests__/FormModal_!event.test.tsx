@@ -54,7 +54,6 @@ test('<FormModal />', async () => {
   inputs.forEach((input: HTMLInputElement) => {
     expect(input).toBeInTheDocument();
     expect(input).toHaveAttribute('value');
-    expect(input).toHaveStyleRule('border-radius', '2.5%');
   });
 
   expect(name.textContent).toBe('');

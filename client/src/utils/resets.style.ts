@@ -39,8 +39,9 @@ export const theme = {
   typo: {
     mainLetterSpacing: 'letter-spacing: .125rem;'
   },
-  borderRadius: {
-    main: 'border-radius: 2.5%'
+  elevation: {
+    mainInset: `box-shadow: inset 0 4px 8px 0 rgba(0, 0, 0, 0.12),
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);`
   },
   flexin: (jc = 'center', ai = 'center', fd = 'row') =>
     `display: flex; justify-content: ${jc}; align-items: ${ai}; flex-direction: ${fd};`

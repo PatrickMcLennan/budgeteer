@@ -54,7 +54,6 @@ test('<FormModal />', () => {
     expect(input).toBeInTheDocument();
     expect(input).toHaveAttribute('value');
     expect(input).toHaveAttribute('required');
-    expect(input).toHaveStyleRule('border-radius', '2.5%');
   });
 
   expect(name.value).toBe('Dinner with the Queen');
