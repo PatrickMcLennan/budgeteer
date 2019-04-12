@@ -30,7 +30,7 @@ export const postNewEvent = async (
     return res.json({
       success: true,
       message: `${event.name} has been saved`,
-      user: <IUser>mongoUser
+      user: mongoUser
     });
   }
 };

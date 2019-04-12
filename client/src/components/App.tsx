@@ -119,14 +119,13 @@ class App extends React.Component<{}, IState> {
 
   render() {
     const { currentActions, actionMessage, user } = this.state;
-    const { events } = user;
     const { message, success, error } = actionMessage;
     return (
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
           <LogInModal currentActions={currentActions} />
-          <Calendar events={events} currentActions={currentActions} />
+          <Calendar events={user.events} currentActions={currentActions} />
           <ActionButton
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
