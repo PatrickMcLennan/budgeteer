@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
 export const StyledH6 = styled.h6`
-  font-size: 2.5rem;
-  border: 1px solid red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
   color: black;
+  font-size: 2.5rem;
+  font-weight: 100;
 `;
 export const StyledGrid = styled.section`
+  position: relative;
   display: grid;
   margin: 2.5vw;
   grid-template-rows: 5vh repeat(auto-fit, minmax(250px, 1fr));
@@ -19,4 +24,5 @@ export const StyledGrid = styled.section`
     ${({ theme: { colors } }: any) => colors.mainBlue} 5%,
     white 95%
   );
+  z-index: 5;
 `;

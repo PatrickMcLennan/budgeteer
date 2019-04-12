@@ -9,6 +9,9 @@ export const SocialSVG = styled.svg`
 export const ActionSVG = styled.svg`
   height: 7vh;
   width: 7vh;
-  stroke: black;
-  fill: black;
+`;
+
+export const StyledLogIn = styled(ActionSVG)`
+  stroke: green;
+  fill: green;
 `;

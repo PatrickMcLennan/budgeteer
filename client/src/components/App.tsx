@@ -122,7 +122,7 @@ class App extends React.Component<{}, IState> {
         <>
           <GlobalStyle />
           <LogInModal currentActions={currentActions} />
-          <Calendar events={user.events} />
+          <Calendar events={user.events} currentActions={currentActions} />
           <ActionButton
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}

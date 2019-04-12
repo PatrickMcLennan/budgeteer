@@ -12,6 +12,7 @@ export const StyledModal = styled.section`
   margin: 1.5vh 5vh;
   padding: 0 1.5vh;
   text-align: center;
+  z-index: 6;
   transform: translateY(-120%);
   opacity: 0;
   transition: all 1s ease-in-out;

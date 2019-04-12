@@ -6,12 +6,13 @@ import Nav from '../Nav/Nav';
 
 interface IProps {
   events: IEvent[] | null;
+  currentActions: number;
 }
 
-const Calendar = ({ events }: IProps) => (
+const Calendar = ({ events, currentActions }: IProps) => (
   <StyledGrid data-testid="calendar">
     <Nav />
-    {!events ? (
+    {events.length === 0 && currentActions !== 0 ? (
       <StyledH6 data-testid="calendar__noEventMessage">
         You have an empty schedule!
       </StyledH6>
