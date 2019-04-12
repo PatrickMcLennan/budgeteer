@@ -13,10 +13,10 @@ import Message from './Message/Message';
 interface IState {
   user: IUser;
   currentActions: number;
-  message: {
+  actionMessage: {
     success: boolean;
     error: boolean;
-    data: string;
+    message: string;
   };
 }
 
@@ -28,10 +28,10 @@ class App extends React.Component<{}, IState> {
       events: []
     },
     currentActions: 0,
-    message: {
+    actionMessage: {
       success: false,
       error: false,
-      data: ''
+      message: ''
     }
   };
 
@@ -39,17 +39,17 @@ class App extends React.Component<{}, IState> {
     return fbLoginInit();
   }
 
-  serverCallback = ({ status, data, user }: IServerResponse): void => {
+  serverCallback = ({ status, message, user }: IServerResponse): void => {
     return status === 200
       ? this.setState({
           user,
           currentActions: 1,
-          message: { success: true, error: false, data }
+          actionMessage: { success: true, error: false, message }
         })
       : this.setState({
           user,
           currentActions: 1,
-          message: { success: false, error: true, data }
+          actionMessage: { success: false, error: true, message }
         });
   };
 
@@ -115,8 +115,8 @@ class App extends React.Component<{}, IState> {
   };
 
   render() {
-    const { currentActions, message, user } = this.state;
-    const { data } = message;
+    const { currentActions, actionMessage, user } = this.state;
+    const { message, success, error } = actionMessage;
     return (
       <ThemeProvider theme={theme}>
         <>
@@ -133,8 +133,8 @@ class App extends React.Component<{}, IState> {
               returnToCalendar={this.returnToCalendar}
             />
           )}
-          {message.success && <Message result="success" data={data} />}
-          {message.error && <Message result="success" data={data} />}
+          {success && <Message result={success} message={message} />}
+          {error && <Message result={success} message={message} />}
         </>
       </ThemeProvider>
     );
@@ -147,12 +147,3 @@ export default App;
 // 0: Login modal, no user
 // 1: Calendar view, actionbutton prompting Form Modal
 // 2: Form modal is open, action button cancelling & closing
-
-// message = (data: IServerResponse['data']) => {
-//   const result =
-//   this.setState({ message: { error: true, data } });
-//   return setTimeout(
-//     () => this.setState({ message: { show: false, data: '' } }),
-//     2000
-//   );
-// };

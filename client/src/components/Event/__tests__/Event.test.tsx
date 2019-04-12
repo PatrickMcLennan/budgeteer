@@ -50,5 +50,4 @@ test('<Event {...fakeEvent} />', () => {
   expect(cost.textContent).toBe('$20');
 
   // Styles
-  expect(event).toHaveStyleRule('border-radius', '2.5%');
 });

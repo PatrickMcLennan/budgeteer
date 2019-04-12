@@ -3,6 +3,7 @@ import { StyledLogIn } from './SVG.style';
 
 const LogInSVG = () => (
   <StyledLogIn
+    data-testid="logInSVG"
     version="1.1"
     id="Capa_1"
     x="0px"

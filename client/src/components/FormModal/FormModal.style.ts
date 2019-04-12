@@ -12,6 +12,7 @@ export const StyledForm = styled.form`
   grid-area: 1 / 1 / -1 / -1;
   z-index: 7;
   border: 1px solid red;
+  background: 5px solid red;
 `;
 
 export const StyledInput = styled.input`

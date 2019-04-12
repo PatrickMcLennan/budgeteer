@@ -2,13 +2,13 @@ import * as React from 'react';
 import { StyledDiv } from './Message.style';
 
 interface IProps {
-  result: string;
-  data: string;
+  result: boolean;
+  message: string;
 }
 
-const Message = ({ result, data }: IProps) => (
-  <StyledDiv colorScheme={result}>
-    <p>{data}</p>
+const Message = ({ result, message }: IProps) => (
+  <StyledDiv colorScheme={result} data-testid="actionMessage">
+    <p data-testid="actionMessage__message">{message}</p>
   </StyledDiv>
 );
 
