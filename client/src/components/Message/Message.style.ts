@@ -1,10 +1,28 @@
-import styled, { css } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { theme } from '../../utils/resets.style';
 
 interface StyledMessageProps {
   success: boolean;
   error: boolean;
 }
+
+const messageAnimation = keyframes`
+  0% {
+    transform: scaleX(0) translateX(0)
+  }
+
+  25% {
+    transform: scaleX(1) translateX(-50%)
+  }
+
+  75% {
+    transform: scaleX(1) translateX(-50%)
+  }
+
+  100% {
+    transform: scaleX(0) translateX(0)
+  }
+`;
 
 export const StyledP = styled.p<StyledMessageProps>`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
@@ -40,12 +58,21 @@ export const StyledP = styled.p<StyledMessageProps>`
 
 export const StyledDiv = styled.div`
   ${({ theme: { flexin } }: any) => flexin('center', 'center', 'column')}
+  overflow: hidden;
   position: absolute;
   bottom: 10rem;
   left: 50%;
-  transform: translateX(-50%);
   z-index: 7;
   text-align: center;
-  transform: scale(0);
-  transform: ${(props: StyledMessageProps) => props.success && `scale(1);`};
+  transform: scaleX(0);
+  ${(props: StyledMessageProps) =>
+    props.success &&
+    css`
+      animation: ${messageAnimation} 2s;
+    `}
+  ${(props: StyledMessageProps) =>
+    props.error &&
+    css`
+      animation: ${messageAnimation} 2s;
+    `}
 `;
