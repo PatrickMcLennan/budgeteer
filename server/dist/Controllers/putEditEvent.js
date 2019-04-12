@@ -56,12 +56,12 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 2:
                 _b.sent();
                 return [2, res.json({
-                        code: 200,
+                        success: true,
                         message: event.name + " has been updated within " + user.name + "'s account",
                         user: mongoUser
                     })];
             case 3: return [2, res.json({
-                    code: 500,
+                    success: false,
                     message: "Multiple events were found with that I.D, when there should only be 1.",
                     user: user
                 })];

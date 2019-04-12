@@ -10,8 +10,8 @@ export interface IClientRequest extends Request {
 }
 
 export interface IServerResponse extends Response {
+  success: boolean;
   message: string;
-  code: number;
   user: IUser;
 }
 

@@ -59,7 +59,7 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
                 userExists = _b.sent();
                 if (!userExists) return [3, 4];
                 res.json({
-                    code: 200,
+                    success: true,
                     message: 'Logged in successfully.',
                     user: userExists
                 });
@@ -75,7 +75,7 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
             case 5:
                 _b.sent();
                 res.json({
-                    code: 200,
+                    success: true,
                     message: 'New user has been registered + logged in.',
                     user: newUser
                 });

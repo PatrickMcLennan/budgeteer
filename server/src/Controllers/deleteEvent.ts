@@ -22,14 +22,14 @@ export const deleteEvent = async (
     mongoUser.events = eventSort(validEvents);
     await mongoUser.save();
     return res.json({
-      code: 200,
-      data: 'Event Deleted Successfully',
-      user: mongoUser
+      success: true,
+      message: 'Event Deleted Successfully',
+      user: <IUser>mongoUser
     });
   } else {
     return res.json({
-      code: 500,
-      data: 'No Event was found with that I.D',
+      success: false,
+      message: 'No Event was found with that I.D',
       user
     });
   }

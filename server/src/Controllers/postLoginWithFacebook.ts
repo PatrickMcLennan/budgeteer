@@ -17,7 +17,7 @@ export const postLoginWithFacebook = async (
 
     if (userExists) {
       res.json({
-        code: 200,
+        success: true,
         message: 'Logged in successfully.',
         user: <IUser>userExists
       });
@@ -30,7 +30,7 @@ export const postLoginWithFacebook = async (
       });
       await newUser.save();
       res.json({
-        code: 200,
+        success: true,
         message: 'New user has been registered + logged in.',
         user: <IUser>newUser
       });

@@ -6,12 +6,21 @@ interface StyledDivProps {
 }
 
 export const StyledDiv = styled.div`
-  margin: 0 auto;
-  position: relative;
-  bottom: 10vh;
+  padding: 2.5rem 5rem;
+  position: absolute;
+  bottom: 10rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 7;
   border: 1px solid purple;
+  text-align: center;
+
   &::before {
+    content: '';
+    height: 1px;
+    display: inline-block;
+    width: 80%;
+    margin: auto;
     background-color: ${(props: StyledDivProps) =>
       props.colorScheme ? theme.colors.mainGreen : 'red'};
   }

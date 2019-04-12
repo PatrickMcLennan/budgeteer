@@ -53,7 +53,7 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 eventExists = user.events.includes(event);
                 if (!eventExists) return [3, 2];
                 return [2, res.json({
-                        code: 500,
+                        success: false,
                         message: "That's weird - there's already an event with that I.D.  Please refresh and try again.",
                         user: user
                     })];
@@ -65,7 +65,7 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 3:
                 _b.sent();
                 return [2, res.json({
-                        code: 200,
+                        success: true,
                         message: event.name + " has been saved",
                         user: mongoUser
                     })];
