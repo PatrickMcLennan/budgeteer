@@ -38,6 +38,10 @@ class App extends React.Component<{}, IState> {
     return fbLoginInit();
   }
 
+  componentWillUnmount(): IState {
+    return this.state;
+  }
+
   serverCallback: Function = ({
     message,
     success,

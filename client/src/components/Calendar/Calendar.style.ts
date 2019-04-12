@@ -21,8 +21,6 @@ export const StyledGrid = styled.section`
   grid-gap: 1rem;
   align-items: center;
   justify-content: center;
-  /* box-shadow: inset 0 4px 8px 0 rgba(0, 0, 0, 0.12),
-    inset 0 2px 4px 0 rgba(0, 0, 0, 0.08); */
   background-image: radial-gradient(
     ${({ theme: { colors } }: any) => colors.mainBlue} 5%,
     white 95%
