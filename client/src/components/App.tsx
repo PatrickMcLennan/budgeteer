@@ -46,19 +46,18 @@ class App extends React.Component<{}, IState> {
     success
       ? this.setState({
           user,
-          currentActions: 1,
           actionMessage: { success: true, error: false, message }
         })
       : this.setState({
           user,
-          currentActions: 1,
           actionMessage: { success: false, error: true, message }
         });
     return success;
   };
 
   getUser: Function = async (): Promise<void> => {
-    return await fbLogIn(this.serverCallback);
+    await fbLogIn(this.serverCallback);
+    return this.returnToCalendar();
   };
 
   createNewEvent: Function = (event: IEvent): void => {
