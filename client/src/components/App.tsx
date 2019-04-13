@@ -8,6 +8,7 @@ import LogInModal from './LogInModal/LogInModal';
 import Calendar from './Calendar/Calendar';
 import FormModal from './FormModal/FormModal';
 import Message from './Message/Message';
+import { response } from 'express';
 
 interface IState {
   user: IUser;
@@ -88,8 +89,9 @@ class App extends React.Component<{}, IState> {
       body: JSON.stringify({ user, event })
     })
       .then(
-        (response: IServerResponse): void => this.serverCallback(response.body)
+        (response: IServerResponse): Promise<IServerResponse> => response.json()
       )
+      .then((response: IServerResponse): void => this.serverCallback(response))
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
