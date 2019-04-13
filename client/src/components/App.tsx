@@ -41,7 +41,7 @@ class App extends React.Component<{}, IState> {
   serverCallback: Function = ({
     success,
     message,
-    user
+    events
   }: IServerResponse): boolean => {
     success
       ? this.setState({
@@ -56,8 +56,23 @@ class App extends React.Component<{}, IState> {
   };
 
   getUser: Function = async (): Promise<void> => {
-    await fbLogIn(this.serverCallback);
-    this.returnToCalendar();
+    interface getUserResponse {
+      success: boolean;
+      message: string;
+      user?: IUser;
+    }
+    const getUserCallback = ({ success, message, user }: getUserResponse) => {
+      success
+        ? this.setState({
+            user,
+            currentActions: 1,
+            actionMessage: { success: true, error: false, message }
+          })
+        : this.setState({
+            actionMessage: { success: false, error: true, message }
+          });
+    };
+    await fbLogIn(getUserCallback);
   };
 
   createNewEvent: Function = (event: IEvent): void => {

@@ -23,6 +23,5 @@ export interface IUser {
 export interface IServerResponse extends Response {
   success: boolean;
   message: string;
-  user: IUser;
-  // events: IEvent[] | [];
+  events: IEvent[] | [];
 }
