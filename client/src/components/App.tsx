@@ -44,19 +44,35 @@ class App extends React.Component<{}, IState> {
     message,
     events
   }: IServerResponse): void => {
-    success
-      ? this.setState({
-          user: {
-            name: this.state.user.name,
-            facebookId: this.state.user.facebookId,
-            events
-          },
-          currentActions: 1,
-          actionMessage: { success: true, error: false, message }
-        })
-      : this.setState({
-          actionMessage: { success: false, error: true, message }
-        });
+    if (success) {
+      this.setState({
+        user: {
+          name: this.state.user.name,
+          facebookId: this.state.user.facebookId,
+          events
+        },
+        currentActions: 1,
+        actionMessage: { success: true, error: false, message }
+      });
+      setTimeout(
+        () =>
+          this.setState({
+            actionMessage: { success: false, error: false, message: '' }
+          }),
+        2500
+      );
+    } else {
+      this.setState({
+        actionMessage: { success: false, error: true, message }
+      });
+      setTimeout(
+        () =>
+          this.setState({
+            actionMessage: { success: false, error: false, message: '' }
+          }),
+        2500
+      );
+    }
   };
 
   getUser: Function = async (): Promise<void> => {
