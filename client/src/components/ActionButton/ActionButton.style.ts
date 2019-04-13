@@ -19,6 +19,7 @@ const StyledButton = styled.button`
   overflow: hidden;
   cursor: pointer;
   background-color: transparent;
+  font-size: 7vh;
 
   ${(props: StyledButtonProps) =>
     props.colorScheme !== 2 &&
@@ -29,6 +30,10 @@ const StyledButton = styled.button`
         stroke: ${({ theme: { colors } }: any) => colors.mainGreen};
         fill: ${({ theme: { colors } }: any) => colors.mainGreen};
         color: ${({ theme: { colors } }: any) => colors.mainGreen};
+      }
+
+      & > *:not(svg) {
+        transform: rotate(45deg);
       }
     `}
 
