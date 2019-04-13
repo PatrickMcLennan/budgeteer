@@ -30,12 +30,13 @@ class LogInModal extends React.Component<IProps, {}> {
 
   render(): JSX.Element {
     const { currentActions } = this.props;
-    const { rendered } = this.state;
     return (
       <StyledModal
         data-testid="logInModal"
-        visible={currentActions === 0}
-        toggleRender={rendered}>
+        triggerFade={currentActions === 0}
+        toggleRender={
+          currentActions === 0 ? true : setTimeout(() => false, 1000)
+        }>
         <StyledH2>Plan your day with budgeteer</StyledH2>
 
         <StyledSVGBox data-testid="logInModal__svgBox">

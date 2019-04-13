@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 interface StyledModalProps {
-  visible: boolean;
-  rendered: boolean;
+  triggerFade: boolean;
+  toggleRender: boolean;
 }
 
 export const StyledModal = styled.section`
@@ -13,8 +13,9 @@ export const StyledModal = styled.section`
   text-align: center;
   z-index: 6;
   transition: all 1s ease-in-out;
-  opacity: ${(props: StyledModalProps): any => (props.visible ? `1;` : `0;`)};
-  ${(props: StyledModalProps): any => props.rendered && `display: none;`}
+  opacity: ${(props: StyledModalProps): any =>
+    props.triggerFade ? `1;` : `0;`};
+  ${(props: StyledModalProps): any => !props.toggleRender && `display: none;`}
 `;
 
 export const StyledH2 = styled.h2`
