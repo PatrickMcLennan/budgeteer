@@ -28,8 +28,8 @@ export const StyledGrid = styled.section`
   display: grid;
   margin: 2.5vw;
   padding: 1rem;
-  grid-template-rows: repeat(auto-fill, 200px);
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: repeat(auto-fill, 220px);
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   grid-area: 1 / 1 / -1 / -1;
   grid-auto-flow: row;
   grid-gap: 1rem;

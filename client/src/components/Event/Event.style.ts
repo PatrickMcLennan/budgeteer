@@ -26,15 +26,13 @@ export const StyledDiv = styled.div`
 
   &:hover,
   &:active,
-  &:focus,
-  & > p:hover,
-  & > p:active,
-  & > p:focus {
-    transform: scale(1.15);
+  &:focus {
+    transform: scale(1.025);
   }
 `;
 
 export const StyledP = styled.p`
+  ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
   font-size: 2rem;
   font-weight: 100;
   text-transform: uppercase;

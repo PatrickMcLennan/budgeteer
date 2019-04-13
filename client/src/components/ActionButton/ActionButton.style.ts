@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface StyledButtonProps {
+  colorScheme: number;
+}
 
 const StyledButton = styled.button`
   ${({ theme: { flexin } }: any) => flexin()}
@@ -15,6 +19,30 @@ const StyledButton = styled.button`
   overflow: hidden;
   cursor: pointer;
   background-color: transparent;
+
+  ${(props: StyledButtonProps) =>
+    props.colorScheme !== 2 &&
+    css`
+      border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
+
+      & > * {
+        stroke: ${({ theme: { colors } }: any) => colors.mainGreen};
+        fill: ${({ theme: { colors } }: any) => colors.mainGreen};
+        color: ${({ theme: { colors } }: any) => colors.mainGreen};
+      }
+    `}
+
+  ${(props: StyledButtonProps) =>
+    props.colorScheme === 2 &&
+    css`
+      border: 1px solid red;
+
+      & > * {
+        stroke: red;
+        fill: red;
+        color: red;
+      }
+    `}
 `;
 
 export default StyledButton;
