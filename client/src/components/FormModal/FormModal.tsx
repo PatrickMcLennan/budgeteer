@@ -38,7 +38,7 @@ class FormModal extends React.Component<IProps, IEvent> {
     e.preventDefault();
     const { createNewEvent, returnToCalendar }: IProps = this.props;
     const validCall: boolean = await createNewEvent(this.state);
-    console.log(validCall);
+    validCall ? returnToCalendar() : console.error('invalid call');
   };
 
   render() {
