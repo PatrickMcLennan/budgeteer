@@ -10,15 +10,17 @@ interface StyledH6Props {
 }
 
 export const StyledH6 = styled.h6`
-  font-size: 7vh;
+  font-size: 8vh;
+  font-weight: 100;
   transition: all 1s;
+  transform-origin: center;
   color: ${(props: StyledH6Props) =>
     props.colorScheme !== 2 ? theme.colors.mainGreen : `red`};
   border: ${(props: StyledH6Props) =>
     props.colorScheme !== 2 ? theme.colors.mainGreen : `red`};
   ${(props: StyledH6Props) =>
     props.colorScheme === 2
-      ? `transform: rotate(45deg)`
+      ? `transform: rotate(45deg) translateX(50%)`
       : `transform: rotate(0)`}
 `;
 
