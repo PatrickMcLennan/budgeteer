@@ -10,60 +10,35 @@ interface IProps {
 }
 
 interface IState {
-  eventsExist: boolean;
+  delayTime: number;
 }
 
 class Calendar extends React.Component<IProps, IState> {
   state = {
-    eventsExist: false
+    delayTime: 0
   };
 
-  componentDidMount(): void {
-    this.props.events.length === 0
-      ? this.setState({ eventsExist: false })
-      : this.setState({ eventsExist: true });
-  }
+  incrementAnimationDelay = (): number => {
+    this.setState({ delayTime: +0.2 });
+    return this.state.delayTime;
+  };
 
   render(): JSX.Element {
+    const { delayTime } = this.state;
     const { currentActions, events } = this.props;
-    const { eventsExist } = this.state;
     return (
       <StyledGrid data-testid="calendar">
         <Nav />
         <StyledH6
           data-testid="calendar__noEventMessage"
-          visible={currentActions === 1 && !eventsExist}>
+          visible={currentActions === 1 && events.length === 0}
+          invisible={events.length >= 1}>
           You have an empty schedule!
         </StyledH6>
         {events.length >= 1 &&
           events.map(
-            ({
-              name,
-              location,
-              description,
-              year,
-              month,
-              day,
-              date,
-              startTime,
-              endTime,
-              cost,
-              id
-            }: IEvent): any => (
-              <Event
-                name={name}
-                location={location}
-                description={description}
-                year={year}
-                month={month}
-                day={day}
-                date={date}
-                startTime={startTime}
-                endTime={endTime}
-                cost={cost}
-                id={id}
-                key={id}
-              />
+            (event: IEvent): any => (
+              <Event event={event} delayTime={delayTime} />
             )
           )}
       </StyledGrid>

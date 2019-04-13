@@ -25,7 +25,7 @@ export const fakeEvent = {
 const renderEvent = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Event {...fakeEvent} />
+      <Event event={fakeEvent} delayTime={0} />
     </ThemeProvider>
   );
 

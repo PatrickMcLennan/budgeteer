@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface StyledH6Props {
   visible: boolean;
+  invisible: boolean;
 }
 
 export const StyledH6 = styled.h6`
@@ -12,11 +13,13 @@ export const StyledH6 = styled.h6`
   font-size: 2.5rem;
   font-weight: 100;
   visibility: none;
-  transition: opacity 2.5s;
+  transition: opacity 4.5s;
   opacity: 0;
 
   ${(props: StyledH6Props) =>
     props.visible && `opacity: .5; visible: visible;`};
+
+  ${(props: StyledH6Props) => props.invisible && `display: none;`}
 `;
 
 export const StyledGrid = styled.section`

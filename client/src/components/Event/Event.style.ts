@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface StyledDivProps {
+  triggerAnimation: number;
+}
+
 export const StyledDiv = styled.div`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   ${({ theme: { flexin } }: any) =>
@@ -12,9 +16,13 @@ export const StyledDiv = styled.div`
   padding: 0.5rem;
   align-self: stretch;
   transition: all 0.3s;
-  transform: scale(1);
+  transform: scaleY(0);
+  transform-origin: top;
   cursor: pointer;
   z-index: 6;
+
+  ${(props: StyledDivProps) =>
+    props.triggerAnimation && `transform: scaleY(1)`};
 
   &:hover,
   &:active,

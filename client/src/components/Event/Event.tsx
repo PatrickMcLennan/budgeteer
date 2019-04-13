@@ -3,15 +3,29 @@ import { IEvent } from '../../utils/dictionary';
 import { StyledDiv, StyledP } from './Event.style';
 import { WEEKDAYSnumber, MONTHSnumber } from '../../utils/datesMaps';
 
-class Event extends React.Component<IEvent, {}> {
-  componentWillMount() {
-    console.log('hello');
+interface IProps {
+  delayTime: number;
+  event: IEvent;
+}
+
+class Event extends React.Component<IProps, {}> {
+  state = {
+    triggerAnimation: false
+  };
+
+  componentWillMount(): void {
+    setTimeout(
+      (): void => this.setState({ triggerAnimation: true }),
+      this.props.delayTime
+    );
   }
 
   formatTime = (num: number): string => {
     return num > 12 ? `${num - 12} P.M` : `${num} A.M`;
   };
   render(): JSX.Element {
+    const { triggerAnimation } = this.state;
+    const { event } = this.props;
     const {
       name,
       location,
@@ -23,9 +37,9 @@ class Event extends React.Component<IEvent, {}> {
       startTime,
       endTime,
       cost
-    }: IEvent = this.props;
+    }: IEvent = event;
     return (
-      <StyledDiv data-testid="event">
+      <StyledDiv data-testid="event" triggerAnimation={triggerAnimation}>
         <StyledP data-testid="event__name">{name}</StyledP>
         <StyledP data-testid="event__location">{location}</StyledP>
         <StyledP data-testid="event__description">{description}</StyledP>
