@@ -57,7 +57,7 @@ class App extends React.Component<{}, IState> {
 
   getUser: Function = async (): Promise<void> => {
     await fbLogIn(this.serverCallback);
-    return this.returnToCalendar();
+    this.returnToCalendar();
   };
 
   createNewEvent: Function = (event: IEvent): Promise<boolean> => {

@@ -11,11 +11,9 @@ export const StyledModal = styled.section`
   padding: 0 1.5vh;
   text-align: center;
   z-index: 6;
-  transform: translateY(-120%);
-  opacity: 0;
   transition: all 1s ease-in-out;
-  ${(props: StyledModalProps): any =>
-    props.currentActions && `transform: translateY(0%); opacity: 1;`};
+  opacity: ${(props: StyledModalProps): any =>
+    props.currentActions ? `1;` : `0;`};
 
   &.displayNone {
     display: none;
