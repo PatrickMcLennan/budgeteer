@@ -8,19 +8,19 @@ interface StyledMessageProps {
 
 const messageAnimation = keyframes`
   0% {
-    transform: scaleX(0) translateX(0)
+    transform: scale(50) opacity(0);
   }
 
   25% {
-    transform: scaleX(1) translateX(-50%)
+    transform: scale(1) opacity(1);
   }
 
   75% {
-    transform: scaleX(1) translateX(-50%)
+    transform: scale(1) opacity(1);
   }
 
   100% {
-    transform: scaleX(0) translateX(0)
+    transform: scale(50) opacity(0);
   }
 `;
 
@@ -31,6 +31,17 @@ export const StyledP = styled.p<StyledMessageProps>`
   font-size: 2rem;
   font-weight: 100;
   letter-spacing: 0.35rem;
+  transform: scale(50) opacity(0) forwards;
+  ${(props: StyledMessageProps) =>
+    props.success &&
+    css`
+      animation: ${messageAnimation} 2s;
+    `}
+  ${(props: StyledMessageProps) =>
+    props.error &&
+    css`
+      animation: ${messageAnimation} 2s;
+    `}
 
   &::before,
   &::after {
@@ -64,16 +75,4 @@ export const StyledDiv = styled.div`
   left: 50%;
   z-index: 7;
   text-align: center;
-  transform: scaleX(0) translateX(0);
-  transform-origin: 100%;
-  ${(props: StyledMessageProps) =>
-    props.success &&
-    css`
-      animation: ${messageAnimation} 2s;
-    `}
-  ${(props: StyledMessageProps) =>
-    props.error &&
-    css`
-      animation: ${messageAnimation} 2s;
-    `}
 `;

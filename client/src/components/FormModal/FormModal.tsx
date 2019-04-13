@@ -34,10 +34,12 @@ class FormModal extends React.Component<IProps, IEvent> {
     }));
   };
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  // React.FormEvent<HTMLFormElement>)
+
+  handleSubmit = async (e: any): Promise<void> => {
     const { createNewEvent } = this.props;
     e.preventDefault();
-    return createNewEvent(this.state);
+    return await createNewEvent(this.state);
   };
 
   render() {
