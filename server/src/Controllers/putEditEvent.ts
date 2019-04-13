@@ -24,13 +24,13 @@ export const putEditEvent = async (
     return res.json({
       success: true,
       message: `${event.name} has been updated within ${user.name}'s account`,
-      user: <IUser>mongoUser
+      events: mongoUser.events
     });
   } else {
     return res.json({
       success: false,
       message: `Multiple events were found with that I.D, when there should only be 1.`,
-      user
+      events: user.events
     });
   }
 };

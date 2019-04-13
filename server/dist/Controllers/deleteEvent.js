@@ -56,12 +56,12 @@ exports.deleteEvent = function (req, res) { return __awaiter(_this, void 0, void
                 return [2, res.json({
                         success: true,
                         message: 'Event Deleted Successfully',
-                        user: mongoUser
+                        events: mongoUser.events
                     })];
             case 3: return [2, res.json({
                     success: false,
                     message: 'No Event was found with that I.D',
-                    user: user
+                    events: user.events
                 })];
         }
     });

@@ -24,13 +24,13 @@ export const deleteEvent = async (
     return res.json({
       success: true,
       message: 'Event Deleted Successfully',
-      user: <IUser>mongoUser
+      events: mongoUser.events
     });
   } else {
     return res.json({
       success: false,
       message: 'No Event was found with that I.D',
-      user
+      events: user.events
     });
   }
 };

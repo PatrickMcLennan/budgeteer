@@ -20,7 +20,7 @@ export const postNewEvent = async (
     return res.json({
       success: false,
       message: `That's weird - there's already an event with that I.D.  Please refresh and try again.`,
-      user
+      events: user.events
     });
   } else {
     event.id = uuid.v4();
@@ -30,7 +30,7 @@ export const postNewEvent = async (
     return res.json({
       success: true,
       message: `${event.name} has been saved`,
-      user: mongoUser
+      events: mongoUser.events
     });
   }
 };

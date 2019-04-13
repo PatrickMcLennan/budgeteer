@@ -12,7 +12,7 @@ export interface IClientRequest extends Request {
 export interface IServerResponse extends Response {
   success: boolean;
   message: string;
-  user: IUser;
+  events: IEvent[] | [];
 }
 
 export interface IEvent extends Document {
