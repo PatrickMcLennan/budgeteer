@@ -11,36 +11,40 @@ interface StyledPProps {
   error: boolean;
 }
 
-const divAnimation = keyframes`
+const pAnimation = keyframes`
   0% {
-    transform: opacity(0) translateY(100%);
+    opacity: 0;
+    transform: translateY(100%);
   }
   25% {
-    transform: opacity(1) translateY(0)
+    opacity: 1;
+    transform: translateY(0%);
   }
   75% {
-    transform: opacity(1) translateY(0)
+    opacity: 1;
+    transform: translateY(0%);
   }
   100% {
-    transform: opacity(0) translateY(100%)
+    opacity: 0;
+    transform: translateY(-100%);
   }
 `;
 
-const messageAnimation = keyframes`
+const divAnimation = keyframes`
   0% {
-    transform: scale(50) opacity(0);
+    opacity: 0;
   }
 
   25% {
-    transform: scale(1) opacity(1);
+    opacity: 1;
   }
 
   75% {
-    transform: scale(1) opacity(1);
+    opacity: 1;
   }
 
   100% {
-    transform: scale(50) opacity(0);
+    opacity: 1;
   }
 `;
 
@@ -51,17 +55,18 @@ export const StyledP = styled.p<StyledPProps>`
   font-size: 2rem;
   font-weight: 100;
   letter-spacing: 0.35rem;
-  transform: opacity(0);
-  /* ${(props: StyledPProps) =>
+  transform: translateY(100%);
+
+  ${(props: StyledDivProps) =>
     props.success &&
     css`
-      animation: ${messageAnimation} 2s;
-    `};
-  ${(props: StyledPProps) =>
+      animation: ${pAnimation} 2s;
+    `}
+  ${(props: StyledDivProps) =>
     props.error &&
     css`
-      animation: ${messageAnimation} 2s;
-    `}; */
+      animation: ${pAnimation} 2s;
+    `}
 
   &::before,
   &::after {
@@ -75,16 +80,6 @@ export const StyledP = styled.p<StyledPProps>`
     scale: 0;
     background-color: ${(props: StyledPProps) =>
       props.success ? theme.colors.mainGreen : 'red'};
-    /* ${(props: StyledPProps) =>
-      props.success &&
-      css`
-        animation: ${messageAnimation} 2s;
-      `};
-    ${(props: StyledPProps) =>
-      props.error &&
-      css`
-        animation: ${messageAnimation} 2s;
-      `}; */
   }
 
   &::before {
@@ -104,8 +99,16 @@ export const StyledDiv = styled.div<StyledDivProps>`
   left: 50%;
   z-index: 7;
   text-align: center;
-  transform: opacity(0) translateY(100%);
-/* 
-  ${(props: StyledDivProps) => props.success && `opacity: 1;`}
-  ${(props: StyledDivProps) => props.error && `opacity: 1;`} */
+  opacity: 0;
+  transform: translateX(-50%);
+  ${(props: StyledDivProps) =>
+    props.success &&
+    css`
+      animation: ${divAnimation} 3s;
+    `}
+  ${(props: StyledDivProps) =>
+    props.error &&
+    css`
+      animation: ${divAnimation} 3s;
+    `};
 `;
