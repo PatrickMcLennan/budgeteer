@@ -9,7 +9,10 @@ interface IProps {
 
 const Message: React.SFC<IProps> = ({ success, error, message }) => (
   <StyledDiv data-testid="actionMessage" success={success} error={error}>
-    <StyledP success={success} data-testid="actionMessage__message">
+    <StyledP
+      success={success}
+      error={error}
+      data-testid="actionMessage__message">
       {message}
     </StyledP>
   </StyledDiv>
