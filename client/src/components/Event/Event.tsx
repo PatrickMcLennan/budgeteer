@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IEvent } from '../../utils/dictionary';
-import { StyledDiv } from './Event.style';
+import { StyledDiv, StyledP } from './Event.style';
 import { WEEKDAYSnumber, MONTHSnumber } from '../../utils/datesMaps';
 
 class Event extends React.Component<IEvent, {}> {
@@ -22,15 +22,19 @@ class Event extends React.Component<IEvent, {}> {
     }: IEvent = this.props;
     return (
       <StyledDiv data-testid="event">
-        <p data-testid="event__name">{name}</p>
-        <p data-testid="event__location">{location}</p>
-        <p data-testid="event__description">{description}</p>
-        <p data-testid="event__date">
+        <StyledP data-testid="event__name">{name}</StyledP>
+        <StyledP data-testid="event__location">{location}</StyledP>
+        <StyledP data-testid="event__description">{description}</StyledP>
+        <StyledP data-testid="event__date">
           {WEEKDAYSnumber.get(day)} {MONTHSnumber.get(month)} {date} {year}
-        </p>
-        <p data-testid="event__startTime">{this.formatTime(startTime)}</p>
-        <p data-testid="event__endTime">{this.formatTime(endTime)}</p>
-        <p data-testid="event__cost">${cost}</p>
+        </StyledP>
+        <StyledP data-testid="event__startTime">
+          {this.formatTime(startTime)}
+        </StyledP>
+        <StyledP data-testid="event__endTime">
+          {this.formatTime(endTime)}
+        </StyledP>
+        <StyledP data-testid="event__cost">${cost}</StyledP>
       </StyledDiv>
     );
   }
