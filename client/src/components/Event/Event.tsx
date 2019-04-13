@@ -4,6 +4,10 @@ import { StyledDiv, StyledP } from './Event.style';
 import { WEEKDAYSnumber, MONTHSnumber } from '../../utils/datesMaps';
 
 class Event extends React.Component<IEvent, {}> {
+  componentWillMount() {
+    console.log('hello');
+  }
+
   formatTime = (num: number): string => {
     return num > 12 ? `${num - 12} P.M` : `${num} A.M`;
   };
