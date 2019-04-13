@@ -17,7 +17,7 @@ export const postNewEvent = async (
   const eventExists: boolean = user.events.includes(event);
 
   if (eventExists) {
-    return res.json({
+    return res.send({
       success: false,
       message: `That's weird - there's already an event with that I.D.  Please refresh and try again.`,
       events: user.events
@@ -27,7 +27,7 @@ export const postNewEvent = async (
     mongoUser.events.push(event);
     mongoUser.events = eventSort(mongoUser.events);
     await mongoUser.save();
-    return res.json({
+    return res.send({
       success: true,
       message: `${event.name} has been saved`,
       events: mongoUser.events

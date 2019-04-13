@@ -87,7 +87,9 @@ class App extends React.Component<{}, IState> {
       },
       body: JSON.stringify({ user, event })
     })
-      .then((response: IServerResponse): void => this.serverCallback(response))
+      .then(
+        (response: IServerResponse): void => this.serverCallback(response.body)
+      )
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
