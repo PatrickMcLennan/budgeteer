@@ -8,30 +8,29 @@ interface StyledModalProps {
 const animateOut = keyframes`
   0% {
     opacity: 1;
+    transform: translateY(0);
   }
 
   100% {
     opacity: 0;
-    display: none;
+    transform: translateY(-100%)
   }
 `;
 
 export const StyledModal = styled.section`
+  ${({ theme: { flexin } }: any) => flexin('space-around', 'center', 'column')}
   grid-area: 1 / 1 / -1 / -1;
   margin: 1.5vh 5vh;
   padding: 0 1.5vh;
   text-align: center;
   z-index: 6;
-  transition: all 1s ease-in-out;
-
-  ${(props: StyledModalProps) =>
-    !props.triggerAnimation && theme.flexin('space-around', 'center', 'column')}
+  transition: all 1.5s ease-in-out;
+  transform-origin: bottom;
 
   ${(props: StyledModalProps) =>
     props.triggerAnimation &&
     css`
       animation: ${animateOut} 1s forwards;
-      display: none;
     `}
 `;
 
