@@ -1,10 +1,28 @@
 import styled, { css } from 'styled-components';
+import { theme } from '../../utils/resets.style';
 
 interface StyledButtonProps {
   colorScheme: number;
 }
 
-const StyledButton = styled.button`
+interface StyledH6Props {
+  colorScheme: number;
+}
+
+export const StyledH6 = styled.h6`
+  font-size: 7vh;
+  transition: all 1s;
+  color: ${(props: StyledH6Props) =>
+    props.colorScheme !== 2 ? theme.colors.mainGreen : `red`};
+  border: ${(props: StyledH6Props) =>
+    props.colorScheme !== 2 ? theme.colors.mainGreen : `red`};
+  ${(props: StyledH6Props) =>
+    props.colorScheme === 2
+      ? `transform: rotate(45deg)`
+      : `transform: rotate(0)`}
+`;
+
+export const StyledButton = styled.button`
   ${({ theme: { flexin } }: any) => flexin()}
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   z-index: 10;
@@ -19,21 +37,15 @@ const StyledButton = styled.button`
   overflow: hidden;
   cursor: pointer;
   background-color: transparent;
-  font-size: 7vh;
 
   ${(props: StyledButtonProps) =>
     props.colorScheme !== 2 &&
     css`
       border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
 
-      & > * {
+      & > svg {
         stroke: ${({ theme: { colors } }: any) => colors.mainGreen};
         fill: ${({ theme: { colors } }: any) => colors.mainGreen};
-        color: ${({ theme: { colors } }: any) => colors.mainGreen};
-      }
-
-      & > *:not(svg) {
-        transform: rotate(45deg);
       }
     `}
 
@@ -42,12 +54,9 @@ const StyledButton = styled.button`
     css`
       border: 1px solid red;
 
-      & > * {
+      & > svg {
         stroke: red;
         fill: red;
-        color: red;
       }
     `}
 `;
-
-export default StyledButton;
