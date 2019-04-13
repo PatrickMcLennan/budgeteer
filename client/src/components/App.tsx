@@ -42,17 +42,20 @@ class App extends React.Component<{}, IState> {
     success,
     message,
     events
-  }: IServerResponse): boolean => {
+  }: IServerResponse): void => {
     success
       ? this.setState({
-          user,
+          user: {
+            name: this.state.user.name,
+            facebookId: this.state.user.facebookId,
+            events
+          },
+          currentActions: 1,
           actionMessage: { success: true, error: false, message }
         })
       : this.setState({
-          user,
           actionMessage: { success: false, error: true, message }
         });
-    return success;
   };
 
   getUser: Function = async (): Promise<void> => {
@@ -84,10 +87,8 @@ class App extends React.Component<{}, IState> {
       },
       body: JSON.stringify({ user, event })
     })
-      .then(
-        (response: IServerResponse): boolean => this.serverCallback(response)
-      )
-      .catch((err: IServerResponse): boolean => this.serverCallback(err));
+      .then((response: IServerResponse): void => this.serverCallback(response))
+      .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
   editEvent: Function = (event: IEvent): void => {

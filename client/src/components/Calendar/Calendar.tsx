@@ -38,7 +38,7 @@ class Calendar extends React.Component<IProps, IState> {
         {events.length >= 1 &&
           events.map(
             (event: IEvent): any => (
-              <Event event={event} delayTime={delayTime} />
+              <Event event={event} delayTime={delayTime} key={event.id} />
             )
           )}
       </StyledGrid>
