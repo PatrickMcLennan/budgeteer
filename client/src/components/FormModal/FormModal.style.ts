@@ -9,8 +9,8 @@ export const Backdrop = styled.div`
 export const StyledForm = styled.form`
   ${({ theme: { flexin } }: any) => flexin('center', 'center', 'column')};
   ${({ theme: { elevation } }: any) => elevation.mainInset}
-  margin: 25%;
   background-color: rgba(255, 255, 255, 0.25);
+  margin: 25vh 25vw;
   grid-area: 1 / 1 / -1 / -1;
   z-index: 7;
   background: 5px solid red;
