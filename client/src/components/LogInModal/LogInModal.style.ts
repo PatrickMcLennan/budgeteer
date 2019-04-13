@@ -1,21 +1,38 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import { theme } from '../../utils/resets.style';
 
 interface StyledModalProps {
-  triggerFade: boolean;
-  toggleRender: boolean;
+  triggerAnimation: boolean;
 }
 
+const animateOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+`;
+
 export const StyledModal = styled.section`
-  ${({ theme: { flexin } }: any) => flexin('space-around', 'center', 'column')}
   grid-area: 1 / 1 / -1 / -1;
   margin: 1.5vh 5vh;
   padding: 0 1.5vh;
   text-align: center;
   z-index: 6;
   transition: all 1s ease-in-out;
-  opacity: ${(props: StyledModalProps): any =>
-    props.triggerFade ? `1;` : `0;`};
-  ${(props: StyledModalProps): any => !props.toggleRender && `display: none;`}
+
+  ${(props: StyledModalProps) =>
+    !props.triggerAnimation && theme.flexin('space-around', 'center', 'column')}
+
+  ${(props: StyledModalProps) =>
+    props.triggerAnimation &&
+    css`
+      animation: ${animateOut} 1s forwards;
+      display: none;
+    `}
 `;
 
 export const StyledH2 = styled.h2`
