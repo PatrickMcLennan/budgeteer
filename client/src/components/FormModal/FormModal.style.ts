@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface BackdropProps {
+interface StyledFormProps {
   visible: boolean;
 }
 
@@ -12,7 +12,7 @@ export const Backdrop = styled.div`
   transition: all 0.35s;
   transform: scaleX(0);
 
-  ${(props: BackdropProps) => props.visible && `transform: scale(1);`};
+  ${(props: StyledFormProps) => props.visible && `transform: scale(1);`};
 `;
 
 export const StyledForm = styled.form`
@@ -23,7 +23,13 @@ export const StyledForm = styled.form`
   margin: 25vh 25vw;
   grid-area: 1 / 1 / -1 / -1;
   z-index: 7;
-  background: 5px solid red;
+
+  transform-style: preserve-3d;
+  transition: all 0.5s;
+  opacity: 0;
+  transform: translateY(-100%);
+  ${(props: StyledFormProps) =>
+    props.visible && `transform: translateY(0); opacity: 1;`};
 `;
 
 export const StyledInput = styled.input`

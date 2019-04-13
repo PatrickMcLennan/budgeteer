@@ -63,7 +63,10 @@ class FormModal extends React.Component<IProps, IEvent> {
     }: IEvent = this.state;
     return (
       <>
-        <StyledForm data-testid="form" onSubmit={this.handleSubmit}>
+        <StyledForm
+          data-testid="form"
+          onSubmit={this.handleSubmit}
+          visible={currentActions === 2}>
           <StyledLabel htmlFor="name" data-testid="form__label">
             Name:
             <StyledInput
