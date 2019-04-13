@@ -133,12 +133,11 @@ class App extends React.Component<{}, IState> {
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
           />
-          {currentActions === 2 && (
-            <FormModal
-              createNewEvent={this.createNewEvent}
-              returnToCalendar={this.returnToCalendar}
-            />
-          )}
+          <FormModal
+            createNewEvent={this.createNewEvent}
+            returnToCalendar={this.returnToCalendar}
+            currentActions={currentActions}
+          />
           <Message success={success} error={error} message={message} />
         </>
       </ThemeProvider>

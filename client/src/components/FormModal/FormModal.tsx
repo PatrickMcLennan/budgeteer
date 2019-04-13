@@ -11,6 +11,7 @@ interface IProps {
   event?: IEvent;
   createNewEvent: Function;
   returnToCalendar: Function;
+  currentActions: number;
 }
 
 class FormModal extends React.Component<IProps, IEvent> {
@@ -47,7 +48,7 @@ class FormModal extends React.Component<IProps, IEvent> {
   };
 
   render() {
-    const { returnToCalendar }: IProps = this.props;
+    const { returnToCalendar, currentActions }: IProps = this.props;
     const {
       name,
       location,
@@ -182,7 +183,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
         </StyledForm>
-        <Backdrop onClick={returnToCalendar} />
+        <Backdrop onClick={returnToCalendar} visible={currentActions === 2} />
       </>
     );
   }

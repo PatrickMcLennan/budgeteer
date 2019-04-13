@@ -16,6 +16,7 @@ const renderFormModal = () =>
   render(
     <ThemeProvider theme={theme}>
       <FormModal
+        currentActions={2}
         createNewEvent={createNewEvent}
         event={fakeEvent}
         returnToCalendar={returnToCalendar}
