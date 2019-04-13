@@ -12,21 +12,44 @@ interface IProps {
   currentActions: number;
 }
 
-const LogInModal: React.SFC<IProps> = ({ currentActions }) => (
-  <StyledModal data-testid="logInModal" currentActions={currentActions === 0}>
-    <StyledH2>Plan your day with budgeteer</StyledH2>
+interface IState {
+  rendered: boolean;
+}
 
-    <StyledSVGBox data-testid="logInModal__svgBox">
-      <GithubSVG />
-      <LinkedInSVG />
-    </StyledSVGBox>
+class LogInModal extends React.Component<IProps, {}> {
+  state = {
+    rendered: true
+  };
 
-    <StyledP>Made By Patrick McLennan</StyledP>
+  toggleRender: Function = (): void => {
+    const { currentActions } = this.props;
+    currentActions !== 0
+      ? setTimeout(() => this.setState({ rendered: false }), 1000)
+      : this.setState({ rendered: true });
+  };
 
-    <StyledP>
-      Use Facebook to Log In or Create an account and get started instantly
-    </StyledP>
-  </StyledModal>
-);
+  render(): JSX.Element {
+    const { currentActions } = this.props;
+    const { rendered } = this.state;
+    return (
+      <StyledModal
+        data-testid="logInModal"
+        visible={currentActions === 0}
+        toggleRender={rendered}>
+        <StyledH2>Plan your day with budgeteer</StyledH2>
 
+        <StyledSVGBox data-testid="logInModal__svgBox">
+          <GithubSVG />
+          <LinkedInSVG />
+        </StyledSVGBox>
+
+        <StyledP>Made By Patrick McLennan</StyledP>
+
+        <StyledP>
+          Use Facebook to Log In or Create an account and get started instantly
+        </StyledP>
+      </StyledModal>
+    );
+  }
+}
 export default LogInModal;

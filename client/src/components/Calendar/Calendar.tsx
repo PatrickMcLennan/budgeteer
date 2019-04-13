@@ -18,12 +18,6 @@ class Calendar extends React.Component<IProps, IState> {
     delayTime: 150
   };
 
-  resetAnimationDelay: Function = (): void => {
-    const { currentActions } = this.props;
-    const time: number = currentActions === 1 ? this.state.delayTime : 100;
-    this.setState({});
-  };
-
   render(): JSX.Element {
     const { delayTime } = this.state;
     const { currentActions, events } = this.props;
