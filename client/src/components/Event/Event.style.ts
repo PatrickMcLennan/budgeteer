@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const StyledDiv = styled.div`
-  position: relative;
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   ${({ theme: { flexin } }: any) =>
     flexin(
@@ -17,13 +16,12 @@ export const StyledDiv = styled.div`
   cursor: pointer;
   z-index: 6;
 
-  & > * {
-    z-index: 6;
-  }
-
   &:hover,
   &:active,
-  &:focus {
+  &:focus,
+  & > p:hover,
+  & > p:active,
+  & > p:focus {
     transform: scale(1.15);
   }
 `;
@@ -32,5 +30,4 @@ export const StyledP = styled.p`
   font-size: 2rem;
   font-weight: 100;
   text-transform: uppercase;
-  background: purple;
 `;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SocialSVG } from './SVG.style';
 
-const LinkedInSVG = () => (
+const LinkedInSVG = (): JSX.Element => (
   <a
     data-testid="linkedInSVG__a"
     href="https://www.linkedin.com/in/patrick-mclennan-42002a172"

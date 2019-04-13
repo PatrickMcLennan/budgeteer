@@ -60,9 +60,9 @@ class App extends React.Component<{}, IState> {
     this.returnToCalendar();
   };
 
-  createNewEvent: Function = (event: IEvent): Promise<boolean> => {
+  createNewEvent: Function = (event: IEvent): void => {
     const { user } = this.state;
-    const serverCall = fetch('http://localhost:4000/newEvent', {
+    fetch('http://localhost:4000/newEvent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -73,7 +73,6 @@ class App extends React.Component<{}, IState> {
         (response: IServerResponse): boolean => this.serverCallback(response)
       )
       .catch((err: IServerResponse): boolean => this.serverCallback(err));
-    return serverCall;
   };
 
   editEvent: Function = (event: IEvent): void => {
@@ -120,7 +119,7 @@ class App extends React.Component<{}, IState> {
     return actions.get(num);
   };
 
-  render() {
+  render(): JSX.Element {
     const { currentActions, actionMessage, user } = this.state;
     const { message, success, error } = actionMessage;
     return (

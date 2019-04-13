@@ -7,7 +7,7 @@ class Event extends React.Component<IEvent, {}> {
   formatTime = (num: number): string => {
     return num > 12 ? `${num - 12} P.M` : `${num} A.M`;
   };
-  render() {
+  render(): JSX.Element {
     const {
       name,
       location,

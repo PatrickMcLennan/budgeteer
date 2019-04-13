@@ -12,7 +12,7 @@ interface IState {
 }
 
 class ActionButton extends React.Component<IProps, IState> {
-  getDisplayMap = (num: number) => {
+  getDisplayMap = (num: number): JSX.Element => {
     const displays = new Map<number, JSX.Element>();
     displays.set(0, <LogInSVG />);
     displays.set(1, <h6>x</h6>); // add event, css rotate into +
@@ -21,7 +21,7 @@ class ActionButton extends React.Component<IProps, IState> {
     return displays.get(num);
   };
 
-  render() {
+  render(): JSX.Element {
     const { action, currentActions } = this.props;
     return (
       <StyledButton data-testid="actionButton" onClick={action}>

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface StyledH6Props {
+  visible: boolean;
+}
+
 export const StyledH6 = styled.h6`
   grid-area: 2 / 1 / -1 / -1;
   text-align: center;
@@ -7,8 +11,14 @@ export const StyledH6 = styled.h6`
   color: black;
   font-size: 2.5rem;
   font-weight: 100;
-  opacity: 0.5;
+  visibility: none;
+  transition: opacity 2.5s;
+  opacity: 0;
+
+  ${(props: StyledH6Props) =>
+    props.visible && `opacity: .5; visible: visible;`};
 `;
+
 export const StyledGrid = styled.section`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   position: relative;

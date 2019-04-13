@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyledLogIn } from './SVG.style';
 
-const LogInSVG = () => (
+const LogInSVG = (): JSX.Element => (
   <StyledLogIn
     data-testid="logInSVG"
     version="1.1"

@@ -47,7 +47,7 @@ class FormModal extends React.Component<IProps, IEvent> {
     validCall ? returnToCalendar() : console.error('invalid call');
   };
 
-  render() {
+  render(): JSX.Element {
     const { returnToCalendar, currentActions }: IProps = this.props;
     const {
       name,

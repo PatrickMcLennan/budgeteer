@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SocialSVG } from './SVG.style';
 
-const GithubSVG = () => (
+const GithubSVG = (): JSX.Element => (
   <a
     data-testid="githubSVG__a"
     href="https://www.github.com/patrickmclennan"
