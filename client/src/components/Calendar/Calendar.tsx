@@ -5,7 +5,7 @@ import { StyledGrid, StyledH6 } from './Calendar.style';
 import Nav from '../Nav/Nav';
 
 interface IProps {
-  events: IEvent[] | null;
+  events: IEvent[];
   currentActions: number;
 }
 
@@ -15,21 +15,13 @@ interface IState {
 
 class Calendar extends React.Component<IProps, IState> {
   state = {
-    delayTime: 100
-  };
-
-  incrementAnimationDelay: Function = (): void => {
-    const { events } = this.props;
-    events
-      ? this.setState({ delayTime: this.state.delayTime * events.length })
-      : this.setState({ delayTime: 0.2 });
+    delayTime: 150
   };
 
   resetAnimationDelay: Function = (): void => {
     const { currentActions } = this.props;
-    if (currentActions !== 1) {
-      this.setState({ delayTime: 0 });
-    }
+    const time: number = currentActions === 1 ? this.state.delayTime : 100;
+    this.setState({});
   };
 
   render(): JSX.Element {
