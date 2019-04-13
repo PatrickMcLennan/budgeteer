@@ -15,12 +15,21 @@ interface IState {
 
 class Calendar extends React.Component<IProps, IState> {
   state = {
-    delayTime: 0
+    delayTime: 100
   };
 
-  incrementAnimationDelay = (): number => {
-    this.setState({ delayTime: +0.2 });
-    return this.state.delayTime;
+  incrementAnimationDelay: Function = (): void => {
+    const { events } = this.props;
+    events
+      ? this.setState({ delayTime: this.state.delayTime * events.length })
+      : this.setState({ delayTime: 0.2 });
+  };
+
+  resetAnimationDelay: Function = (): void => {
+    const { currentActions } = this.props;
+    if (currentActions !== 1) {
+      this.setState({ delayTime: 0 });
+    }
   };
 
   render(): JSX.Element {
@@ -38,7 +47,11 @@ class Calendar extends React.Component<IProps, IState> {
         {events.length >= 1 &&
           events.map(
             (event: IEvent): any => (
-              <Event event={event} delayTime={delayTime} key={event.id} />
+              <Event
+                event={event}
+                delayTime={delayTime * events.indexOf(event)}
+                key={event.id}
+              />
             )
           )}
       </StyledGrid>
