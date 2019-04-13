@@ -39,8 +39,8 @@ class App extends React.Component<{}, IState> {
   }
 
   serverCallback: Function = ({
-    message,
     success,
+    message,
     user
   }: IServerResponse): boolean => {
     success
