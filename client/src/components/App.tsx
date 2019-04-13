@@ -38,15 +38,11 @@ class App extends React.Component<{}, IState> {
     return fbLoginInit();
   }
 
-  componentWillUnmount(): IState {
-    return this.state;
-  }
-
   serverCallback: Function = ({
     message,
     success,
     user
-  }: IServerResponse): void => {
+  }: IServerResponse): boolean => {
     success
       ? this.setState({
           user,
@@ -58,6 +54,7 @@ class App extends React.Component<{}, IState> {
           currentActions: 1,
           actionMessage: { success: false, error: true, message }
         });
+    return success;
   };
 
   getUser: Function = async (): Promise<void> => {

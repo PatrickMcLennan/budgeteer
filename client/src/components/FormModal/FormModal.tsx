@@ -37,9 +37,10 @@ class FormModal extends React.Component<IProps, IEvent> {
   // React.FormEvent<HTMLFormElement>)
 
   handleSubmit = async (e: any): Promise<void> => {
-    const { createNewEvent } = this.props;
+    const { createNewEvent, returnToCalendar } = this.props;
     e.preventDefault();
-    return await createNewEvent(this.state);
+    const validCall = await createNewEvent(this.state);
+    validCall ? returnToCalendar() : console.error('damnit');
   };
 
   render() {
