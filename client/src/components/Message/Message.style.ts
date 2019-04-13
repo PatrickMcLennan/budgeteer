@@ -31,17 +31,17 @@ export const StyledP = styled.p<StyledMessageProps>`
   font-size: 2rem;
   font-weight: 100;
   letter-spacing: 0.35rem;
-  transform: scale(50) opacity(0) forwards;
+  transform: scale(50) opacity(0);
   ${(props: StyledMessageProps) =>
     props.success &&
     css`
       animation: ${messageAnimation} 2s;
-    `}
+    `};
   ${(props: StyledMessageProps) =>
     props.error &&
     css`
       animation: ${messageAnimation} 2s;
-    `}
+    `};
 
   &::before,
   &::after {
@@ -55,7 +55,16 @@ export const StyledP = styled.p<StyledMessageProps>`
     scale: 0;
     background-color: ${(props: StyledMessageProps) =>
       props.success ? theme.colors.mainGreen : 'red'};
-    transform: scale(1);
+    ${(props: StyledMessageProps) =>
+      props.success &&
+      css`
+        animation: ${messageAnimation} 2s;
+      `};
+    ${(props: StyledMessageProps) =>
+      props.error &&
+      css`
+        animation: ${messageAnimation} 2s;
+      `};
   }
 
   &::before {
