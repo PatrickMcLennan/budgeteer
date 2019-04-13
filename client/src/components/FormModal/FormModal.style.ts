@@ -9,6 +9,7 @@ export const Backdrop = styled.div`
 export const StyledForm = styled.form`
   ${({ theme: { flexin } }: any) => flexin('center', 'center', 'column')};
   ${({ theme: { elevation } }: any) => elevation.mainInset}
+  position: relative;
   background-color: rgba(255, 255, 255, 0.25);
   margin: 25vh 25vw;
   grid-area: 1 / 1 / -1 / -1;
@@ -19,5 +20,8 @@ export const StyledForm = styled.form`
 export const StyledInput = styled.input`
   grid-area: 1 / 1 / -1 / -1;
   z-index: 7;
-  border: 0.5px solid black;
+`;
+
+export const StyledLabel = styled.label`
+  ${({ theme: { flexin } }: any) => flexin('center', 'flex-start', 'column')}
 `;
