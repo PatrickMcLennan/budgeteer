@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IEvent } from '../../utils/dictionary';
-import { StyledDiv, StyledP } from './Event.style';
+import { StyledDiv, StyledP, StyledButton } from './Event.style';
 import { WEEKDAYSnumber, MONTHSnumber } from '../../utils/datesMaps';
 
 interface IProps {
@@ -53,6 +53,7 @@ class Event extends React.Component<IProps, {}> {
           {this.formatTime(endTime)}
         </StyledP>
         <StyledP data-testid="event__cost">${cost}</StyledP>
+        <StyledButton>Edit</StyledButton>
       </StyledDiv>
     );
   }

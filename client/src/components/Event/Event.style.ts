@@ -4,7 +4,22 @@ interface StyledDivProps {
   triggerAnimation: number;
 }
 
+export const StyledButton = styled.button`
+  ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
+  ${({ theme: { elevation } }: any) => elevation.mainInset}
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  padding: 1rem 2rem;
+  background: transparent;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.5);
+`;
+
 export const StyledDiv = styled.div`
+  position: relative;
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   ${({ theme: { flexin } }: any) =>
     flexin(

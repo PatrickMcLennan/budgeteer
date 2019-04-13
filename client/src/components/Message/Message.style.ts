@@ -2,6 +2,7 @@ import styled, { keyframes, css } from 'styled-components';
 import { theme } from '../../utils/resets.style';
 
 interface StyledDivProps {
+  render: boolean;
   success: boolean;
   error: boolean;
 }
@@ -44,7 +45,7 @@ const divAnimation = keyframes`
   }
 
   100% {
-    opacity: 1;
+    opacity: 0;
   }
 `;
 
@@ -60,12 +61,12 @@ export const StyledP = styled.p<StyledPProps>`
   ${(props: StyledDivProps) =>
     props.success &&
     css`
-      animation: ${pAnimation} 2s;
+      animation: ${pAnimation} 2.5s;
     `}
   ${(props: StyledDivProps) =>
     props.error &&
     css`
-      animation: ${pAnimation} 2s;
+      animation: ${pAnimation} 2.5s;
     `}
 
   &::before,
@@ -92,7 +93,7 @@ export const StyledP = styled.p<StyledPProps>`
 `;
 
 export const StyledDiv = styled.div<StyledDivProps>`
-  ${({ theme: { flexin } }: any) => flexin('center', 'center', 'column')}
+  display: none;
   overflow: hidden;
   position: absolute;
   bottom: 10rem;
@@ -101,14 +102,17 @@ export const StyledDiv = styled.div<StyledDivProps>`
   text-align: center;
   opacity: 0;
   transform: translateX(-50%);
+
+  ${(props: StyledDivProps) =>
+    props.render && theme.flexin('center', 'center', 'column')}
   ${(props: StyledDivProps) =>
     props.success &&
     css`
-      animation: ${divAnimation} 3s;
+      animation: ${divAnimation} 2.5s;
     `}
   ${(props: StyledDivProps) =>
     props.error &&
     css`
-      animation: ${divAnimation} 3s;
+      animation: ${divAnimation} 2.5s;
     `};
 `;

@@ -105,6 +105,9 @@ class App extends React.Component<{}, IState> {
       },
       body: JSON.stringify({ facebookId, event })
     })
+      .then(
+        (response: IServerResponse): Promise<IServerResponse> => response.json()
+      )
       .then((response: IServerResponse): void => this.serverCallback(response))
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
@@ -119,6 +122,9 @@ class App extends React.Component<{}, IState> {
       },
       body: JSON.stringify({ facebookId, event })
     })
+      .then(
+        (response: IServerResponse): Promise<IServerResponse> => response.json()
+      )
       .then((response: IServerResponse): void => this.serverCallback(response))
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
