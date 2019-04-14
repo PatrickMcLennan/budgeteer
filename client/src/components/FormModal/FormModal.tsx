@@ -41,9 +41,9 @@ class FormModal extends React.Component<IProps, IState> {
 
   componentWillMount(): void {
     const { event } = this.props;
-    if (event) {
-      return this.setState({ event });
-    }
+    return event
+      ? this.setState({ event, triggerAnimation: true })
+      : this.setState({ triggerAnimation: true });
   }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -85,7 +85,7 @@ class FormModal extends React.Component<IProps, IState> {
         <StyledForm
           data-testid="form"
           onSubmit={this.handleSubmit}
-          visible={currentActions === 2}>
+          triggerAnimation={currentActions === 2}>
           <StyledH2>{name.length >= 1 ? name : ` . . `}</StyledH2>
           <StyledLabel htmlFor="name" data-testid="form__label">
             Name:

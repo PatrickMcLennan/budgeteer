@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StyledFormProps {
-  visible: boolean;
+  triggerAnimation: boolean;
 }
 
 export const StyledH2 = styled.h2`
@@ -12,6 +12,7 @@ export const StyledH2 = styled.h2`
 `;
 
 export const Backdrop = styled.div`
+  display: none;
   grid-area: 1 / 1 / -1 / -1;
   z-index: 6;
   background: rgba(0, 0, 0, 0.25);
@@ -19,7 +20,8 @@ export const Backdrop = styled.div`
   transform-origin: bottom;
   transition: all 0.35s;
   transform: scaleY(0);
-  ${(props: StyledFormProps) => props.visible && `transform: scaleY(1);`};
+  ${(props: StyledFormProps) =>
+    props.triggerAnimation && `transform: scaleY(1); display: inline-block;`};
 `;
 
 export const StyledForm = styled.form`
