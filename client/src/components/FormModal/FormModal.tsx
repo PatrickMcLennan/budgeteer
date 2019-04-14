@@ -84,7 +84,7 @@ class FormModal extends React.Component<IProps, IEvent> {
           <StyledLabel htmlFor="name" data-testid="form__label">
             <p>Name:</p>
             <StyledInput
-              placeholder="Get laundry money from the bank / etc.."
+              placeholder="Get laundry money"
               data-testid="form__name"
               type="text"
               value={name}
@@ -96,7 +96,7 @@ class FormModal extends React.Component<IProps, IEvent> {
           <StyledLabel htmlFor="location" data-testid="form__label">
             <p>Location:</p>
             <StyledInput
-              placeholder="ATM by work / Toronto / etc.."
+              placeholder="ATM by work"
               data-testid="form__location"
               type="text"
               value={location}
@@ -108,7 +108,7 @@ class FormModal extends React.Component<IProps, IEvent> {
           <StyledLabel htmlFor="description" data-testid="form__label">
             <p>Notes:</p>
             <StyledInput
-              placeholder="get loonies / quarters / etc.."
+              placeholder="loonies & quarters"
               data-testid="form__description"
               type="text"
               value={description}

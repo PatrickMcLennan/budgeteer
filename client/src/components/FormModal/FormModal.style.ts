@@ -53,6 +53,7 @@ export const StyledH2 = styled.h2`
   text-align: center;
   font-size: 7.5rem;
   font-style: italic;
+  line-height: 1.25;
   color: rgba(0, 0, 0, 0.35);
 `;
 
@@ -85,7 +86,7 @@ export const StyledForm = styled.form`
   position: relative;
   display: none;
 
-  padding: 5vw 5vw;
+  padding: 5vw;
   position: relative;
   background-color: rgba(255, 255, 255, 0.9);
   margin: auto 5vw;
@@ -107,11 +108,16 @@ export const StyledForm = styled.form`
       display: block;
       animation: ${formAnimateOut} 0.75s forwards;
     `}
+
+  & input:invalid ~ input[type="submit"] {
+    border-bottom: 1px solid red;
+    border-top: 1px solid red;
+  }
 `;
 
 export const StyledInput = styled.input`
   position: relative;
-  margin: 1rem auto;
+  margin: 1rem 2rem;
   border: none;
   z-index: 7;
   text-align: left;
@@ -119,27 +125,11 @@ export const StyledInput = styled.input`
   padding: 1rem;
   text-transform: none;
   background: none;
+  text-align: right;
 
-  &::before,
-  &::after {
-    position: absolute;
-    height: 1px;
-    content: '';
-    display: block;
-    left: 10%;
-    right: 10%;
-  }
-
-  &::before {
-    top: -5%;
-  }
-  &::after {
-    bottom: 5%;
-  }
-
-  &:invalid::before,
-  &:invalid::after {
-    background-color: red;
+  &:invalid {
+    border-bottom: 1px solid red;
+    border-top: 1px solid red;
   }
 
   &:valid {
