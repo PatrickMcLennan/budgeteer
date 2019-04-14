@@ -108,11 +108,6 @@ export const StyledForm = styled.form`
       display: block;
       animation: ${formAnimateOut} 0.75s forwards;
     `}
-
-  & input:invalid ~ input[type="submit"] {
-    border-bottom: 1px solid red;
-    border-top: 1px solid red;
-  }
 `;
 
 export const StyledInput = styled.input`
@@ -127,14 +122,17 @@ export const StyledInput = styled.input`
   background: none;
   text-align: right;
 
-  &:invalid {
-    border-bottom: 1px solid red;
-    border-top: 1px solid red;
+  &:invalid:not([type='submit']) {
+    border-right: 3px solid red;
   }
 
-  &:valid {
-    border-bottom: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
-    border-top: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
+  &:valid:not([type='submit']) {
+    border-right: 3px solid ${({ theme: { colors } }: any) => colors.mainGreen};
+  }
+
+  &[type='submit'] {
+    text-transform: uppercase;
+    ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
   }
 
   &::placeholder {
@@ -155,5 +153,10 @@ export const StyledLabel = styled.label`
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
+    border: 1px solid red;
+  }
+
+  & > input:invalid ~ label > input[type='submit'] {
+    border: 1px solid red;
   }
 `;
