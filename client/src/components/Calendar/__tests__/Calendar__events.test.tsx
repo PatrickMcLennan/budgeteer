@@ -51,12 +51,14 @@ const events: IEvent[] = [
   }
 ];
 const showEventForm: Function = jest.fn(() => events[0]);
+const setCurrentEvent: Function = jest.fn();
 
 const renderCalendar = () =>
   render(
     <ThemeProvider theme={theme}>
       <Calendar
         showEventForm={showEventForm}
+        setCurrentEvent={setCurrentEvent}
         events={events}
         currentActions={1}
       />

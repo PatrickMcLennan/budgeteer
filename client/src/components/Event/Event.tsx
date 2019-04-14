@@ -5,6 +5,7 @@ import { WEEKDAYSnumber, MONTHSnumber } from '../../utils/datesMaps';
 
 interface IProps {
   showEventForm: Function;
+  setCurrentEvent: Function;
   delayTime: number;
   event: IEvent;
 }
@@ -20,6 +21,12 @@ class Event extends React.Component<IProps, {}> {
       this.props.delayTime
     );
   }
+
+  openEditForm = (event: IEvent): void => {
+    const { setCurrentEvent, showEventForm } = this.props;
+    setCurrentEvent(event);
+    return showEventForm();
+  };
 
   formatTime = (num: number): string => {
     return num > 12 ? `${num - 12} P.M` : `${num} A.M`;
@@ -54,7 +61,7 @@ class Event extends React.Component<IProps, {}> {
           {this.formatTime(endTime)}
         </StyledP>
         <StyledP data-testid="event__cost">${cost}</StyledP>
-        <StyledButton onClick={(): void => showEventForm(event)}>
+        <StyledButton onClick={(): void => this.openEditForm(event)}>
           Edit
         </StyledButton>
       </StyledDiv>

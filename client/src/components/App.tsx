@@ -141,8 +141,12 @@ class App extends React.Component<{}, IState> {
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
+  setCurrentEvent: Function = (event: IEvent): void => {
+    this.setState({ currentEvent: event });
+  };
+
   showEventForm: Function = (event: IEvent): void => {
-    this.setState({ currentActions: 2, currentEvent: event });
+    this.setState({ currentActions: 2 });
   };
 
   returnToCalendar: Function = (): void => {
@@ -167,6 +171,7 @@ class App extends React.Component<{}, IState> {
           <LogInModal currentActions={currentActions} />
           <Calendar
             events={user.events}
+            setCurrentEvent={this.setCurrentEvent}
             showEventForm={this.showEventForm}
             currentActions={currentActions}
           />

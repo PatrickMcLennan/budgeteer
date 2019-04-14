@@ -11,6 +11,7 @@ afterEach(cleanup);
 
 const events: [] = [];
 const showEventForm: Function = jest.fn();
+const setCurrentEvent: Function = jest.fn();
 
 const renderCalendar = () =>
   render(
@@ -18,6 +19,7 @@ const renderCalendar = () =>
       <Calendar
         events={events}
         showEventForm={showEventForm}
+        setCurrentEvent={setCurrentEvent}
         currentActions={1}
       />
     </ThemeProvider>

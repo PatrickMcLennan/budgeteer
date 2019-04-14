@@ -24,11 +24,17 @@ export const fakeEvent: IEvent = {
 };
 
 const showEventForm: Function = jest.fn((event: IEvent): IEvent => event);
+const setCurrentEvent: Function = jest.fn();
 
 const renderEvent = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Event showEventForm={showEventForm} event={fakeEvent} delayTime={0} />
+      <Event
+        showEventForm={showEventForm}
+        setCurrentEvent={setCurrentEvent}
+        event={fakeEvent}
+        delayTime={0}
+      />
     </ThemeProvider>
   );
 
