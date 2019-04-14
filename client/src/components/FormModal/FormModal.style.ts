@@ -5,12 +5,10 @@ interface StyledFormProps {
 }
 
 export const StyledH2 = styled.h2`
-  grid-area: 1 / 1 / 2 / -1;
   text-align: center;
   font-size: 7.5rem;
   font-style: italic;
   color: rgba(0, 0, 0, 0.35);
-  line-height: 3.5;
 `;
 
 export const Backdrop = styled.div`
@@ -28,13 +26,13 @@ export const StyledForm = styled.form`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
 
   display: grid;
-  grid-template-rows: 100px minmax(30px, 50px) minmax(30px, 50px) 200px;
-  grid-template-columns: repeat(minmax(175px, 250px));
+  grid-template-rows: 100px repeat(auto-fit, 100px);
+  grid-template-columns: repeat(auto-fit, 100px);
 
   padding: 2.5vh 5vw;
   position: relative;
   background-color: rgba(255, 255, 255, 0.9);
-  margin: 10vh 10vw;
+  margin: auto 5vw;
   grid-area: 1 / 1 / -1 / -1;
   z-index: 7;
 
@@ -45,16 +43,25 @@ export const StyledForm = styled.form`
   ${(props: StyledFormProps) =>
     props.visible && `transform: translateY(0); opacity: 1;`};
 
-  & label[for='name'] {
-    grid-area: 2 / 1 / 3 / 2;
+  & > * {
+    align-self: stretch;
+    justify-self: stretch;
   }
 
+  & h2 {
+    grid-area: 1 / 1 / 2 / -1;
+  }
+
+  & label[for='name'] {
+    grid-area: 2 / 1 / 3 / 3;
+  }
+  /* 
   & label[for='location'] {
-    grid-area: 3 / 1 / 4 / 4;
+    grid-area: 3 / 1 / 4 / 3;
   }
 
   & label[for='description'] {
-    grid-area: 2 / 2 / 3 / 3;
+    grid-area: 2 / 4 / 3 / -1;
   }
 
   & label[for='year'] {
@@ -86,8 +93,8 @@ export const StyledForm = styled.form`
   }
 
   & label[for='submit'] {
-    grid-area: -1 / 1 / -1 / -1;
-  }
+    grid-area: 5 / 1 / 6 / -1;
+  } */
 `;
 
 export const StyledInput = styled.input`
