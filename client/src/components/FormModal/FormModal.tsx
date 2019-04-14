@@ -49,7 +49,7 @@ class FormModal extends React.Component<IProps, IState> {
   animateOut: Function = () => {
     const { returnToCalendar } = this.props;
     this.setState({ render: false });
-    return returnToCalendar();
+    return setTimeout(() => returnToCalendar(), 750);
   };
 
   handleChange: Function = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -64,12 +64,7 @@ class FormModal extends React.Component<IProps, IState> {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    const {
-      createNewEvent,
-      returnToCalendar,
-      event,
-      editEvent
-    }: IProps = this.props;
+    const { createNewEvent, event, editEvent }: IProps = this.props;
     event ? await editEvent(this.state) : await createNewEvent(this.state);
     return this.animateOut();
   };

@@ -145,18 +145,15 @@ class App extends React.Component<{}, IState> {
     return this.setState({ currentEvent: event });
   };
 
-  showEventForm: Function = (event: IEvent): void => {
+  showEventForm: Function = (): void => {
     return this.setState({ currentActions: 2 });
   };
 
   returnToCalendar: Function = (): any => {
-    return setTimeout(
-      () => this.setState({ currentActions: 1, currentEvent: null }),
-      750
-    );
+    return this.setState({ currentActions: 1, currentEvent: null });
   };
 
-  actionButtonMap: Function = (num: number): Function => {
+  actionButtonMap: Function = (num: number): Function | any => {
     const actions = new Map<number, Function>();
     actions.set(0, this.getUser);
     actions.set(1, this.showEventForm);
