@@ -26,6 +26,28 @@ const formAnimateOut = keyframes`
   }
 `;
 
+const backdropAnimateIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+`;
+
+const backdropAnimateOut = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+`;
+
 export const StyledH2 = styled.h2`
   text-align: center;
   font-size: 7.5rem;
@@ -40,10 +62,21 @@ export const Backdrop = styled.div`
   background: rgba(0, 0, 0, 0.25);
 
   transform-origin: bottom;
-  transition: all 0.35s;
   transform: scaleY(0);
+
   ${(props: StyledFormProps) =>
-    props.render && `transform: scaleY(1); display: block;`};
+    props.render &&
+    css`
+      display: block;
+      animation: ${backdropAnimateIn} 0.75s forwards;
+    `};
+
+  ${(props: StyledFormProps) =>
+    !props.render &&
+    css`
+      display: block;
+      animation: ${backdropAnimateOut} 0.75s forwards;
+    `};
 `;
 
 export const StyledForm = styled.form`
