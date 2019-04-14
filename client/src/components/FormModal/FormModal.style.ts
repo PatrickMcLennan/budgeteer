@@ -26,8 +26,8 @@ export const StyledForm = styled.form`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
 
   display: grid;
-  grid-template-rows: 100px repeat(auto-fit, 100px);
-  grid-template-columns: repeat(auto-fit, 100px);
+  grid-template-rows: 150px repeat(auto-fit, 150px);
+  grid-template-columns: repeat(auto-fit, 150px);
 
   padding: 2.5vh 5vw;
   position: relative;
@@ -43,25 +43,27 @@ export const StyledForm = styled.form`
   ${(props: StyledFormProps) =>
     props.visible && `transform: translateY(0); opacity: 1;`};
 
-  & > * {
-    align-self: stretch;
-    justify-self: stretch;
+  & > *:not(h2) {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
   }
 
   & h2 {
     grid-area: 1 / 1 / 2 / -1;
   }
+  /*
 
   & label[for='name'] {
     grid-area: 2 / 1 / 3 / 3;
   }
-  /* 
+
   & label[for='location'] {
-    grid-area: 3 / 1 / 4 / 3;
+    grid-area: 4 / 1 / 5 / 3;
   }
 
   & label[for='description'] {
-    grid-area: 2 / 4 / 3 / -1;
+    grid-area: 2 / 4 / 5 / -1;
   }
 
   & label[for='year'] {
@@ -69,16 +71,17 @@ export const StyledForm = styled.form`
   }
 
   & label[for='month'] {
-    grid-area: 4 / 2 / 5 / 3;
+    grid-area: 5 / 4 / 6 / 5;
   }
 
   & label[for='day'] {
-    grid-area: 5 / 3 / 3 / 4;
+    grid-area: 5 / 3 / 6 / 4;
   }
 
   & label[for='date'] {
-    grid-area: 2 / 3 / 3 / -1;
+    grid-area: 5 / 1 / 6 / 3;
   }
+
 
   & label[for='startTime'] {
     grid-area: 2 / 3 / 3 / -1;
