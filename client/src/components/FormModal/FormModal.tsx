@@ -9,7 +9,7 @@ import {
 } from './FormModal.style';
 
 interface IProps {
-  event?: IEvent;
+  event: IEvent | null;
   createNewEvent: Function;
   returnToCalendar: Function;
   currentActions: number;
@@ -17,23 +17,34 @@ interface IProps {
   deleteEvent: Function;
 }
 
-class FormModal extends React.Component<IProps, IEvent> {
-  state: IEvent = {
-    name: this.props.event ? this.props.event.name : '',
-    location: this.props.event ? this.props.event.location : '',
-    description: this.props.event ? this.props.event.description : '',
-    year: this.props.event ? this.props.event.year : new Date().getFullYear(),
-    month: this.props.event ? this.props.event.month : new Date().getMonth(),
-    day: this.props.event ? this.props.event.day : new Date().getDay(),
-    date: this.props.event ? this.props.event.date : new Date().getDate(),
-    startTime: this.props.event
-      ? this.props.event.startTime
-      : new Date().getHours(),
-    endTime: this.props.event
-      ? this.props.event.endTime
-      : new Date().getHours() + 3,
-    cost: this.props.event ? this.props.event.cost : 0
+interface IState {
+  event: IEvent;
+  triggerAnimation: boolean;
+}
+
+class FormModal extends React.Component<IProps, IState> {
+  state: IState = {
+    event: {
+      name: '',
+      location: '',
+      description: '',
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+      day: new Date().getDay(),
+      date: new Date().getDate(),
+      startTime: new Date().getHours(),
+      endTime: new Date().getHours() + 3,
+      cost: 0
+    },
+    triggerAnimation: false
   };
+
+  componentWillMount(): void {
+    const { event } = this.props;
+    if (event) {
+      return this.setState({ event });
+    }
+  }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let { id, value } = e.target;
@@ -68,7 +79,7 @@ class FormModal extends React.Component<IProps, IEvent> {
       startTime,
       endTime,
       cost
-    }: IEvent = this.state;
+    }: IEvent = this.state.event;
     return (
       <>
         <StyledForm

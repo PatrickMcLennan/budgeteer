@@ -17,6 +17,7 @@ interface IState {
     error: boolean;
     message: string;
   };
+  currentEvent: IEvent | null;
 }
 
 class App extends React.Component<{}, IState> {
@@ -26,6 +27,7 @@ class App extends React.Component<{}, IState> {
       facebookId: 0,
       events: []
     },
+    currentEvent: null,
     currentActions: 0,
     actionMessage: {
       success: false,
@@ -139,23 +141,12 @@ class App extends React.Component<{}, IState> {
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
-  showEventForm: Function = (event: IEvent): JSX.Element => {
-    const { currentActions } = this.state;
-    this.setState({ currentActions: 2 });
-    return (
-      <FormModal
-        event={event}
-        currentActions={currentActions}
-        returnToCalendar={this.returnToCalendar}
-        createNewEvent={this.createNewEvent}
-        editEvent={this.editEvent}
-        deleteEvent={this.deleteEvent}
-      />
-    );
+  showEventForm: Function = (event: IEvent): void => {
+    this.setState({ currentActions: 2, currentEvent: event });
   };
 
   returnToCalendar: Function = (): void => {
-    return this.setState({ currentActions: 1 });
+    return this.setState({ currentActions: 1, currentEvent: null });
   };
 
   actionButtonMap: Function = (num: number): Function => {
@@ -167,7 +158,7 @@ class App extends React.Component<{}, IState> {
   };
 
   render(): JSX.Element {
-    const { currentActions, actionMessage, user } = this.state;
+    const { currentActions, actionMessage, user, currentEvent } = this.state;
     const { message, success, error } = actionMessage;
     return (
       <ThemeProvider theme={theme}>
@@ -183,13 +174,16 @@ class App extends React.Component<{}, IState> {
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
           />
-          <FormModal
-            currentActions={currentActions}
-            returnToCalendar={this.returnToCalendar}
-            createNewEvent={this.createNewEvent}
-            editEvent={this.editEvent}
-            deleteEvent={this.deleteEvent}
-          />
+          {currentActions === 2 && (
+            <FormModal
+              event={currentEvent}
+              currentActions={currentActions}
+              returnToCalendar={this.returnToCalendar}
+              createNewEvent={this.createNewEvent}
+              editEvent={this.editEvent}
+              deleteEvent={this.deleteEvent}
+            />
+          )}
           {success && (
             <Message success={success} error={error} message={message} />
           )}

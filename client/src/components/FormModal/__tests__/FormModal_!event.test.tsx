@@ -17,6 +17,7 @@ const renderFormModal = () =>
   render(
     <ThemeProvider theme={theme}>
       <FormModal
+        event={null}
         currentActions={2}
         createNewEvent={createNewEvent}
         editEvent={editEvent}
