@@ -94,6 +94,7 @@ export const StyledP = styled.p<StyledPProps>`
 
 export const StyledDiv = styled.div<StyledDivProps>`
   display: none;
+  background-color: rgba(0,0,0,.015);
   overflow: hidden;
   position: absolute;
   bottom: 10rem;

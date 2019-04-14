@@ -9,13 +9,22 @@ export const StyledButton = styled.button`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   position: absolute;
   bottom: 5%;
-  right: 5%;
+  left: 5%;
   padding: 1rem 2rem;
   background: transparent;
   font-size: 1.75rem;
   text-transform: uppercase;
   font-style: italic;
   color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
+    transform: scale(1.075) translateX(7.5%);
+  }
 `;
 
 export const StyledDiv = styled.div`
@@ -35,6 +44,7 @@ export const StyledDiv = styled.div`
   transform-origin: top;
   cursor: pointer;
   z-index: 6;
+  text-align: right;
 
   ${(props: StyledDivProps) =>
     props.triggerAnimation && `transform: scaleY(1)`};

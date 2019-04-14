@@ -5,9 +5,10 @@ interface StyledFormProps {
 }
 
 export const StyledH2 = styled.h2`
-  font-size: 3rem;
+  font-size: 4rem;
   font-style: italic;
   color: rgba(0, 0, 0, 0.35);
+  line-height: 5;
 `;
 
 export const Backdrop = styled.div`
@@ -22,17 +23,22 @@ export const Backdrop = styled.div`
 `;
 
 export const StyledForm = styled.form`
-  ${({ theme: { flexin } }: any) => flexin('center', 'center', 'column')};
   ${({ theme: { elevation } }: any) => elevation.mainInset}
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px 350px));
+
+  padding: 5vh 5vw;
   position: relative;
   background-color: rgba(255, 255, 255, 0.9);
-  margin: 25vh 25vw;
+  margin: 10vh 10vw;
   grid-area: 1 / 1 / -1 / -1;
   z-index: 7;
 
   transition: all 0.5s;
   opacity: 0;
   transform: translateY(-100%);
+  transition-delay: 0.1s;
   ${(props: StyledFormProps) =>
     props.visible && `transform: translateY(0); opacity: 1;`};
 `;
