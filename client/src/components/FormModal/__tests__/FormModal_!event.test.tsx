@@ -10,6 +10,8 @@ afterEach(cleanup);
 
 const createNewEvent = jest.fn();
 const returnToCalendar = jest.fn();
+const editEvent = jest.fn();
+const deleteEvent = jest.fn();
 
 const renderFormModal = () =>
   render(
@@ -17,6 +19,8 @@ const renderFormModal = () =>
       <FormModal
         currentActions={2}
         createNewEvent={createNewEvent}
+        editEvent={editEvent}
+        deleteEvent={deleteEvent}
         returnToCalendar={returnToCalendar}
       />
     </ThemeProvider>

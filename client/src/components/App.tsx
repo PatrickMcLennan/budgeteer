@@ -107,6 +107,7 @@ class App extends React.Component<{}, IState> {
   editEvent: Function = (event: IEvent): void => {
     const { user } = this.state;
     const { facebookId } = user;
+    this.setState({ currentActions: 2 });
     fetch('http://localhost:4000/edit', {
       method: 'PUT',
       headers: {
@@ -138,8 +139,19 @@ class App extends React.Component<{}, IState> {
       .catch((err: IServerResponse): void => this.serverCallback(err));
   };
 
-  showEventForm: Function = (): void => {
-    return this.setState({ currentActions: 2 });
+  showEventForm: Function = (event: IEvent): JSX.Element => {
+    const { currentActions } = this.state;
+    this.setState({ currentActions: 2 });
+    return (
+      <FormModal
+        event={event}
+        currentActions={currentActions}
+        returnToCalendar={this.returnToCalendar}
+        createNewEvent={this.createNewEvent}
+        editEvent={this.editEvent}
+        deleteEvent={this.deleteEvent}
+      />
+    );
   };
 
   returnToCalendar: Function = (): void => {
@@ -162,15 +174,21 @@ class App extends React.Component<{}, IState> {
         <>
           <GlobalStyle />
           <LogInModal currentActions={currentActions} />
-          <Calendar events={user.events} currentActions={currentActions} />
+          <Calendar
+            events={user.events}
+            showEventForm={this.showEventForm}
+            currentActions={currentActions}
+          />
           <ActionButton
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
           />
           <FormModal
-            createNewEvent={this.createNewEvent}
-            returnToCalendar={this.returnToCalendar}
             currentActions={currentActions}
+            returnToCalendar={this.returnToCalendar}
+            createNewEvent={this.createNewEvent}
+            editEvent={this.editEvent}
+            deleteEvent={this.deleteEvent}
           />
           {success && (
             <Message success={success} error={error} message={message} />

@@ -5,10 +5,11 @@ import 'jest-dom/extend-expect';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../../../utils/resets.style';
 import Event from '../Event';
+import { IEvent } from '../../../utils/dictionary';
 
 afterEach(cleanup);
 
-export const fakeEvent = {
+export const fakeEvent: IEvent = {
   name: 'Dinner with the Queen',
   location: 'England',
   description: 'be polite',
@@ -22,10 +23,12 @@ export const fakeEvent = {
   cost: 20
 };
 
+const showEventForm: Function = jest.fn((event: IEvent): IEvent => event);
+
 const renderEvent = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Event event={fakeEvent} delayTime={0} />
+      <Event showEventForm={showEventForm} event={fakeEvent} delayTime={0} />
     </ThemeProvider>
   );
 

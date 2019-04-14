@@ -4,6 +4,7 @@ import { StyledDiv, StyledP, StyledButton } from './Event.style';
 import { WEEKDAYSnumber, MONTHSnumber } from '../../utils/datesMaps';
 
 interface IProps {
+  showEventForm: Function;
   delayTime: number;
   event: IEvent;
 }
@@ -25,7 +26,7 @@ class Event extends React.Component<IProps, {}> {
   };
   render(): JSX.Element {
     const { triggerAnimation } = this.state;
-    const { event } = this.props;
+    const { event, showEventForm } = this.props;
     const {
       name,
       location,
@@ -53,7 +54,9 @@ class Event extends React.Component<IProps, {}> {
           {this.formatTime(endTime)}
         </StyledP>
         <StyledP data-testid="event__cost">${cost}</StyledP>
-        <StyledButton>Edit</StyledButton>
+        <StyledButton onClick={(): void => showEventForm(event)}>
+          Edit
+        </StyledButton>
       </StyledDiv>
     );
   }

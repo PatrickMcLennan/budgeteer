@@ -50,11 +50,16 @@ const events: IEvent[] = [
     cost: 6
   }
 ];
+const showEventForm: Function = jest.fn(() => events[0]);
 
 const renderCalendar = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Calendar events={events} currentActions={1} />
+      <Calendar
+        showEventForm={showEventForm}
+        events={events}
+        currentActions={1}
+      />
     </ThemeProvider>
   );
 

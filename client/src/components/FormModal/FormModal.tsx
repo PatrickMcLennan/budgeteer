@@ -13,6 +13,8 @@ interface IProps {
   createNewEvent: Function;
   returnToCalendar: Function;
   currentActions: number;
+  editEvent: Function;
+  deleteEvent: Function;
 }
 
 class FormModal extends React.Component<IProps, IEvent> {

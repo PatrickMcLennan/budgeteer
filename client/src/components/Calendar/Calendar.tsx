@@ -7,6 +7,7 @@ import Nav from '../Nav/Nav';
 interface IProps {
   events: IEvent[];
   currentActions: number;
+  showEventForm: Function;
 }
 
 interface IState {
@@ -20,7 +21,7 @@ class Calendar extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     const { delayTime } = this.state;
-    const { currentActions, events } = this.props;
+    const { currentActions, events, showEventForm } = this.props;
     return (
       <StyledGrid data-testid="calendar">
         <Nav />
@@ -34,6 +35,7 @@ class Calendar extends React.Component<IProps, IState> {
           events.map(
             (event: IEvent): any => (
               <Event
+                showEventForm={showEventForm}
                 event={event}
                 delayTime={delayTime * events.indexOf(event)}
                 key={event.id}

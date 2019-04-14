@@ -10,11 +10,16 @@ import Calendar from '../Calendar';
 afterEach(cleanup);
 
 const events: [] = [];
+const showEventForm: Function = jest.fn();
 
 const renderCalendar = () =>
   render(
     <ThemeProvider theme={theme}>
-      <Calendar events={events} currentActions={1} />
+      <Calendar
+        events={events}
+        showEventForm={showEventForm}
+        currentActions={1}
+      />
     </ThemeProvider>
   );
 
