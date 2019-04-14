@@ -8,7 +8,6 @@ import LogInModal from './LogInModal/LogInModal';
 import Calendar from './Calendar/Calendar';
 import FormModal from './FormModal/FormModal';
 import Message from './Message/Message';
-import { response } from 'express';
 
 interface IState {
   user: IUser;
@@ -39,6 +38,11 @@ class App extends React.Component<{}, IState> {
     return fbLoginInit();
   }
 
+  resetActionMessage: Function = (): void =>
+    this.setState({
+      actionMessage: { success: false, error: false, message: '' }
+    });
+
   serverCallback: Function = ({
     success,
     message,
@@ -54,24 +58,12 @@ class App extends React.Component<{}, IState> {
         currentActions: 1,
         actionMessage: { success: true, error: false, message }
       });
-      setTimeout(
-        () =>
-          this.setState({
-            actionMessage: { success: false, error: false, message: '' }
-          }),
-        2500
-      );
+      setTimeout(this.resetActionMessage, 2500);
     } else {
       this.setState({
         actionMessage: { success: false, error: true, message }
       });
-      setTimeout(
-        () =>
-          this.setState({
-            actionMessage: { success: false, error: false, message: '' }
-          }),
-        2500
-      );
+      setTimeout(this.resetActionMessage, 2500);
     }
   };
 
@@ -93,6 +85,7 @@ class App extends React.Component<{}, IState> {
           });
     };
     await fbLogIn(getUserCallback);
+    setTimeout(this.resetActionMessage, 2500);
   };
 
   createNewEvent: Function = (event: IEvent): void => {
@@ -179,7 +172,12 @@ class App extends React.Component<{}, IState> {
             returnToCalendar={this.returnToCalendar}
             currentActions={currentActions}
           />
-          <Message success={success} error={error} message={message} />
+          {success && (
+            <Message success={success} error={error} message={message} />
+          )}
+          {error && (
+            <Message success={success} error={error} message={message} />
+          )}
         </>
       </ThemeProvider>
     );
@@ -187,8 +185,3 @@ class App extends React.Component<{}, IState> {
 }
 
 export default App;
-
-// currentActions legend:
-// 0: Login modal, no user
-// 1: Calendar view, actionbutton prompting Form Modal
-// 2: Form modal is open, action button cancelling & closing

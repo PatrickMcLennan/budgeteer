@@ -15,6 +15,7 @@ class Message extends React.Component<IProps, IState> {
   state = {
     render: false
   };
+
   componentWillMount(): void {
     this.setState({ render: true });
   }
