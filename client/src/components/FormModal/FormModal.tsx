@@ -17,38 +17,29 @@ interface IProps {
   deleteEvent: Function;
 }
 
-interface IState {
-  event: IEvent;
-  render: boolean;
-}
-
-class FormModal extends React.Component<IProps, IState> {
-  state: IState = {
-    event: {
-      name: '',
-      location: '',
-      description: '',
-      year: new Date().getFullYear(),
-      month: new Date().getMonth(),
-      day: new Date().getDay(),
-      date: new Date().getDate(),
-      startTime: new Date().getHours(),
-      endTime: new Date().getHours() + 3,
-      cost: 0
-    },
-    render: false
+class FormModal extends React.Component<IProps, IEvent> {
+  state: IEvent = {
+    name: '',
+    location: '',
+    description: '',
+    year: new Date().getFullYear(),
+    month: new Date().getMonth(),
+    day: new Date().getDay(),
+    date: new Date().getDate(),
+    startTime: new Date().getHours(),
+    endTime: new Date().getHours() + 3,
+    cost: 0
   };
 
   componentWillMount(): void {
     const { event } = this.props;
-    return event
-      ? this.setState({ event, render: true })
-      : this.setState({ render: true });
+    if (event) {
+      return this.setState({ ...event });
+    }
   }
 
   animateOut: Function = () => {
     const { returnToCalendar } = this.props;
-    this.setState({ render: false });
     return setTimeout(() => returnToCalendar(), 750);
   };
 
@@ -70,7 +61,7 @@ class FormModal extends React.Component<IProps, IState> {
   };
 
   render(): JSX.Element {
-    const { render, event } = this.state;
+    const { currentActions } = this.props;
     const {
       name,
       location,
@@ -82,13 +73,13 @@ class FormModal extends React.Component<IProps, IState> {
       startTime,
       endTime,
       cost
-    }: IEvent = event;
+    }: IEvent = this.state;
     return (
       <>
         <StyledForm
           data-testid="form"
           onSubmit={this.handleSubmit}
-          render={render}>
+          render={currentActions === 2}>
           <StyledH2>{name.length >= 1 ? name : ` . . `}</StyledH2>
           <StyledLabel htmlFor="name" data-testid="form__label">
             Name:
@@ -209,7 +200,7 @@ class FormModal extends React.Component<IProps, IState> {
             />
           </StyledLabel>
         </StyledForm>
-        <Backdrop onClick={this.animateOut} render={render} />
+        <Backdrop onClick={this.animateOut} render={currentActions === 2} />
       </>
     );
   }

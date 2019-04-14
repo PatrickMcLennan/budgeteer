@@ -171,9 +171,9 @@ export const StyledForm = styled.form`
 export const StyledInput = styled.input`
   margin: 1rem auto;
   border: none;
-  background: transparent;
-  border-bottom: 1px solid red;
+  border: 1px solid red;
   z-index: 7;
+  text-align: left;
 `;
 
 export const StyledLabel = styled.label`
@@ -185,4 +185,5 @@ export const StyledLabel = styled.label`
   font-style: italic;
   color: rgba(0, 0, 0, 0.7);
   border: 1px solid black;
+  z-index: 7;
 `;
