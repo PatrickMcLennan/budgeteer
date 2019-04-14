@@ -10,25 +10,27 @@ interface StyledH6Props {
 }
 
 export const StyledH6 = styled.h6`
-  font-size: 8vh;
+  font-size: 7.5vh;
+  border: 1px solid red;
   font-weight: 100;
   transition: all 1s;
-  transform-origin: center;
+  transform-style: preserve-3d;
+  transform: rotate(0);
   color: ${(props: StyledH6Props) =>
     props.colorScheme !== 2 ? theme.colors.mainGreen : `red`};
   border: ${(props: StyledH6Props) =>
     props.colorScheme !== 2 ? theme.colors.mainGreen : `red`};
   ${(props: StyledH6Props) =>
     props.colorScheme === 2
-      ? `transform: rotate(45deg) translateX(50%)`
+      ? `transform: rotate(45deg)`
       : `transform: rotate(0)`}
 `;
 
 export const StyledButton = styled.button`
-  ${({ theme: { flexin } }: any) => flexin()}
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   z-index: 10;
   position: fixed;
+  text-align: center;
   bottom: 5vh;
   right: 5vh;
   height: 10vh;
