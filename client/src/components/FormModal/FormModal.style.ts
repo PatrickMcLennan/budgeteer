@@ -49,6 +49,7 @@ const backdropAnimateOut = keyframes`
 `;
 
 export const StyledH2 = styled.h2`
+  display: block;
   text-align: center;
   font-size: 7.5rem;
   font-style: italic;
@@ -81,10 +82,10 @@ export const Backdrop = styled.div`
 
 export const StyledForm = styled.form`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
-
+  position: relative;
   display: none;
 
-  padding: 2.5vh 5vw;
+  padding: 5vw 5vw;
   position: relative;
   background-color: rgba(255, 255, 255, 0.9);
   margin: auto 5vw;
@@ -97,93 +98,72 @@ export const StyledForm = styled.form`
   ${(props: StyledFormProps) =>
     props.render &&
     css`
-      display: grid;
-      grid-template-rows: 150px repeat(auto-fit, 100px);
-      grid-template-columns: repeat(auto-fit, 100px);
+      display: block;
       animation: ${formAnimateIn} 0.75s forwards;
     `};
   ${(props: StyledFormProps) =>
     !props.render &&
     css`
-      display: grid;
-      grid-template-rows: 150px repeat(auto-fit, 100px);
-      grid-template-columns: repeat(auto-fit, 100px);
+      display: block;
       animation: ${formAnimateOut} 0.75s forwards;
     `}
-
-  & > *:not(h2) {
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-  }
-
-  & h2 {
-    grid-area: 1 / 1 / 2 / -1;
-  }
-  /*
-
-  & label[for='name'] {
-    grid-area: 2 / 1 / 3 / 3;
-  }
-
-  & label[for='location'] {
-    grid-area: 4 / 1 / 5 / 3;
-  }
-
-  & label[for='description'] {
-    grid-area: 2 / 4 / 5 / -1;
-  }
-
-  & label[for='year'] {
-    grid-area: 3 / 2 / 4 / 3;
-  }
-
-  & label[for='month'] {
-    grid-area: 5 / 4 / 6 / 5;
-  }
-
-  & label[for='day'] {
-    grid-area: 5 / 3 / 6 / 4;
-  }
-
-  & label[for='date'] {
-    grid-area: 5 / 1 / 6 / 3;
-  }
-
-
-  & label[for='startTime'] {
-    grid-area: 2 / 3 / 3 / -1;
-  }
-
-  & label[for='endTime'] {
-    grid-area: 2 / 3 / 3 / -1;
-  }
-
-  & label[for='cost'] {
-    grid-area: 2 / 3 / 3 / -1;
-  }
-
-  & label[for='submit'] {
-    grid-area: 5 / 1 / 6 / -1;
-  } */
 `;
 
 export const StyledInput = styled.input`
+  position: relative;
   margin: 1rem auto;
   border: none;
-  border: 1px solid red;
   z-index: 7;
   text-align: left;
+  font-size: 2rem;
+  padding: 1rem;
+  text-transform: none;
+  background: none;
+
+  &::before,
+  &::after {
+    position: absolute;
+    height: 1px;
+    content: '';
+    display: block;
+    left: 10%;
+    right: 10%;
+  }
+
+  &::before {
+    top: -5%;
+  }
+  &::after {
+    bottom: 5%;
+  }
+
+  &:invalid::before,
+  &:invalid::after {
+    background-color: red;
+  }
+
+  &:valid {
+    border-bottom: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
+    border-top: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
+  }
+
+  &::placeholder {
+    font-style: italic;
+    opacity: 0.75;
+  }
 `;
 
 export const StyledLabel = styled.label`
-  ${({ theme: { flexin } }: any) =>
-    flexin('space-evenly', 'flex-start', 'column')}
-  width: 60%;
-  font-size: 1.5rem;
+  ${({ theme: { flexin } }: any) => flexin('center', 'center', 'column')}
   text-transform: uppercase;
-  font-style: italic;
-  color: rgba(0, 0, 0, 0.7);
-  border: 1px solid black;
-  z-index: 7;
+  display: inline-block;
+  margin: 1rem;
+
+  &[for='submit'] {
+    position: absolute;
+    bottom: 0.5vw;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+  }
 `;

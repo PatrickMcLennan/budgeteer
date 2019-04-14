@@ -39,7 +39,7 @@ export const StyledDiv = styled.div`
   background-color: rgba(255,255,255,.8);
   padding: 0.5rem;
   align-self: stretch;
-  transition: all 0.3s;
+  transition: all 0.3s ease-out;
   transform: scaleY(0);
   transform-origin: top;
   cursor: pointer;

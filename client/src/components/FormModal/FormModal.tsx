@@ -38,11 +38,6 @@ class FormModal extends React.Component<IProps, IEvent> {
     }
   }
 
-  animateOut: Function = () => {
-    const { returnToCalendar } = this.props;
-    return setTimeout(() => returnToCalendar(), 750);
-  };
-
   handleChange: Function = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let { id, value } = e.target;
     this.setState(prevState => ({
@@ -55,9 +50,14 @@ class FormModal extends React.Component<IProps, IEvent> {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    const { createNewEvent, event, editEvent }: IProps = this.props;
+    const {
+      createNewEvent,
+      event,
+      editEvent,
+      returnToCalendar
+    }: IProps = this.props;
     event ? await editEvent(this.state) : await createNewEvent(this.state);
-    return this.animateOut();
+    return returnToCalendar();
   };
 
   render(): JSX.Element {
@@ -82,8 +82,9 @@ class FormModal extends React.Component<IProps, IEvent> {
           render={currentActions === 2}>
           <StyledH2>{name.length >= 1 ? name : ` . . `}</StyledH2>
           <StyledLabel htmlFor="name" data-testid="form__label">
-            Name:
+            <p>Name:</p>
             <StyledInput
+              placeholder="Get laundry money from the bank / etc.."
               data-testid="form__name"
               type="text"
               value={name}
@@ -93,8 +94,9 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="location" data-testid="form__label">
-            Location:
+            <p>Location:</p>
             <StyledInput
+              placeholder="ATM by work / Toronto / etc.."
               data-testid="form__location"
               type="text"
               value={location}
@@ -104,8 +106,9 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="description" data-testid="form__label">
-            Description
+            <p>Notes:</p>
             <StyledInput
+              placeholder="get loonies / quarters / etc.."
               data-testid="form__description"
               type="text"
               value={description}
@@ -115,7 +118,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="year" data-testid="form__label">
-            Year:
+            <p>Year:</p>
             <StyledInput
               data-testid="form__year"
               type="number"
@@ -126,7 +129,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="month" data-testid="form__label">
-            Month:
+            <p>Month:</p>
             <StyledInput
               data-testid="form__month"
               type="number"
@@ -137,7 +140,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="day" data-testid="form__label">
-            Day:
+            <p>Day:</p>
             <StyledInput
               data-testid="form__day"
               type="number"
@@ -148,7 +151,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="datw" data-testid="form__label">
-            day:
+            <p>day:</p>
             <StyledInput
               data-testid="form__date"
               type="number"
@@ -159,7 +162,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="startTime" data-testid="form__label">
-            Start:
+            <p>Start:</p>
             <StyledInput
               data-testid="form__startTime"
               type="number"
@@ -170,7 +173,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="endtime" data-testid="form__label">
-            End:
+            <p>End:</p>
             <StyledInput
               data-testid="form__endTime"
               type="number"
@@ -181,7 +184,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="cost" data-testid="form__label">
-            $
+            <p>$</p>
             <StyledInput
               data-testid="form__cost"
               type="number"
@@ -200,7 +203,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
         </StyledForm>
-        <Backdrop onClick={this.animateOut} render={currentActions === 2} />
+        <Backdrop onClick={this.handleSubmit} render={currentActions === 2} />
       </>
     );
   }
