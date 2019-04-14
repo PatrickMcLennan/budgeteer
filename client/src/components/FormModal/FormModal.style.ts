@@ -4,6 +4,12 @@ interface StyledFormProps {
   visible: boolean;
 }
 
+export const StyledH2 = styled.h2`
+  font-size: 3rem;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.35);
+`;
+
 export const Backdrop = styled.div`
   grid-area: 1 / 1 / -1 / -1;
   z-index: 6;
@@ -38,9 +44,10 @@ export const StyledInput = styled.input`
 
 export const StyledLabel = styled.label`
   ${({ theme: { flexin } }: any) => flexin('center', 'flex-start', 'column')}
-  margin: 0 15%;
+  margin: 1rem;
   width: 60%;
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
-  border: 1px solid red;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.7);
 `;

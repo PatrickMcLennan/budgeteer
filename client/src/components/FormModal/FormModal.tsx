@@ -4,6 +4,7 @@ import {
   StyledInput,
   StyledForm,
   StyledLabel,
+  StyledH2,
   Backdrop
 } from './FormModal.style';
 
@@ -67,6 +68,7 @@ class FormModal extends React.Component<IProps, IEvent> {
           data-testid="form"
           onSubmit={this.handleSubmit}
           visible={currentActions === 2}>
+          <StyledH2>{name.length >= 1 ? name : ` . . `}</StyledH2>
           <StyledLabel htmlFor="name" data-testid="form__label">
             Name:
             <StyledInput
