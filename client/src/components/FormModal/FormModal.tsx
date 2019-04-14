@@ -19,7 +19,7 @@ interface IProps {
 
 interface IState {
   event: IEvent;
-  triggerAnimation: boolean;
+  render: boolean;
 }
 
 class FormModal extends React.Component<IProps, IState> {
@@ -36,17 +36,23 @@ class FormModal extends React.Component<IProps, IState> {
       endTime: new Date().getHours() + 3,
       cost: 0
     },
-    triggerAnimation: false
+    render: false
   };
 
   componentWillMount(): void {
     const { event } = this.props;
     return event
-      ? this.setState({ event, triggerAnimation: true })
-      : this.setState({ triggerAnimation: true });
+      ? this.setState({ event, render: true })
+      : this.setState({ render: true });
   }
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  animateOut: Function = () => {
+    const { returnToCalendar } = this.props;
+    this.setState({ render: false });
+    return returnToCalendar();
+  };
+
+  handleChange: Function = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let { id, value } = e.target;
     this.setState(prevState => ({
       ...prevState,
@@ -54,7 +60,9 @@ class FormModal extends React.Component<IProps, IState> {
     }));
   };
 
-  handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  handleSubmit: Function = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
     const {
       createNewEvent,
@@ -63,11 +71,11 @@ class FormModal extends React.Component<IProps, IState> {
       editEvent
     }: IProps = this.props;
     event ? await editEvent(this.state) : await createNewEvent(this.state);
-    return returnToCalendar();
+    return this.animateOut();
   };
 
   render(): JSX.Element {
-    const { returnToCalendar, currentActions }: IProps = this.props;
+    const { render, event } = this.state;
     const {
       name,
       location,
@@ -79,13 +87,13 @@ class FormModal extends React.Component<IProps, IState> {
       startTime,
       endTime,
       cost
-    }: IEvent = this.state.event;
+    }: IEvent = event;
     return (
       <>
         <StyledForm
           data-testid="form"
           onSubmit={this.handleSubmit}
-          triggerAnimation={currentActions === 2}>
+          render={render}>
           <StyledH2>{name.length >= 1 ? name : ` . . `}</StyledH2>
           <StyledLabel htmlFor="name" data-testid="form__label">
             Name:
@@ -206,7 +214,7 @@ class FormModal extends React.Component<IProps, IState> {
             />
           </StyledLabel>
         </StyledForm>
-        <Backdrop onClick={returnToCalendar} visible={currentActions === 2} />
+        <Backdrop onClick={this.animateOut} render={render} />
       </>
     );
   }

@@ -1,8 +1,30 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 interface StyledFormProps {
-  triggerAnimation: boolean;
+  render: boolean;
 }
+
+const formAnimateIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+`;
+
+const formAnimateOut = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+`;
 
 export const StyledH2 = styled.h2`
   text-align: center;
@@ -21,15 +43,13 @@ export const Backdrop = styled.div`
   transition: all 0.35s;
   transform: scaleY(0);
   ${(props: StyledFormProps) =>
-    props.triggerAnimation && `transform: scaleY(1); display: inline-block;`};
+    props.render && `transform: scaleY(1); display: block;`};
 `;
 
 export const StyledForm = styled.form`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
 
-  display: grid;
-  grid-template-rows: 150px repeat(auto-fit, 150px);
-  grid-template-columns: repeat(auto-fit, 150px);
+  display: none;
 
   padding: 2.5vh 5vw;
   position: relative;
@@ -38,12 +58,25 @@ export const StyledForm = styled.form`
   grid-area: 1 / 1 / -1 / -1;
   z-index: 7;
 
-  transition: all 0.5s;
   opacity: 0;
   transform: translateY(-100%);
-  transition-delay: 0.1s;
+
   ${(props: StyledFormProps) =>
-    props.visible && `transform: translateY(0); opacity: 1;`};
+    props.render &&
+    css`
+      display: grid;
+      grid-template-rows: 150px repeat(auto-fit, 100px);
+      grid-template-columns: repeat(auto-fit, 100px);
+      animation: ${formAnimateIn} 0.75s forwards;
+    `};
+  ${(props: StyledFormProps) =>
+    !props.render &&
+    css`
+      display: grid;
+      grid-template-rows: 150px repeat(auto-fit, 100px);
+      grid-template-columns: repeat(auto-fit, 100px);
+      animation: ${formAnimateOut} 0.75s forwards;
+    `}
 
   & > *:not(h2) {
     display: inline-block;

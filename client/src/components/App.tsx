@@ -142,15 +142,18 @@ class App extends React.Component<{}, IState> {
   };
 
   setCurrentEvent: Function = (event: IEvent): void => {
-    this.setState({ currentEvent: event });
+    return this.setState({ currentEvent: event });
   };
 
   showEventForm: Function = (event: IEvent): void => {
-    this.setState({ currentActions: 2 });
+    return this.setState({ currentActions: 2 });
   };
 
-  returnToCalendar: Function = (): void => {
-    return this.setState({ currentActions: 1, currentEvent: null });
+  returnToCalendar: Function = (): any => {
+    return setTimeout(
+      () => this.setState({ currentActions: 1, currentEvent: null }),
+      750
+    );
   };
 
   actionButtonMap: Function = (num: number): Function => {
