@@ -20,14 +20,4 @@ exports.eventSort = function (events) {
     var startTimeSort = daySort.sort(function (a, b) { return a.startTime - b.startTime; });
     return startTimeSort;
 };
-exports.eventSort2 = function (events) {
-    var keys = events.map(function (event) {
-        var Event = new Map();
-        Event.set('year', event.year);
-        Event.set('month', event.year);
-        Event.set('date', event.year);
-        Event.set('startTime', event.year);
-        Event.set('endTime', event.year);
-    });
-};
 //# sourceMappingURL=eventSort.js.map

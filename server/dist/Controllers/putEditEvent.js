@@ -50,7 +50,7 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                     .filter(function (savedEvent) { return savedEvent.id !== event.id; })
                     .push(event);
                 sortedEvents = Utils_1.eventSort(mongoUser.events);
-                timeConflicts = Utils_1.eventValidation(sortedEvents);
+                timeConflicts = Utils_1.eventValidation(mongoUser.events);
                 if (!(timeConflicts.length === 0)) return [3, 3];
                 mongoUser.events = sortedEvents;
                 return [4, user.save()];

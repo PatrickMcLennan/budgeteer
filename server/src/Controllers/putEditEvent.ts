@@ -19,7 +19,7 @@ export const putEditEvent = async (
     .filter((savedEvent: IEvent): boolean => savedEvent.id !== event.id)
     .push(event);
   const sortedEvents: IEvent[] = eventSort(mongoUser.events);
-  const timeConflicts: IEvent[] = eventValidation(sortedEvents);
+  const timeConflicts: IEvent[] = eventValidation(mongoUser.events);
 
   if (timeConflicts.length === 0) {
     mongoUser.events = sortedEvents;

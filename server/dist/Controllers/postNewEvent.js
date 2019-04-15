@@ -53,8 +53,8 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 event.id = uuid_1.default.v4();
                 mongoUser.events.push(event);
                 sortedEvents = Utils_1.eventSort(mongoUser.events);
-                timeConflicts = Utils_1.eventValidation(sortedEvents);
-                if (!(timeConflicts.length >= 1)) return [3, 2];
+                timeConflicts = Utils_1.eventValidation(sortedEvents, event);
+                if (!(timeConflicts.length > 1)) return [3, 2];
                 return [2, res.send({
                         success: false,
                         message: timeConflicts[0].name + " and " + timeConflicts[1].name + " have conflicting times",

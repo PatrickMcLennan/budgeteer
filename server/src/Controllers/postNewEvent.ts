@@ -19,9 +19,9 @@ export const postNewEvent = async (
   event.id = uuid.v4();
   mongoUser.events.push(event);
   const sortedEvents: IEvent[] = eventSort(mongoUser.events);
-  const timeConflicts: IEvent[] = eventValidation(sortedEvents);
+  const timeConflicts: IEvent[] = eventValidation(sortedEvents, event);
 
-  if (timeConflicts.length >= 1) {
+  if (timeConflicts.length > 1) {
     return res.send({
       success: false,
       message: `${timeConflicts[0].name} and ${

@@ -31,13 +31,15 @@ export const eventSort = (events: IEvent[]): IEvent[] => {
   return startTimeSort;
 };
 
-export const eventSort2: Function = (events: IEvent[]): IEvent[] | any => {
-  const keys = events.map((event: IEvent) => {
-    const Event = new Map<string, number>();
-    Event.set('year', event.year);
-    Event.set('month', event.year);
-    Event.set('date', event.year);
-    Event.set('startTime', event.year);
-    Event.set('endTime', event.year);
-  });
-};
+// export const eventSort2: Function = (events: IEvent[]): IEvent[] | any => {
+//   const numberProperties = events.map((event: IEvent) => {
+//     const Event = new Map<string, number>();
+//     Object.keys(event).forEach((key: string | number) => Event.set(key, event[key]));
+
+//     Event.set('year', event.year);
+//     Event.set('month', event.year);
+//     Event.set('date', event.year);
+//     Event.set('startTime', event.year);
+//     Event.set('endTime', event.year);
+//   });
+// };
