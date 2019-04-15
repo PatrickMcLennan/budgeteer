@@ -108,14 +108,13 @@ class App extends React.Component<{}, IState> {
 
   editEvent: Function = (event: IEvent): void => {
     const { user } = this.state;
-    const { facebookId } = user;
     this.setState({ currentActions: 2 });
     fetch('http://localhost:4000/edit', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ facebookId, event })
+      body: JSON.stringify({ user, event })
     })
       .then(
         (response: IServerResponse): Promise<IServerResponse> => response.json()

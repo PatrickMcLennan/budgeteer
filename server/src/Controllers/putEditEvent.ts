@@ -21,12 +21,12 @@ export const putEditEvent = async (
   const sortedEvents: IEvent[] = eventSort(mongoUser.events);
   const timeConflicts: IEvent[] = eventValidation(mongoUser.events);
 
-  if (timeConflicts.length === 0) {
+  if (timeConflicts.length === 1) {
     mongoUser.events = sortedEvents;
     await user.save();
     return res.json({
       success: true,
-      message: `${event.name} has been updated within ${user.name}'s account`,
+      message: `${event.name} has been updated`,
       events: mongoUser.events
     });
   } else {

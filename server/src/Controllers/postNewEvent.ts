@@ -30,7 +30,7 @@ export const postNewEvent = async (
       events: user.events
     });
   } else {
-    mongoUser.events = sortedEvents;
+    mongoUser.events = eventSort(mongoUser.events);
     await mongoUser.save();
     return res.send({
       success: true,

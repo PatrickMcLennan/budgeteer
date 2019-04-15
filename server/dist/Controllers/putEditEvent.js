@@ -51,14 +51,14 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                     .push(event);
                 sortedEvents = Utils_1.eventSort(mongoUser.events);
                 timeConflicts = Utils_1.eventValidation(mongoUser.events);
-                if (!(timeConflicts.length === 0)) return [3, 3];
+                if (!(timeConflicts.length === 1)) return [3, 3];
                 mongoUser.events = sortedEvents;
                 return [4, user.save()];
             case 2:
                 _b.sent();
                 return [2, res.json({
                         success: true,
-                        message: event.name + " has been updated within " + user.name + "'s account",
+                        message: event.name + " has been updated",
                         events: mongoUser.events
                     })];
             case 3: return [2, res.json({

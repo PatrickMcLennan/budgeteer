@@ -61,7 +61,7 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                         events: user.events
                     })];
             case 2:
-                mongoUser.events = sortedEvents;
+                mongoUser.events = Utils_1.eventSort(mongoUser.events);
                 return [4, mongoUser.save()];
             case 3:
                 _b.sent();

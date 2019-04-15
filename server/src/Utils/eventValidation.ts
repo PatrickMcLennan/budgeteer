@@ -4,11 +4,11 @@ export const eventValidation: Function = (
   savedEvents: IEvent[],
   newEvent: IEvent
 ): IEvent[] => {
-  const sameDate = savedEvents.filter(
-    (event: IEvent): boolean => event.date === newEvent.date
+  const sameMonth = savedEvents.filter(
+    (event: IEvent): boolean => event.month === newEvent.month
   );
-  const sameStart = sameDate.filter(
-    (event: IEvent): boolean => event.startTime === newEvent.startTime
+  const sameDate = sameMonth.filter(
+    (event: IEvent): boolean => event.date === newEvent.date
   );
   const earlierEvents = sameDate.filter(
     (event: IEvent): boolean => event.startTime < newEvent.startTime
@@ -17,9 +17,11 @@ export const eventValidation: Function = (
     (event: IEvent): boolean => event.endTime > newEvent.startTime
   );
 
-  if (sameDate.length === 0) {
-    return sameDate;
-  } else if (sameStart.length !== 0) {
+  const sameStart = sameDate.filter(
+    (event: IEvent): boolean => event.startTime === newEvent.startTime
+  );
+
+  if (sameStart.length > 1) {
     return sameStart;
   } else {
     return timeConflicts;

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.eventSort = function (events) {
+    var conflicts;
     var yearSort = events.sort(function (a, b) { return a.year - b.year; });
     var monthSort = yearSort.sort(function (a, b) {
         if (a.year === b.year) {
