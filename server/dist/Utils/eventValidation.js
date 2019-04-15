@@ -1,13 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.eventValidation = function (events) {
-    var duplicates;
-    events.reduce(function (prev, current) {
-        if (current.startTime < prev.endTime) {
-            duplicates.push(current, prev);
-        }
-        else {
-            return prev;
+    var duplicates = [];
+    events.reduce(function (previousEvent, currentEvent) {
+        if (previousEvent.endTime > currentEvent.startTime &&
+            previousEvent.date === currentEvent.date) {
+            duplicates.push(previousEvent, currentEvent);
         }
     });
     return duplicates;

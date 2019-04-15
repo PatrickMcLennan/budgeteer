@@ -15,20 +15,21 @@ export const postNewEvent = async (
 ) => {
   const { event, user } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
-  const sortedEvents: IEvent[] = eventSort(mongoUser.events);
-  const searchForDupiclates: IEvent[] | [] = eventValidation(sortedEvents);
 
-  if (searchForDupiclates.length >= 1) {
+  event.id = uuid.v4();
+  mongoUser.events.push(event);
+  const sortedEvents: IEvent[] = eventSort(mongoUser.events);
+  const timeConflicts: IEvent[] = eventValidation(sortedEvents);
+
+  if (timeConflicts.length >= 1) {
     return res.send({
       success: false,
-      message: `${searchForDupiclates[0].name} and ${
-        searchForDupiclates[1].name
+      message: `${timeConflicts[0].name} and ${
+        timeConflicts[1].name
       } have conflicting times`,
       events: user.events
     });
   } else {
-    event.id = uuid.v4();
-    mongoUser.events.push(event);
     mongoUser.events = sortedEvents;
     await mongoUser.save();
     return res.send({

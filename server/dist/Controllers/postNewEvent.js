@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var uuid_1 = __importDefault(require("uuid"));
 var Utils_1 = require("../Utils");
 exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, event, user, mongoUser, sortedEvents, searchForDupiclates;
+    var _a, event, user, mongoUser, sortedEvents, timeConflicts;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -50,17 +50,17 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
             case 1:
                 mongoUser = _b.sent();
+                event.id = uuid_1.default.v4();
+                mongoUser.events.push(event);
                 sortedEvents = Utils_1.eventSort(mongoUser.events);
-                searchForDupiclates = Utils_1.eventValidation(sortedEvents);
-                if (!(searchForDupiclates.length >= 1)) return [3, 2];
+                timeConflicts = Utils_1.eventValidation(sortedEvents);
+                if (!(timeConflicts.length >= 1)) return [3, 2];
                 return [2, res.send({
                         success: false,
-                        message: searchForDupiclates[0].name + " and " + searchForDupiclates[1].name + " have conflicting times",
+                        message: timeConflicts[0].name + " and " + timeConflicts[1].name + " have conflicting times",
                         events: user.events
                     })];
             case 2:
-                event.id = uuid_1.default.v4();
-                mongoUser.events.push(event);
                 mongoUser.events = sortedEvents;
                 return [4, mongoUser.save()];
             case 3:

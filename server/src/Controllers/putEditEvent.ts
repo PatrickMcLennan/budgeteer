@@ -4,7 +4,8 @@ import {
   IEvent,
   IServerResponse,
   IClientRequest,
-  eventSort
+  eventSort,
+  eventValidation
 } from '../Utils';
 
 export const putEditEvent = async (
@@ -13,13 +14,15 @@ export const putEditEvent = async (
 ) => {
   const { user, event } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
-  const eventExists: boolean = user.events.includes(event);
 
-  if (eventExists) {
-    mongoUser.events
-      .filter((savedEvent: IEvent): boolean => savedEvent.id !== event.id)
-      .push(event);
-    mongoUser.events = eventSort(mongoUser.events);
+  mongoUser.events
+    .filter((savedEvent: IEvent): boolean => savedEvent.id !== event.id)
+    .push(event);
+  const sortedEvents: IEvent[] = eventSort(mongoUser.events);
+  const timeConflicts: IEvent[] = eventValidation(sortedEvents);
+
+  if (timeConflicts.length === 0) {
+    mongoUser.events = sortedEvents;
     await user.save();
     return res.json({
       success: true,

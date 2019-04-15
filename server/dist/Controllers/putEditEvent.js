@@ -38,7 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("../Utils");
 exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, user, event, mongoUser, eventExists;
+    var _a, user, event, mongoUser, sortedEvents, timeConflicts;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -46,12 +46,13 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
             case 1:
                 mongoUser = _b.sent();
-                eventExists = user.events.includes(event);
-                if (!eventExists) return [3, 3];
                 mongoUser.events
                     .filter(function (savedEvent) { return savedEvent.id !== event.id; })
                     .push(event);
-                mongoUser.events = Utils_1.eventSort(mongoUser.events);
+                sortedEvents = Utils_1.eventSort(mongoUser.events);
+                timeConflicts = Utils_1.eventValidation(sortedEvents);
+                if (!(timeConflicts.length === 0)) return [3, 3];
+                mongoUser.events = sortedEvents;
                 return [4, user.save()];
             case 2:
                 _b.sent();
