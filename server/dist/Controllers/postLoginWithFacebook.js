@@ -53,18 +53,22 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
                 return [4, user.json()];
             case 2:
                 userJSON = _b.sent();
-                if (!(userJSON.id === userID)) return [3, 7];
+                if (!(userJSON.id === userID)) return [3, 8];
                 return [4, Utils_1.User.findOne({ facebookId: userID })];
             case 3:
                 userExists = _b.sent();
-                if (!userExists) return [3, 4];
+                if (!userExists) return [3, 5];
+                userExists.events = Utils_1.eventSort(userExists.events);
+                return [4, userExists.save()];
+            case 4:
+                _b.sent();
                 res.json({
                     success: true,
                     message: 'Logged in successfully.',
                     user: userExists
                 });
-                return [3, 6];
-            case 4:
+                return [3, 7];
+            case 5:
                 newUser = new Utils_1.User({
                     facebookId: userID,
                     name: userJSON.name,
@@ -72,19 +76,19 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
                     events: []
                 });
                 return [4, newUser.save()];
-            case 5:
+            case 6:
                 _b.sent();
                 res.json({
                     success: true,
                     message: 'New user has been registered + logged in.',
                     user: newUser
                 });
-                _b.label = 6;
-            case 6: return [3, 8];
-            case 7:
+                _b.label = 7;
+            case 7: return [3, 9];
+            case 8:
                 res.json({ status: 'error', data: 'something real wrong here.' });
-                _b.label = 8;
-            case 8: return [2];
+                _b.label = 9;
+            case 9: return [2];
         }
     });
 }); };

@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { default as fetch } from 'node-fetch';
-import { User, IUser, IServerResponse } from '../Utils';
+import { User, IUser, IServerResponse, eventSort } from '../Utils';
 
 export const postLoginWithFacebook = async (
   req: Request,
@@ -16,6 +16,8 @@ export const postLoginWithFacebook = async (
     const userExists: IUser = await User.findOne({ facebookId: userID });
 
     if (userExists) {
+      userExists.events = eventSort(userExists.events);
+      await userExists.save();
       res.json({
         success: true,
         message: 'Logged in successfully.',
