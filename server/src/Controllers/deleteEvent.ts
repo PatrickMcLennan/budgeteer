@@ -13,9 +13,9 @@ export const deleteEvent = async (
 ) => {
   const { user, event } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
-  const eventExists: boolean = user.events.includes(event);
+  const eventValidation: IEvent[] | boolean = eventSort(user.events);
 
-  if (eventExists) {
+  if (eventValidation) {
     const validEvents: IEvent[] = mongoUser.events.filter(
       (validEvent: IEvent): boolean => validEvent.id !== event.id
     );

@@ -7,6 +7,12 @@ import {
   StyledH2,
   Backdrop
 } from './FormModal.style';
+import {
+  WEEKDAYSnumber,
+  WEEKDAYSstring,
+  MONTHSnumber,
+  MONTHSstring
+} from '../../utils/datesMaps';
 
 interface IProps {
   event: IEvent | null;

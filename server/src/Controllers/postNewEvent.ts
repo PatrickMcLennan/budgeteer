@@ -5,7 +5,8 @@ import {
   IEvent,
   IServerResponse,
   IClientRequest,
-  eventSort
+  eventSort,
+  eventValidation
 } from '../Utils';
 
 export const postNewEvent = async (
@@ -14,18 +15,21 @@ export const postNewEvent = async (
 ) => {
   const { event, user } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
-  const eventExists: boolean = user.events.includes(event);
+  const sortedEvents: IEvent[] = eventSort(mongoUser.events);
+  const searchForDupiclates: IEvent[] | [] = eventValidation(sortedEvents);
 
-  if (eventExists) {
+  if (searchForDupiclates.length >= 1) {
     return res.send({
       success: false,
-      message: `That's weird - there's already an event with that I.D.  Please refresh and try again.`,
+      message: `${searchForDupiclates[0].name} and ${
+        searchForDupiclates[1].name
+      } have conflicting times`,
       events: user.events
     });
   } else {
     event.id = uuid.v4();
     mongoUser.events.push(event);
-    mongoUser.events = eventSort(mongoUser.events);
+    mongoUser.events = sortedEvents;
     await mongoUser.save();
     return res.send({
       success: true,
