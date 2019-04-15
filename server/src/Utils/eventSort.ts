@@ -36,34 +36,42 @@ const oldEventFilter: Function = (events: IEvent[]): IEvent[] => {
 export const eventSort = (events: IEvent[]): IEvent[] => {
   const validEvents: IEvent[] = oldEventFilter(events);
   let conflicts: IEvent[];
+  const now = new Date();
+  const currentYear = Math.floor(now.getFullYear());
+  const currentMonth = Math.floor(now.getFullYear());
+  const currentDate = Math.floor(now.getDate());
 
-  const yearSort = validEvents.sort(
-    (a: IEvent, b: IEvent): number => a.year - b.year
-  );
-  const monthSort = yearSort.sort(
-    (a: IEvent, b: IEvent): number => {
-      if (a.year === b.year) {
-        return a.month - b.month;
-      }
-    }
-  );
-  const dateSort = monthSort.sort(
-    (a: IEvent, b: IEvent): number => {
-      if (a.month === b.month) {
-        return a.date - b.date;
-      }
-    }
-  );
-  const daySort = dateSort.sort(
-    (a: IEvent, b: IEvent): number => {
-      if (a.date === b.date) {
-        return a.day - b.day;
-      }
-    }
-  );
-  const startTimeSort = daySort.sort(
-    (a: IEvent, b: IEvent): number => a.startTime - b.startTime
+  const yearSort: IEvent[] = validEvents.sort(
+    (event: IEvent): number =>
+      event.year === currentYear ? 0 : event.year - currentYear
   );
 
-  return startTimeSort;
+  const monthSort: IEvent[] = yearSort.sort(
+    (currEvent: IEvent, nextEvent: IEvent): number => {
+      if (currEvent.year === nextEvent.year) {
+        return currEvent.month === currentMonth
+          ? 0
+          : currEvent.month - currentMonth;
+      }
+    }
+  );
+
+  const dateSort: IEvent[] = monthSort.sort(
+    (currEvent: IEvent, nextEvent: IEvent): number => {
+      if (currEvent.month === nextEvent.month) {
+        return currEvent.date === currentDate
+          ? 0
+          : currEvent.date - currentDate;
+      }
+    }
+  );
+
+  const timeSort: IEvent[] = dateSort.sort(
+    (currEvent: IEvent, nextEvent: IEvent): number => {
+      if (currEvent.date === nextEvent.date) {
+        return currEvent.startTime < nextEvent.startTime ? 0 : 1;
+      }
+    }
+  );
+  return timeSort;
 };

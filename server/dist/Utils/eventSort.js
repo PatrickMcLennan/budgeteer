@@ -32,23 +32,32 @@ var oldEventFilter = function (events) {
 exports.eventSort = function (events) {
     var validEvents = oldEventFilter(events);
     var conflicts;
-    var yearSort = validEvents.sort(function (a, b) { return a.year - b.year; });
-    var monthSort = yearSort.sort(function (a, b) {
-        if (a.year === b.year) {
-            return a.month - b.month;
+    var now = new Date();
+    var currentYear = Math.floor(now.getFullYear());
+    var currentMonth = Math.floor(now.getFullYear());
+    var currentDate = Math.floor(now.getDate());
+    var yearSort = validEvents.sort(function (event) {
+        return event.year === currentYear ? 0 : event.year - currentYear;
+    });
+    var monthSort = yearSort.sort(function (currEvent, nextEvent) {
+        if (currEvent.year === nextEvent.year) {
+            return currEvent.month === currentMonth
+                ? 0
+                : currEvent.month - currentMonth;
         }
     });
-    var dateSort = monthSort.sort(function (a, b) {
-        if (a.month === b.month) {
-            return a.date - b.date;
+    var dateSort = monthSort.sort(function (currEvent, nextEvent) {
+        if (currEvent.month === nextEvent.month) {
+            return currEvent.date === currentDate
+                ? 0
+                : currEvent.date - currentDate;
         }
     });
-    var daySort = dateSort.sort(function (a, b) {
-        if (a.date === b.date) {
-            return a.day - b.day;
+    var timeSort = dateSort.sort(function (currEvent, nextEvent) {
+        if (currEvent.date === nextEvent.date) {
+            return currEvent.startTime < nextEvent.startTime ? 0 : 1;
         }
     });
-    var startTimeSort = daySort.sort(function (a, b) { return a.startTime - b.startTime; });
-    return startTimeSort;
+    return timeSort;
 };
 //# sourceMappingURL=eventSort.js.map
