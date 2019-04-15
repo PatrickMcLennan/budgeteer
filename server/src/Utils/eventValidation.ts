@@ -5,8 +5,8 @@ export const eventValidation: Function = (events: IEvent[]): IEvent[] => {
   events.reduce(
     (previousEvent: IEvent, currentEvent: IEvent): any => {
       if (
-        previousEvent.endTime > currentEvent.startTime &&
-        previousEvent.date === currentEvent.date
+        previousEvent.date === currentEvent.date &&
+        previousEvent.endTime > currentEvent.startTime
       ) {
         duplicates.push(previousEvent, currentEvent);
       }
