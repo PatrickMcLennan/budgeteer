@@ -14,7 +14,6 @@ export const putEditEvent = async (
 ) => {
   const { user, event } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
-  const eventId: string = event.id;
 
   mongoUser.events
     .filter((savedEvent: IEvent): boolean => savedEvent.id !== event.id)
@@ -29,18 +28,16 @@ export const putEditEvent = async (
     return res.send({
       success: true,
       message: `${
-        mongoUser.events.find((event: IEvent): boolean => event.id === eventId)
-          .name
+        mongoUser.events.find(
+          (savedEvent: IEvent): boolean => savedEvent.id === event.id
+        ).name
       } has been updated`,
       events: mongoUser.events
     });
   } else {
     return res.send({
       success: false,
-      message: `${timeConflict.name} and ${
-        mongoUser.events.find((event: IEvent): boolean => event.id === eventId)
-          .name
-      } have conflicting times.`,
+      message: `${timeConflict.name} and ${event.name} have conflicting times.`,
       events: user.events
     });
   }

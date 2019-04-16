@@ -38,7 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("../Utils");
 exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, user, event, mongoUser, eventId, sortedEvents, timeConflict;
+    var _a, user, event, mongoUser, sortedEvents, timeConflict;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -46,7 +46,6 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
             case 1:
                 mongoUser = _b.sent();
-                eventId = event.id;
                 mongoUser.events
                     .filter(function (savedEvent) { return savedEvent.id !== event.id; })
                     .push(event);
@@ -59,14 +58,12 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 _b.sent();
                 return [2, res.send({
                         success: true,
-                        message: mongoUser.events.find(function (event) { return event.id === eventId; })
-                            .name + " has been updated",
+                        message: mongoUser.events.find(function (savedEvent) { return savedEvent.id === event.id; }).name + " has been updated",
                         events: mongoUser.events
                     })];
             case 3: return [2, res.send({
                     success: false,
-                    message: timeConflict.name + " and " + mongoUser.events.find(function (event) { return event.id === eventId; })
-                        .name + " have conflicting times.",
+                    message: timeConflict.name + " and " + event.name + " have conflicting times.",
                     events: user.events
                 })];
         }
