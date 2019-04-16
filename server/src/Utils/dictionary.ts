@@ -16,8 +16,8 @@ export interface IServerResponse extends Response {
 }
 
 export interface IEvent extends Document {
-  name: String;
-  location: String;
+  name: string;
+  location: string;
   year: number;
   month: number;
   date: number;

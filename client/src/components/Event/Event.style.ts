@@ -77,15 +77,15 @@ export const StyledP = styled.p`
       display: block;
       background-color: black;
       height: 1px;
-      width: 20%;
+      width: 25%;
     }
 
     &::before {
-      margin: 2.5px 40% 2.5px auto;
+      margin: 2.5px 30% 2.5px 45%;
     }
 
     &::after {
-      margin: 2.5px auto 2.5px 40%;
+      margin: 2.5px 45% 2.5px 30%;
     }
   }
 `;

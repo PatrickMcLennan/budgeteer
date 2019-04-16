@@ -9,13 +9,9 @@ export const eventValidation: Function = (
     .filter((event: IEvent): boolean => event.month === newEvent.month)
     .filter((event: IEvent): boolean => event.date === newEvent.date);
 
-  console.log('samedate', sameDate);
-
   const sameStart: IEvent = sameDate.find(
     (event: IEvent): boolean => event.startTime === newEvent.startTime
   );
-
-  console.log('samestart', sameStart);
 
   const checkStart: IEvent = sameDate.find(
     (event: IEvent): boolean =>
@@ -23,14 +19,10 @@ export const eventValidation: Function = (
       event.startTime <= newEvent.endTime
   );
 
-  console.log('checkstart', checkStart);
-
   const checkEnd: IEvent = sameDate.find(
     (event: IEvent): boolean =>
       event.endTime > newEvent.startTime && event.endTime <= newEvent.endTime
   );
-
-  console.log('checkend', checkEnd);
 
   if (sameStart !== undefined) {
     return sameStart;

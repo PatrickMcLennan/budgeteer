@@ -14,25 +14,33 @@ export const putEditEvent = async (
 ) => {
   const { user, event } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
+  const eventId: string = event.id;
 
   mongoUser.events
     .filter((savedEvent: IEvent): boolean => savedEvent.id !== event.id)
     .push(event);
   const sortedEvents: IEvent[] = eventSort(mongoUser.events);
-  const timeConflicts: IEvent[] = eventValidation(mongoUser.events);
+  const timeConflict: IEvent =
+    sortedEvents.length > 1 ? eventValidation(sortedEvents, event) : undefined;
 
-  if (timeConflicts.length === 1) {
+  if (timeConflict !== undefined) {
     mongoUser.events = sortedEvents;
     await user.save();
-    return res.json({
+    return res.send({
       success: true,
-      message: `${event.name} has been updated`,
+      message: `${
+        mongoUser.events.find((event: IEvent): boolean => event.id === eventId)
+          .name
+      } has been updated`,
       events: mongoUser.events
     });
   } else {
-    return res.json({
+    return res.send({
       success: false,
-      message: `Multiple events were found with that I.D, when there should only be 1.`,
+      message: `${timeConflict.name} and ${
+        mongoUser.events.find((event: IEvent): boolean => event.id === eventId)
+          .name
+      } have conflicting times.`,
       events: user.events
     });
   }

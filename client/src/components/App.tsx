@@ -151,7 +151,10 @@ class App extends React.Component<{}, IState> {
 
   returnToCalendar: Function = (): any => {
     this.setState({ currentActions: 1.25 });
-    return setTimeout(() => this.setState({ currentActions: 1 }), 750);
+    return setTimeout(
+      () => this.setState({ currentActions: 1, currentEvent: null }),
+      750
+    );
   };
 
   actionButtonMap: Function = (num: number): Function | any => {
