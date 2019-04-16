@@ -41,7 +41,8 @@ export const theme = {
   },
   elevation: {
     mainInset: `box-shadow: inset 0 4px 8px 0 rgba(0, 0, 0, 0.12),
-    inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);`
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);`,
+    mainOutset: `0 4px 8px 0 rgba(0, 0, 0, 0.12);`
   },
   flexin: (jc = 'center', ai = 'center', fd = 'row') =>
     `display: flex; justify-content: ${jc}; align-items: ${ai}; flex-direction: ${fd};`

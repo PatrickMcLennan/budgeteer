@@ -22,7 +22,7 @@ export const StyledButton = styled.button`
   &:hover,
   &:active,
   &:focus {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: ${({ theme: { elevation } }: any) => elevation.mainOutset};
     transform: scale(1.075) translateX(7.5%);
   }
 `;
@@ -52,6 +52,7 @@ export const StyledDiv = styled.div`
   &:hover,
   &:active,
   &:focus {
+    box-shadow: ${({ theme: { elevation } }: any) => elevation.mainOutset};
     transform: scale(1.025);
   }
 `;
@@ -64,18 +65,27 @@ export const StyledP = styled.p`
   padding: 0 0.5rem;
 
   &[data-testid='event__date'] {
-    text-align: left;
+    display: inline-block;
+    text-align: center;
     font-size: 1.6rem;
     letter-spacing: 0.2rem;
     font-style: italic;
 
+    &::before,
     &::after {
-      height: 1px;
-      width: 50%;
-      margin: 2.5px auto 2.5px 5%;
       content: '';
       display: block;
       background-color: black;
+      height: 1px;
+      width: 20%;
+    }
+
+    &::before {
+      margin: 2.5px 40% 2.5px auto;
+    }
+
+    &::after {
+      margin: 2.5px auto 2.5px 40%;
     }
   }
 `;

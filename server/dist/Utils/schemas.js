@@ -19,10 +19,6 @@ var EventSchema = new mongoose_1.Schema({
         type: Number,
         required: 'Please provide a month'
     },
-    day: {
-        type: Number,
-        required: 'Please provide a day'
-    },
     date: {
         type: Number,
         required: 'Please provide a date'

@@ -32,6 +32,23 @@ class Event extends React.Component<IProps, IState> {
     return showEventForm();
   };
 
+  showDate = (date: number, month: number, year: number): string | null => {
+    const currentYear = Math.floor(new Date().getFullYear());
+    const currentDate = Math.floor(new Date().getDate());
+    const currentMonth = Math.floor(new Date().getMonth());
+    const currentDay = Math.floor(new Date().getDay());
+
+    if (
+      year === currentYear &&
+      month === currentMonth &&
+      date - currentDate <= 6
+    ) {
+      return `${WEEKDAYSnumber.get(currentDay)}`;
+    } else {
+      return `${MONTHSnumber.get(month)} ${date} ${year}`;
+    }
+  };
+
   formatTime = (num: number): string => {
     return num > 12 ? `${num - 12} P.M` : `${num} A.M`;
   };
@@ -52,7 +69,7 @@ class Event extends React.Component<IProps, IState> {
     return (
       <StyledDiv data-testid="event" triggerAnimation={triggerAnimation}>
         <StyledP data-testid="event__date">
-          {MONTHSnumber.get(month)} {date} {year}
+          {this.showDate(date, month, year)}
         </StyledP>
         <StyledP data-testid="event__name">{name}</StyledP>
         <StyledP data-testid="event__location">{location}</StyledP>

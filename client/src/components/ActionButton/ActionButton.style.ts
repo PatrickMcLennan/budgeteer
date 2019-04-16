@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { theme } from '../../utils/resets.style';
 
 interface StyledButtonProps {
   colorScheme: number;
@@ -9,15 +8,18 @@ interface StyledButtonProps {
 
 export const StyledH6 = styled.h6`
   font-size: 7.5vh;
-  border: 1px solid red;
   font-weight: 100;
   transition: all 0.75s;
-  transform-style: preserve-3d;
+  transform-origin: center center;
   transform: rotate(0);
   ${(props: StyledButtonProps) =>
     props.animateIn &&
     css`
-      transform: rotate(45deg);
+      transform: rotate(45deg) translateY(-15%);
+      font-size: 10vh;
+      filter: drop-shadow(
+        ${({ theme: { elevation } }: any) => elevation.mainOutset}
+      );
     `}
   ${(props: StyledButtonProps) =>
     props.animateOut &&
@@ -27,6 +29,7 @@ export const StyledH6 = styled.h6`
 `;
 
 export const StyledButton = styled.button`
+  ${({ theme: { flexin } }: any) => flexin()}
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   z-index: 10;
   position: fixed;
@@ -36,7 +39,6 @@ export const StyledButton = styled.button`
   height: 10vh;
   width: 10vh;
   border-radius: 100%;
-  border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
   filter: drop-shadow(1px 1px 0 grey);
   overflow: hidden;
   cursor: pointer;
