@@ -28,12 +28,12 @@ class FormModal extends React.Component<IProps, IEvent> {
     name: '',
     location: '',
     description: '',
-    year: new Date().getFullYear(),
-    month: new Date().getMonth(),
-    day: new Date().getDay(),
-    date: new Date().getDate(),
-    startTime: new Date().getHours(),
-    endTime: new Date().getHours() + 3,
+    year: Math.floor(new Date().getFullYear()),
+    month: Math.floor(new Date().getMonth()),
+    day: Math.floor(new Date().getDay()),
+    date: Math.floor(new Date().getDate()),
+    startTime: Math.floor(new Date().getHours()),
+    endTime: Math.floor(new Date().getHours() + 3),
     cost: 0
   };
 
@@ -157,7 +157,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
           <StyledLabel htmlFor="datw" data-testid="form__label">
-            <p>day:</p>
+            <p>Date:</p>
             <StyledInput
               data-testid="form__date"
               type="number"

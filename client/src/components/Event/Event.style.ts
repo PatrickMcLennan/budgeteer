@@ -61,4 +61,21 @@ export const StyledP = styled.p`
   font-size: 2rem;
   font-weight: 100;
   text-transform: uppercase;
+  padding: 0 0.5rem;
+
+  &[data-testid='event__date'] {
+    text-align: left;
+    font-size: 1.6rem;
+    letter-spacing: 0.2rem;
+    font-style: italic;
+
+    &::after {
+      height: 1px;
+      width: 50%;
+      margin: 2.5px auto 2.5px 5%;
+      content: '';
+      display: block;
+      background-color: black;
+    }
+  }
 `;

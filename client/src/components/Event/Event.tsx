@@ -10,7 +10,11 @@ interface IProps {
   event: IEvent;
 }
 
-class Event extends React.Component<IProps, {}> {
+interface IState {
+  triggerAnimation: boolean;
+}
+
+class Event extends React.Component<IProps, IState> {
   state = {
     triggerAnimation: false
   };
@@ -33,7 +37,7 @@ class Event extends React.Component<IProps, {}> {
   };
   render(): JSX.Element {
     const { triggerAnimation } = this.state;
-    const { event, showEventForm } = this.props;
+    const { event } = this.props;
     const {
       name,
       location,
@@ -48,12 +52,12 @@ class Event extends React.Component<IProps, {}> {
     }: IEvent = event;
     return (
       <StyledDiv data-testid="event" triggerAnimation={triggerAnimation}>
-        <StyledP data-testid="event__name">{name}</StyledP>
-        <StyledP data-testid="event__location">{location}</StyledP>
-        <StyledP data-testid="event__description">{description}</StyledP>
         <StyledP data-testid="event__date">
           {WEEKDAYSnumber.get(day)} {MONTHSnumber.get(month)} {date} {year}
         </StyledP>
+        <StyledP data-testid="event__name">{name}</StyledP>
+        <StyledP data-testid="event__location">{location}</StyledP>
+        <StyledP data-testid="event__description">{description}</StyledP>
         <StyledP data-testid="event__startTime">
           {this.formatTime(startTime)}
         </StyledP>
