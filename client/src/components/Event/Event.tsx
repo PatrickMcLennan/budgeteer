@@ -43,9 +43,9 @@ class Event extends React.Component<IProps, IState> {
       month === currentMonth &&
       date - currentDate <= 6
     ) {
-      return `${WEEKDAYSnumber.get(currentDay)}`;
+      return `${WEEKDAYSnumber.get(date - currentDate + currentDay)}`;
     } else {
-      return `${MONTHSnumber.get(month)} ${date}, ${year}`;
+      return `${MONTHSnumber.get(month)} ${date} ${year}`;
     }
   };
 
