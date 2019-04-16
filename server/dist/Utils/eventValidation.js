@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.eventValidation = function (savedEvents, newEvent) {
-    var sameYear = savedEvents.filter(function (event) { return event.year === newEvent.year; });
-    var sameMonth = sameYear.filter(function (event) { return event.month === newEvent.month; });
-    var sameDates = sameMonth.filter(function (event) { return event.date === newEvent.date; });
+    var sameDates = savedEvents.filter(function (event) {
+        return event.year === newEvent.year &&
+            event.month === newEvent.month &&
+            event.date === newEvent.date;
+    });
     console.log(sameDates);
     var timeConflicts = sameDates.length >= 1
         ? sameDates.find(function (event) {

@@ -15,7 +15,6 @@ export const postNewEvent = async (
 ) => {
   const { event, user } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
-
   event.id = uuid.v4();
 
   const timeConflict: IEvent =
