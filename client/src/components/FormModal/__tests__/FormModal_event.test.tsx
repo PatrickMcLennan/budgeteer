@@ -36,7 +36,6 @@ test('<FormModal />', () => {
   const description = getByTestId('form__description');
   const year = getByTestId('form__year');
   const month = getByTestId('form__month');
-  const day = getByTestId('form__day');
   const date = getByTestId('form__date');
   const startTime = getByTestId('form__startTime');
   const endTime = getByTestId('form__endTime');
@@ -47,7 +46,6 @@ test('<FormModal />', () => {
     description,
     year,
     month,
-    day,
     startTime,
     endTime,
     cost
@@ -66,7 +64,6 @@ test('<FormModal />', () => {
   expect(description.value).toBe('be polite');
   expect(year.value).toBe('2020');
   expect(month.value).toBe('2');
-  expect(day.value).toBe('2');
   expect(date.value).toBe('8');
   expect(startTime.value).toBe('5');
   expect(endTime.value).toBe('7');

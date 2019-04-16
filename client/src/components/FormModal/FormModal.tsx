@@ -30,7 +30,6 @@ class FormModal extends React.Component<IProps, IEvent> {
     description: '',
     year: Math.floor(new Date().getFullYear()),
     month: Math.floor(new Date().getMonth()),
-    day: Math.floor(new Date().getDay()),
     date: Math.floor(new Date().getDate()),
     startTime: Math.floor(new Date().getHours()),
     endTime: Math.floor(new Date().getHours() + 3),
@@ -74,7 +73,6 @@ class FormModal extends React.Component<IProps, IEvent> {
       description,
       year,
       month,
-      day,
       date,
       startTime,
       endTime,
@@ -85,6 +83,8 @@ class FormModal extends React.Component<IProps, IEvent> {
         <StyledForm
           data-testid="form"
           onSubmit={this.handleSubmit}
+          animateIn={currentActions === 1.75}
+          animateOut={currentActions === 1.25}
           render={currentActions === 2}>
           <StyledH2>{name.length >= 1 ? name : ` . . `}</StyledH2>
           <StyledLabel htmlFor="name" data-testid="form__label">
@@ -145,17 +145,6 @@ class FormModal extends React.Component<IProps, IEvent> {
               required
             />
           </StyledLabel>
-          <StyledLabel htmlFor="day" data-testid="form__label">
-            <p>Day:</p>
-            <StyledInput
-              data-testid="form__day"
-              type="number"
-              value={day}
-              id="day"
-              onChange={this.handleChange}
-              required
-            />
-          </StyledLabel>
           <StyledLabel htmlFor="datw" data-testid="form__label">
             <p>Date:</p>
             <StyledInput
@@ -209,7 +198,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
         </StyledForm>
-        <Backdrop onClick={this.handleSubmit} render={currentActions === 2} />
+        <Backdrop onClick={this.handleSubmit} render={currentActions === 2} animateIn={currentActions === 1.75} animateOut={currentActions === 1.25}/>
       </>
     );
   }

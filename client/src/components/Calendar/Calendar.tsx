@@ -31,12 +31,14 @@ class Calendar extends React.Component<IProps, IState> {
     return (
       <StyledGrid data-testid="calendar">
         <Nav />
-        <StyledH6
-          data-testid="calendar__noEventMessage"
-          visible={currentActions === 1 && events.length === 0}
-          invisible={events.length >= 1}>
-          You have an empty schedule!
-        </StyledH6>
+        {currentActions === 1 && events.length === 0 && (
+          <StyledH6
+            data-testid="calendar__noEventMessage"
+            visible={currentActions === 1 && events.length === 0}
+            invisible={events.length >= 1}>
+            You have an empty schedule!
+          </StyledH6>
+        )}
         {events.length >= 1 &&
           events.map(
             (event: IEvent): any => (

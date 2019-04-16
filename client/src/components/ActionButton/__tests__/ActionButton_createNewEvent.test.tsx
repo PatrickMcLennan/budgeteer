@@ -25,7 +25,7 @@ test('<ActionButton action={createNewAction} />', async () => {
 
   // Content
   expect(button).toBeInTheDocument();
-  expect(button.textContent).toBe('x');
+  expect(button.textContent).toBe('+');
   expect(button).not.toContainElement(logInSVG);
 
   // Styles

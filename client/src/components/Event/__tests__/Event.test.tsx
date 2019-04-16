@@ -16,7 +16,6 @@ export const fakeEvent: IEvent = {
   id: 'mongoId',
   year: 2020,
   month: 2,
-  day: 2,
   date: 8,
   startTime: 5,
   endTime: 7,
@@ -53,7 +52,7 @@ test('<Event {...fakeEvent} />', () => {
   expect(name.textContent).toBe('Dinner with the Queen');
   expect(location.textContent).toBe('England');
   expect(description.textContent).toBe('be polite');
-  expect(date.textContent).toBe('Tuesday March 8 2020');
+  expect(date.textContent).toBe('March 8 2020');
   expect(startTime.textContent).toBe('5 A.M');
   expect(endTime.textContent).toBe('7 A.M');
   expect(cost.textContent).toBe('$20');

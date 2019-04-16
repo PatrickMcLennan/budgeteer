@@ -20,10 +20,6 @@ const EventSchema: Schema<IEvent> = new Schema(
       type: Number,
       required: 'Please provide a month'
     },
-    day: {
-      type: Number,
-      required: 'Please provide a day'
-    },
     date: {
       type: Number,
       required: 'Please provide a date'

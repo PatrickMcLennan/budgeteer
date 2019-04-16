@@ -44,7 +44,6 @@ class Event extends React.Component<IProps, IState> {
       description,
       year,
       month,
-      day,
       date,
       startTime,
       endTime,
@@ -53,7 +52,7 @@ class Event extends React.Component<IProps, IState> {
     return (
       <StyledDiv data-testid="event" triggerAnimation={triggerAnimation}>
         <StyledP data-testid="event__date">
-          {WEEKDAYSnumber.get(day)} {MONTHSnumber.get(month)} {date} {year}
+          {MONTHSnumber.get(month)} {date} {year}
         </StyledP>
         <StyledP data-testid="event__name">{name}</StyledP>
         <StyledP data-testid="event__location">{location}</StyledP>

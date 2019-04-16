@@ -1,6 +1,8 @@
 import styled, { keyframes, css } from 'styled-components';
 
 interface StyledFormProps {
+  animateIn: boolean;
+  animateOut: boolean;
   render: boolean;
 }
 
@@ -67,18 +69,26 @@ export const Backdrop = styled.div`
   transform: scaleY(0);
 
   ${(props: StyledFormProps) =>
-    props.render &&
+    props.animateIn &&
     css`
       display: block;
       animation: ${backdropAnimateIn} 0.75s forwards;
     `};
 
   ${(props: StyledFormProps) =>
-    !props.render &&
+    props.render &&
+    css`
+      display: block;
+      opacity: 1;
+    transform: translateY(0%);
+    `};
+
+  ${(props: StyledFormProps) =>
+    props.animateOut &&
     css`
       display: block;
       animation: ${backdropAnimateOut} 0.75s forwards;
-    `};
+    `}
 `;
 
 export const StyledForm = styled.form`
@@ -97,13 +107,20 @@ export const StyledForm = styled.form`
   transform: translateY(-100%);
 
   ${(props: StyledFormProps) =>
-    props.render &&
+    props.animateIn &&
     css`
       display: block;
       animation: ${formAnimateIn} 0.75s forwards;
     `};
   ${(props: StyledFormProps) =>
-    !props.render &&
+    props.render &&
+    css`
+      display: block;
+      opacity: 1;
+      transform: translateY(0%);
+    `}
+  ${(props: StyledFormProps) =>
+    props.animateOut &&
     css`
       display: block;
       animation: ${formAnimateOut} 0.75s forwards;

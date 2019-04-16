@@ -5,7 +5,6 @@ export interface IEvent {
   description: string;
   year: number;
   month: number;
-  day: number;
   date: number;
   startTime: number;
   endTime: number;

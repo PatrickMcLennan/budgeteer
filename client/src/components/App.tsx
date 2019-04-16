@@ -144,12 +144,14 @@ class App extends React.Component<{}, IState> {
     return this.setState({ currentEvent: event });
   };
 
-  showEventForm: Function = (): void => {
-    return this.setState({ currentActions: 2 });
+  showEventForm: Function = (): any => {
+    this.setState({ currentActions: 1.75 });
+    return setTimeout(() => this.setState({ currentActions: 2 }), 750);
   };
 
   returnToCalendar: Function = (): any => {
-    return this.setState({ currentActions: 1, currentEvent: null });
+    this.setState({ currentActions: 1.25 });
+    return setTimeout(() => this.setState({ currentActions: 1 }), 750);
   };
 
   actionButtonMap: Function = (num: number): Function | any => {
@@ -178,7 +180,7 @@ class App extends React.Component<{}, IState> {
             currentActions={currentActions}
             action={this.actionButtonMap(currentActions)}
           />
-          {currentActions === 2 && (
+          {currentActions > 1 && (
             <FormModal
               event={currentEvent}
               currentActions={currentActions}
@@ -201,3 +203,14 @@ class App extends React.Component<{}, IState> {
 }
 
 export default App;
+
+// currentActions index
+
+// Whole numbers = rest states
+// Half Numbers = animation states
+
+// 0: Log In Modal
+// 0.5: log in modal animating out, calendar animating in
+// 1: Calendar view, with either events or 'No Events' message
+// 1.5: Form animating in
+// 2: Form view
