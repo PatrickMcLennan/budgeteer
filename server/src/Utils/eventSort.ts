@@ -34,43 +34,69 @@ const oldEventFilter: Function = (events: IEvent[]): IEvent[] => {
 };
 
 export const eventSort = (events: IEvent[]): IEvent[] => {
-  const validEvents: IEvent[] = oldEventFilter(events);
+  const validEvents = oldEventFilter(events);
   const now = new Date();
   const currentYear = Math.floor(now.getFullYear());
   const currentMonth = Math.floor(now.getFullYear());
   const currentDate = Math.floor(now.getDate());
+  const currentTime = Math.floor(now.getHours());
 
-  const yearSort: IEvent[] = validEvents.sort(
-    (event: IEvent): number =>
-      event.year === currentYear ? 0 : event.year - currentYear
-  );
+  const dateSort: IEvent[] = validEvents.sort(
+    (currentEvent: IEvent, nextEvent: IEvent): number => {
+      const currentEventTotals: number =
+        currentEvent.year + currentEvent.month + currentEvent.date;
+      const nextEventTotals: number =
+        nextEvent.year + nextEvent.month + nextEvent.date;
+      const currentTimeTotals: number =
+        currentYear + currentMonth + currentDate;
 
-  const monthSort: IEvent[] = yearSort.sort(
-    (currEvent: IEvent, nextEvent: IEvent): number => {
-      if (currEvent.year === nextEvent.year) {
-        return currEvent.month === currentMonth
-          ? 0
-          : currEvent.month - currentMonth;
-      }
+      const current: number = currentEventTotals - currentTimeTotals;
+      const next: number = nextEventTotals - currentTimeTotals;
+
+      return current - next;
     }
   );
-
-  const dateSort: IEvent[] = monthSort.sort(
-    (currEvent: IEvent, nextEvent: IEvent): number => {
-      if (currEvent.month === nextEvent.month) {
-        return currEvent.date === currentDate
-          ? 0
-          : currEvent.date - currentDate;
-      }
-    }
-  );
-
-  const timeSort: IEvent[] = dateSort.sort(
-    (currEvent: IEvent, nextEvent: IEvent): number => {
-      if (currEvent.date === nextEvent.date) {
-        return currEvent.startTime < nextEvent.startTime ? 0 : 1;
-      }
-    }
-  );
-  return timeSort;
+  return dateSort;
 };
+
+// export const eventSort = (events: IEvent[]): IEvent[] => {
+//   const validEvents: IEvent[] = oldEventFilter(events);
+//   const now = new Date();
+//   const currentYear = Math.floor(now.getFullYear());
+//   const currentMonth = Math.floor(now.getFullYear());
+//   const currentDate = Math.floor(now.getDate());
+
+//   const yearSort: IEvent[] = validEvents.sort(
+//     (event: IEvent): number =>
+//       event.year === currentYear ? 0 : event.year - currentYear
+//   );
+
+//   const monthSort: IEvent[] = yearSort.sort(
+//     (currEvent: IEvent, nextEvent: IEvent): number => {
+//       if (currEvent.year === nextEvent.year) {
+//         return currEvent.month === currentMonth
+//           ? 0
+//           : currEvent.month - currentMonth;
+//       }
+//     }
+//   );
+
+//   const dateSort: IEvent[] = monthSort.sort(
+//     (currEvent: IEvent, nextEvent: IEvent): number => {
+//       if (currEvent.month === nextEvent.month) {
+//         return currEvent.date === currentDate
+//           ? 0
+//           : currEvent.date - currentDate;
+//       }
+//     }
+//   );
+
+//   const timeSort: IEvent[] = dateSort.sort(
+//     (currEvent: IEvent, nextEvent: IEvent): number => {
+//       if (currEvent.date === nextEvent.date) {
+//         return currEvent.startTime < nextEvent.startTime ? 0 : 1;
+//       }
+//     }
+//   );
+//   return timeSort;
+// };

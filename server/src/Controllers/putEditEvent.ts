@@ -20,11 +20,13 @@ export const putEditEvent = async (
   );
   otherEvents.push(event);
 
-  const sortedEvents: IEvent[] = eventSort(otherEvents);
   const timeConflict: IEvent =
-    sortedEvents.length > 1 ? eventValidation(sortedEvents, event) : undefined;
+    mongoUser.events.length > 1
+      ? eventValidation(mongoUser.events, event)
+      : undefined;
 
   if (timeConflict !== undefined) {
+    const sortedEvents: IEvent[] = eventSort(otherEvents);
     mongoUser.events = sortedEvents;
     await mongoUser.save();
     return res.send({

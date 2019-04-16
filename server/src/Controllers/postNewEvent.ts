@@ -17,10 +17,11 @@ export const postNewEvent = async (
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
 
   event.id = uuid.v4();
-  mongoUser.events.push(event);
-  const sortedEvents: IEvent[] = eventSort(mongoUser.events);
+
   const timeConflict: IEvent =
-    sortedEvents.length > 1 ? eventValidation(sortedEvents, event) : undefined;
+    mongoUser.events.length >= 1
+      ? eventValidation(mongoUser.events, event)
+      : undefined;
 
   if (timeConflict !== undefined) {
     return res.send({
@@ -29,6 +30,7 @@ export const postNewEvent = async (
       events: user.events
     });
   } else {
+    mongoUser.events.push(event);
     mongoUser.events = eventSort(mongoUser.events);
     await mongoUser.save();
     return res.send({

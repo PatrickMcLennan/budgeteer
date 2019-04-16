@@ -38,7 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("../Utils");
 exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, user, event, mongoUser, otherEvents, sortedEvents, timeConflict;
+    var _a, user, event, mongoUser, otherEvents, timeConflict, sortedEvents;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -48,9 +48,11 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 mongoUser = _b.sent();
                 otherEvents = mongoUser.events.filter(function (savedEvent) { return savedEvent.id !== event.id; });
                 otherEvents.push(event);
-                sortedEvents = Utils_1.eventSort(otherEvents);
-                timeConflict = sortedEvents.length > 1 ? Utils_1.eventValidation(sortedEvents, event) : undefined;
+                timeConflict = mongoUser.events.length > 1
+                    ? Utils_1.eventValidation(mongoUser.events, event)
+                    : undefined;
                 if (!(timeConflict !== undefined)) return [3, 3];
+                sortedEvents = Utils_1.eventSort(otherEvents);
                 mongoUser.events = sortedEvents;
                 return [4, mongoUser.save()];
             case 2:

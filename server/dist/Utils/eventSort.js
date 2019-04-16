@@ -35,28 +35,15 @@ exports.eventSort = function (events) {
     var currentYear = Math.floor(now.getFullYear());
     var currentMonth = Math.floor(now.getFullYear());
     var currentDate = Math.floor(now.getDate());
-    var yearSort = validEvents.sort(function (event) {
-        return event.year === currentYear ? 0 : event.year - currentYear;
+    var currentTime = Math.floor(now.getHours());
+    var dateSort = validEvents.sort(function (currentEvent, nextEvent) {
+        var currentEventTotals = currentEvent.year + currentEvent.month + currentEvent.date;
+        var nextEventTotals = nextEvent.year + nextEvent.month + nextEvent.date;
+        var currentTimeTotals = currentYear + currentMonth + currentDate;
+        var current = currentEventTotals - currentTimeTotals;
+        var next = nextEventTotals - currentTimeTotals;
+        return current - next;
     });
-    var monthSort = yearSort.sort(function (currEvent, nextEvent) {
-        if (currEvent.year === nextEvent.year) {
-            return currEvent.month === currentMonth
-                ? 0
-                : currEvent.month - currentMonth;
-        }
-    });
-    var dateSort = monthSort.sort(function (currEvent, nextEvent) {
-        if (currEvent.month === nextEvent.month) {
-            return currEvent.date === currentDate
-                ? 0
-                : currEvent.date - currentDate;
-        }
-    });
-    var timeSort = dateSort.sort(function (currEvent, nextEvent) {
-        if (currEvent.date === nextEvent.date) {
-            return currEvent.startTime < nextEvent.startTime ? 0 : 1;
-        }
-    });
-    return timeSort;
+    return dateSort;
 };
 //# sourceMappingURL=eventSort.js.map

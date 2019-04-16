@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var uuid_1 = __importDefault(require("uuid"));
 var Utils_1 = require("../Utils");
 exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, event, user, mongoUser, sortedEvents, timeConflict;
+    var _a, event, user, mongoUser, timeConflict;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -51,9 +51,9 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 1:
                 mongoUser = _b.sent();
                 event.id = uuid_1.default.v4();
-                mongoUser.events.push(event);
-                sortedEvents = Utils_1.eventSort(mongoUser.events);
-                timeConflict = sortedEvents.length > 1 ? Utils_1.eventValidation(sortedEvents, event) : undefined;
+                timeConflict = mongoUser.events.length >= 1
+                    ? Utils_1.eventValidation(mongoUser.events, event)
+                    : undefined;
                 if (!(timeConflict !== undefined)) return [3, 2];
                 return [2, res.send({
                         success: false,
@@ -61,6 +61,7 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                         events: user.events
                     })];
             case 2:
+                mongoUser.events.push(event);
                 mongoUser.events = Utils_1.eventSort(mongoUser.events);
                 return [4, mongoUser.save()];
             case 3:
