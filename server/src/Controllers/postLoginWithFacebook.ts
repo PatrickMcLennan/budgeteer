@@ -16,7 +16,10 @@ export const postLoginWithFacebook = async (
     const userExists: IUser = await User.findOne({ facebookId: userID });
 
     if (userExists) {
-      userExists.events = eventSort(userExists.events);
+      if (userExists.events.length > 1) {
+        userExists.events = eventSort(userExists.events);
+      }
+
       await userExists.save();
       res.json({
         success: true,

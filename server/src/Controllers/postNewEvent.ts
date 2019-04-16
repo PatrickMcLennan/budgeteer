@@ -19,14 +19,13 @@ export const postNewEvent = async (
   event.id = uuid.v4();
   mongoUser.events.push(event);
   const sortedEvents: IEvent[] = eventSort(mongoUser.events);
-  const timeConflicts: IEvent[] = eventValidation(sortedEvents, event);
+  const timeConflict: IEvent =
+    sortedEvents.length > 1 ? eventValidation(sortedEvents, event) : undefined;
 
-  if (timeConflicts.length > 1) {
+  if (timeConflict !== undefined) {
     return res.send({
       success: false,
-      message: `${timeConflicts[0].name} and ${
-        timeConflicts[1].name
-      } have conflicting times`,
+      message: `${timeConflict.name} and ${event.name} have conflicting times`,
       events: user.events
     });
   } else {

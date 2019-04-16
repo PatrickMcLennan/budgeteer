@@ -58,7 +58,9 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
             case 3:
                 userExists = _b.sent();
                 if (!userExists) return [3, 5];
-                userExists.events = Utils_1.eventSort(userExists.events);
+                if (userExists.events.length > 1) {
+                    userExists.events = Utils_1.eventSort(userExists.events);
+                }
                 return [4, userExists.save()];
             case 4:
                 _b.sent();

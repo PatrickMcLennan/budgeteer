@@ -3,27 +3,42 @@ import { IEvent } from './dictionary';
 export const eventValidation: Function = (
   savedEvents: IEvent[],
   newEvent: IEvent
-): IEvent[] => {
-  const sameMonth = savedEvents.filter(
-    (event: IEvent): boolean => event.month === newEvent.month
-  );
-  const sameDate = sameMonth.filter(
-    (event: IEvent): boolean => event.date === newEvent.date
-  );
-  const earlierEvents = sameDate.filter(
-    (event: IEvent): boolean => event.startTime < newEvent.startTime
-  );
-  const timeConflicts = earlierEvents.filter(
-    (event: IEvent): boolean => event.endTime > newEvent.startTime
-  );
+): IEvent => {
+  const sameDate: IEvent[] = savedEvents
+    .filter((event: IEvent): boolean => event.year === newEvent.year)
+    .filter((event: IEvent): boolean => event.month === newEvent.month)
+    .filter((event: IEvent): boolean => event.date === newEvent.date);
 
-  const sameStart = sameDate.filter(
+  console.log('samedate', sameDate);
+
+  const sameStart: IEvent = sameDate.find(
     (event: IEvent): boolean => event.startTime === newEvent.startTime
   );
 
-  if (sameStart.length > 1) {
+  console.log('samestart', sameStart);
+
+  const checkStart: IEvent = sameDate.find(
+    (event: IEvent): boolean =>
+      event.startTime >= newEvent.startTime &&
+      event.startTime <= newEvent.endTime
+  );
+
+  console.log('checkstart', checkStart);
+
+  const checkEnd: IEvent = sameDate.find(
+    (event: IEvent): boolean =>
+      event.endTime > newEvent.startTime && event.endTime <= newEvent.endTime
+  );
+
+  console.log('checkend', checkEnd);
+
+  if (sameStart !== undefined) {
     return sameStart;
+  } else if (checkStart !== undefined) {
+    return checkStart;
+  } else if (checkEnd !== undefined) {
+    return checkEnd;
   } else {
-    return timeConflicts;
+    return undefined;
   }
 };

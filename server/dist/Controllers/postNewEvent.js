@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var uuid_1 = __importDefault(require("uuid"));
 var Utils_1 = require("../Utils");
 exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, event, user, mongoUser, sortedEvents, timeConflicts;
+    var _a, event, user, mongoUser, sortedEvents, timeConflict;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -53,11 +53,11 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 event.id = uuid_1.default.v4();
                 mongoUser.events.push(event);
                 sortedEvents = Utils_1.eventSort(mongoUser.events);
-                timeConflicts = Utils_1.eventValidation(sortedEvents, event);
-                if (!(timeConflicts.length > 1)) return [3, 2];
+                timeConflict = sortedEvents.length > 1 ? Utils_1.eventValidation(sortedEvents, event) : undefined;
+                if (!(timeConflict !== undefined)) return [3, 2];
                 return [2, res.send({
                         success: false,
-                        message: timeConflicts[0].name + " and " + timeConflicts[1].name + " have conflicting times",
+                        message: timeConflict.name + " and " + event.name + " have conflicting times",
                         events: user.events
                     })];
             case 2:

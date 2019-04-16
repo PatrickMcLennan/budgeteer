@@ -31,7 +31,6 @@ var oldEventFilter = function (events) {
 };
 exports.eventSort = function (events) {
     var validEvents = oldEventFilter(events);
-    var conflicts;
     var now = new Date();
     var currentYear = Math.floor(now.getFullYear());
     var currentMonth = Math.floor(now.getFullYear());

@@ -1,16 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.eventValidation = function (savedEvents, newEvent) {
-    var sameMonth = savedEvents.filter(function (event) { return event.month === newEvent.month; });
-    var sameDate = sameMonth.filter(function (event) { return event.date === newEvent.date; });
-    var earlierEvents = sameDate.filter(function (event) { return event.startTime < newEvent.startTime; });
-    var timeConflicts = earlierEvents.filter(function (event) { return event.endTime > newEvent.startTime; });
-    var sameStart = sameDate.filter(function (event) { return event.startTime === newEvent.startTime; });
-    if (sameStart.length > 1) {
+    var sameDate = savedEvents
+        .filter(function (event) { return event.year === newEvent.year; })
+        .filter(function (event) { return event.month === newEvent.month; })
+        .filter(function (event) { return event.date === newEvent.date; });
+    console.log('samedate', sameDate);
+    var sameStart = sameDate.find(function (event) { return event.startTime === newEvent.startTime; });
+    console.log('samestart', sameStart);
+    var checkStart = sameDate.find(function (event) {
+        return event.startTime >= newEvent.startTime &&
+            event.startTime <= newEvent.endTime;
+    });
+    console.log('checkstart', checkStart);
+    var checkEnd = sameDate.find(function (event) {
+        return event.endTime > newEvent.startTime && event.endTime <= newEvent.endTime;
+    });
+    console.log('checkend', checkEnd);
+    if (sameStart !== undefined) {
         return sameStart;
     }
+    else if (checkStart !== undefined) {
+        return checkStart;
+    }
+    else if (checkEnd !== undefined) {
+        return checkEnd;
+    }
     else {
-        return timeConflicts;
+        return undefined;
     }
 };
 //# sourceMappingURL=eventValidation.js.map

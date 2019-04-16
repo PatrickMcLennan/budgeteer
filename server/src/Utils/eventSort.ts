@@ -35,7 +35,6 @@ const oldEventFilter: Function = (events: IEvent[]): IEvent[] => {
 
 export const eventSort = (events: IEvent[]): IEvent[] => {
   const validEvents: IEvent[] = oldEventFilter(events);
-  let conflicts: IEvent[];
   const now = new Date();
   const currentYear = Math.floor(now.getFullYear());
   const currentMonth = Math.floor(now.getFullYear());
