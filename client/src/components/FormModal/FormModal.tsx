@@ -66,7 +66,7 @@ class FormModal extends React.Component<IProps, IEvent> {
   };
 
   render(): JSX.Element {
-    const { currentActions } = this.props;
+    const { currentActions, returnToCalendar } = this.props;
     const {
       name,
       location,
@@ -198,7 +198,7 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
         </StyledForm>
-        <Backdrop onClick={this.handleSubmit} render={currentActions === 2} animateIn={currentActions === 1.75} animateOut={currentActions === 1.25}/>
+        <Backdrop onClick={() => returnToCalendar()} render={currentActions === 2} animateIn={currentActions === 1.75} animateOut={currentActions === 1.25}/>
       </>
     );
   }

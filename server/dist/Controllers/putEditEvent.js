@@ -53,7 +53,7 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 timeConflict = sortedEvents.length > 1 ? Utils_1.eventValidation(sortedEvents, event) : undefined;
                 if (!(timeConflict !== undefined)) return [3, 3];
                 mongoUser.events = sortedEvents;
-                return [4, user.save()];
+                return [4, mongoUser.save()];
             case 2:
                 _b.sent();
                 return [2, res.send({

@@ -18,13 +18,14 @@ export const putEditEvent = async (
   mongoUser.events
     .filter((savedEvent: IEvent): boolean => savedEvent.id !== event.id)
     .push(event);
+
   const sortedEvents: IEvent[] = eventSort(mongoUser.events);
   const timeConflict: IEvent =
     sortedEvents.length > 1 ? eventValidation(sortedEvents, event) : undefined;
 
   if (timeConflict !== undefined) {
     mongoUser.events = sortedEvents;
-    await user.save();
+    await mongoUser.save();
     return res.send({
       success: true,
       message: `${

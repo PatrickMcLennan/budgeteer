@@ -15,7 +15,7 @@ export const StyledH6 = styled.h6`
   ${(props: StyledButtonProps) =>
     props.animateIn &&
     css`
-      transform: rotate(45deg) translateY(-15%);
+      transform: rotate(45deg) translate(-15%, -15%);
       font-size: 10vh;
       filter: drop-shadow(
         ${({ theme: { elevation } }: any) => elevation.mainOutset}
