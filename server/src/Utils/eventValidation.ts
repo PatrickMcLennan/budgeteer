@@ -4,10 +4,12 @@ export const eventValidation: Function = (
   savedEvents: IEvent[],
   newEvent: IEvent
 ): IEvent => {
-  const sameDate: IEvent[] = savedEvents
-    .filter((event: IEvent): boolean => event.year === newEvent.year)
-    .filter((event: IEvent): boolean => event.month === newEvent.month)
-    .filter((event: IEvent): boolean => event.date === newEvent.date);
+  const sameDate: IEvent[] = savedEvents.filter(
+    (uncheckedEvent: IEvent): boolean =>
+      uncheckedEvent.year === newEvent.year &&
+      uncheckedEvent.month === newEvent.month &&
+      uncheckedEvent.date === newEvent.date
+  );
 
   const sameStart: IEvent = sameDate.find(
     (event: IEvent): boolean => event.startTime === newEvent.startTime
@@ -24,7 +26,9 @@ export const eventValidation: Function = (
       event.endTime > newEvent.startTime && event.endTime <= newEvent.endTime
   );
 
-  if (sameStart !== undefined) {
+  if (sameDate.length === 0) {
+    return undefined;
+  } else if (sameStart !== undefined) {
     return sameStart;
   } else if (checkStart !== undefined) {
     return checkStart;
