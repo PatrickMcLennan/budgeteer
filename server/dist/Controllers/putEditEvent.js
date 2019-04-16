@@ -38,7 +38,7 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("../Utils");
 exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, user, event, mongoUser, sortedEvents, timeConflict;
+    var _a, user, event, mongoUser, otherEvents, sortedEvents, timeConflict;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -46,10 +46,9 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
             case 1:
                 mongoUser = _b.sent();
-                mongoUser.events
-                    .filter(function (savedEvent) { return savedEvent.id !== event.id; })
-                    .push(event);
-                sortedEvents = Utils_1.eventSort(mongoUser.events);
+                otherEvents = mongoUser.events.filter(function (savedEvent) { return savedEvent.id !== event.id; });
+                otherEvents.push(event);
+                sortedEvents = Utils_1.eventSort(otherEvents);
                 timeConflict = sortedEvents.length > 1 ? Utils_1.eventValidation(sortedEvents, event) : undefined;
                 if (!(timeConflict !== undefined)) return [3, 3];
                 mongoUser.events = sortedEvents;
@@ -58,7 +57,7 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 _b.sent();
                 return [2, res.send({
                         success: true,
-                        message: mongoUser.events.find(function (savedEvent) { return savedEvent.id === event.id; }).name + " has been updated",
+                        message: mongoUser.events.find(function (editedEvent) { return editedEvent.id === event.id; }).name + " has been updated",
                         events: mongoUser.events
                     })];
             case 3: return [2, res.send({
