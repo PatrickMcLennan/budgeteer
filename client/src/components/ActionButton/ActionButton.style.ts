@@ -3,27 +3,27 @@ import { theme } from '../../utils/resets.style';
 
 interface StyledButtonProps {
   colorScheme: number;
-}
-
-interface StyledH6Props {
-  colorScheme: number;
+  animateIn: boolean;
+  animateOut: boolean;
 }
 
 export const StyledH6 = styled.h6`
   font-size: 7.5vh;
   border: 1px solid red;
   font-weight: 100;
-  transition: all 1s;
+  transition: all 0.75s;
   transform-style: preserve-3d;
   transform: rotate(0);
-  color: ${(props: StyledH6Props) =>
-    props.colorScheme !== 2 ? theme.colors.mainGreen : `red`};
-  border: ${(props: StyledH6Props) =>
-    props.colorScheme !== 2 ? theme.colors.mainGreen : `red`};
-  ${(props: StyledH6Props) =>
-    props.colorScheme === 2
-      ? `transform: rotate(45deg)`
-      : `transform: rotate(0)`}
+  ${(props: StyledButtonProps) =>
+    props.animateIn &&
+    css`
+      transform: rotate(45deg);
+    `}
+  ${(props: StyledButtonProps) =>
+    props.animateOut &&
+    css`
+      transform: rotate(0);
+    `}
 `;
 
 export const StyledButton = styled.button`
@@ -41,26 +41,34 @@ export const StyledButton = styled.button`
   overflow: hidden;
   cursor: pointer;
   background-color: transparent;
+  color: ${({ theme: { colors } }: any) => colors.mainGreen};
+
+  & > svg {
+    stroke: ${({ theme: { colors } }: any) => colors.mainGreen};
+    fill: ${({ theme: { colors } }: any) => colors.mainGreen};
+  }
 
   ${(props: StyledButtonProps) =>
-    props.colorScheme !== 2 &&
-    css`
-      border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
-
-      & > svg {
-        stroke: ${({ theme: { colors } }: any) => colors.mainGreen};
-        fill: ${({ theme: { colors } }: any) => colors.mainGreen};
-      }
-    `}
-
-  ${(props: StyledButtonProps) =>
-    props.colorScheme === 2 &&
+    props.animateIn &&
     css`
       border: 1px solid red;
+      color: red;
 
       & > svg {
         stroke: red;
         fill: red;
+      }
+    `}
+
+  ${(props: StyledButtonProps) =>
+    props.animateOut &&
+    css`
+      border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
+      color: ${({ theme: { colors } }: any) => colors.mainGreen};
+
+      & > svg {
+        stroke: ${({ theme: { colors } }: any) => colors.mainGreen};
+        fill: ${({ theme: { colors } }: any) => colors.mainGreen};
       }
     `}
 `;

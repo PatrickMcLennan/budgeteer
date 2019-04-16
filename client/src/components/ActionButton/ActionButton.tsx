@@ -14,11 +14,18 @@ const ActionButton: React.SFC<IProps> = ({
   <StyledButton
     data-testid="actionButton"
     onClick={action}
-    colorScheme={currentActions}>
+    colorScheme={currentActions}
+    animateIn={currentActions >= 1.75}
+    animateOut={currentActions <= 1.25}>
     {currentActions === 0 ? (
       <LogInSVG />
     ) : (
-      <StyledH6 colorScheme={currentActions}>+</StyledH6>
+      <StyledH6
+        colorScheme={currentActions}
+        animateIn={currentActions >= 1.75}
+        animateOut={currentActions <= 1.25}>
+        +
+      </StyledH6>
     )}
   </StyledButton>
 );
