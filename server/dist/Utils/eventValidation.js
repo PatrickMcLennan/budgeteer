@@ -1,31 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.eventValidation = function (savedEvents, newEvent) {
-    var sameDates = savedEvents.filter(function (event) {
-        return event.year === newEvent.year &&
-            event.month === newEvent.month &&
-            event.date === newEvent.date;
-    });
-    console.log(sameDates);
-    var timeConflicts = sameDates.length >= 1
-        ? sameDates.find(function (event) {
-            if (event.startTime === newEvent.startTime) {
-                return true;
+    var sameYear = savedEvents.filter(function (event) { return event.year === newEvent.year; });
+    var sameMonth = sameYear.filter(function (event) { return event.month === newEvent.month; });
+    var sameDate = sameMonth.filter(function (event) { return event.date === newEvent.date; });
+    if (sameYear.length === 0) {
+        return undefined;
+    }
+    else if (sameMonth.length === 0) {
+        return undefined;
+    }
+    else if (sameDate.length === 0) {
+        return undefined;
+    }
+    else {
+        for (var i = 0; i <= sameDate.length; i += 1) {
+            if (sameDate[i].startTime > newEvent.endTime &&
+                sameDate[i].endTime < newEvent.startTime) {
+                return newEvent;
             }
-            else if (event.startTime < newEvent.startTime &&
-                event.endTime > newEvent.startTime) {
-                return true;
-            }
-            else if (event.endTime > newEvent.startTime &&
-                event.startTime < newEvent.startTime) {
-                return true;
+            else if (sameDate[i].endTime > newEvent.startTime &&
+                sameDate[i].startTime < newEvent.endTime) {
+                return newEvent;
             }
             else {
-                return false;
+                return undefined;
             }
-        })
-        : undefined;
-    console.log(timeConflicts);
-    return timeConflicts;
+        }
+    }
 };
 //# sourceMappingURL=eventValidation.js.map

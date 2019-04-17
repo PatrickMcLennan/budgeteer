@@ -1,39 +1,75 @@
 import { IEvent } from './dictionary';
 
+// export const eventValidation: Function = (
+//   savedEvents: IEvent[],
+//   newEvent: IEvent
+// ): IEvent => {
+//   console.log(savedEvents);
+//   console.log(newEvent);
+//   let conflicts: IEvent = undefined;
+//   for (let i = 0; i <= savedEvents.length; i += 1) {
+//     const current = savedEvents[i];
+//     if (current.year === newEvent.year) {
+//       if (current.month === newEvent.month) {
+//         if (current.date === newEvent.date) {
+//           if (
+//             (current.startTime < newEvent.endTime &&
+//               current.endTime > newEvent.startTime) ||
+//             (current.endTime > newEvent.startTime &&
+//               current.startTime < newEvent.endTime)
+//           ) {
+//             conflicts = newEvent;
+//           } else {
+//             continue;
+//           }
+//         } else {
+//           continue;
+//         }
+//       } else {
+//         continue;
+//       }
+//     } else {
+//       continue;
+//     }
+//     return conflicts;
+//   }
+// };
+
 export const eventValidation: Function = (
   savedEvents: IEvent[],
   newEvent: IEvent
 ): IEvent => {
-  const sameDates: IEvent[] = savedEvents.filter(
-    (event: IEvent) =>
-      event.year === newEvent.year &&
-      event.month === newEvent.month &&
-      event.date === newEvent.date
+  const sameYear: IEvent[] = savedEvents.filter(
+    (event: IEvent): boolean => event.year === newEvent.year
   );
-  console.log(sameDates);
+  const sameMonth: IEvent[] = sameYear.filter(
+    (event: IEvent): boolean => event.month === newEvent.month
+  );
+  const sameDate: IEvent[] = sameMonth.filter(
+    (event: IEvent): boolean => event.date === newEvent.date
+  );
 
-  const timeConflicts: IEvent =
-    sameDates.length >= 1
-      ? sameDates.find(
-          (event: IEvent): boolean => {
-            if (event.startTime === newEvent.startTime) {
-              return true;
-            } else if (
-              event.startTime < newEvent.startTime &&
-              event.endTime > newEvent.startTime
-            ) {
-              return true;
-            } else if (
-              event.endTime > newEvent.startTime &&
-              event.startTime < newEvent.startTime
-            ) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        )
-      : undefined;
-  console.log(timeConflicts);
-  return timeConflicts;
+  if (sameYear.length === 0) {
+    return undefined;
+  } else if (sameMonth.length === 0) {
+    return undefined;
+  } else if (sameDate.length === 0) {
+    return undefined;
+  } else {
+    for (let i = 0; i <= sameDate.length; i += 1) {
+      if (
+        sameDate[i].startTime > newEvent.endTime &&
+        sameDate[i].endTime < newEvent.startTime
+      ) {
+        return newEvent;
+      } else if (
+        sameDate[i].endTime > newEvent.startTime &&
+        sameDate[i].startTime < newEvent.endTime
+      ) {
+        return newEvent;
+      } else {
+        return undefined;
+      }
+    }
+  }
 };

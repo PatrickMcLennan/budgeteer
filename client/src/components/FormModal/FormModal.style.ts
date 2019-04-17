@@ -162,12 +162,15 @@ export const StyledInput = styled.input`
   &[type='submit'] {
     text-transform: uppercase;
     ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
+    cursor: pointer;
+    border: 1px solid red;
+    padding: 1.75rem 2.5rem;
   }
 
   &::placeholder {
     opacity: 0;
     transform: translateY(-100%);
-    transition: all 0.75s ease-out;
+    transition: all 0.5s ease-out;
     transition-delay: ${(props: StyledFormProps) => props.animDelay};
     ${(props: StyledFormProps) =>
       props.render &&
@@ -185,11 +188,6 @@ export const StyledLabel = styled.label`
   text-transform: uppercase;
   display: inline-block;
   margin: 1rem;
-
-  &[for='submit'] {
-    cursor: pointer;
-    border: 1px solid red;
-  }
 
   & > input:invalid ~ label:last-of-type {
     border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};

@@ -42,11 +42,12 @@ export const eventSort = (events: IEvent[]): IEvent[] => {
 
   const dateSort: IEvent[] = validEvents.sort(
     (currentEvent: IEvent, nextEvent: IEvent): number => {
-      const currentEventYear: number = currentEvent.year - currentYear;
-      const nextEventYear: number = nextEvent.year - currentYear;
+      const currentEventYear: number = (currentEvent.year - currentYear) * 24;
+      const nextEventYear: number = (nextEvent.year - currentYear) * 24;
 
-      const currentEventMonth: number = currentEvent.month - currentMonth;
-      const nextEventMonth: number = nextEvent.month - currentMonth;
+      const currentEventMonth: number =
+        (currentEvent.month - currentMonth) * 24;
+      const nextEventMonth: number = (nextEvent.month - currentMonth) * 24;
 
       const currentEventDate: number = (currentEvent.date - currentDate) * 24;
       const nextEventDate: number = (nextEvent.date - currentDate) * 24;

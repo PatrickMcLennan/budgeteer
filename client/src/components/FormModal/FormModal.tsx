@@ -51,7 +51,7 @@ class FormModal extends React.Component<IProps, IEvent> {
   handleButtonChange: Function = (key: string, value: number): void => {
     return this.setState(prevState => ({
       ...prevState,
-      [key]: value
+      [key]: Math.floor(value)
     }));
   };
 
@@ -230,14 +230,12 @@ class FormModal extends React.Component<IProps, IEvent> {
             </StyledLabel>
           </StyledButtonBox>
           <StyledButtonBox>
-            <StyledLabel htmlFor="submit" data-testid="form__label">
-              <StyledInput
-                data-testid="form__submit"
-                id="submit"
-                type="submit"
-                value={this.props.event ? 'Edit Event' : 'Create Event'}
-              />
-            </StyledLabel>
+            <StyledInput
+              data-testid="form__submit"
+              id="submit"
+              type="submit"
+              value={this.props.event ? 'Edit Event' : 'Create Event'}
+            />
           </StyledButtonBox>
         </StyledForm>
         <Backdrop
