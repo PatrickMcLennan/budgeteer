@@ -16,6 +16,11 @@ export const postNewEvent = async (
   const { event, user } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
   event.id = uuid.v4();
+  event.year = Math.floor(event.year);
+  event.month = Math.floor(event.month);
+  event.date = Math.floor(event.date);
+  event.startTime = Math.floor(event.startTime);
+  event.endTime = Math.floor(event.endTime);
   const timeConflict: IEvent =
     mongoUser.events.length >= 1
       ? eventValidation(mongoUser.events, event)

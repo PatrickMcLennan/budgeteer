@@ -1,27 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.eventValidation = function (savedEvents, newEvent) {
-    var sameYear = savedEvents.filter(function (event) { return event.year === newEvent.year; });
-    var sameMonth = sameYear.filter(function (event) { return event.month === newEvent.month; });
-    var sameDate = sameMonth.filter(function (event) { return event.date === newEvent.date; });
-    if (sameYear.length === 0) {
-        return undefined;
-    }
-    else if (sameMonth.length === 0) {
-        return undefined;
-    }
-    else if (sameDate.length === 0) {
-        return undefined;
-    }
-    else {
-        for (var i = 0; i <= sameDate.length; i += 1) {
-            if (sameDate[i].startTime === newEvent.startTime) {
-                return newEvent;
-            }
-            else {
-                return undefined;
-            }
-        }
-    }
+    var sameDate = savedEvents.filter(function (event) {
+        return event.year === newEvent.year &&
+            event.month === newEvent.month &&
+            event.date === newEvent.date;
+    });
+    var sameStart = sameDate.find(function (event) { return event.startTime === newEvent.startTime; });
+    console.log('samedate', sameDate);
+    console.log('newevent', newEvent);
+    return sameDate.length === 0 ? undefined : sameStart;
 };
 //# sourceMappingURL=eventValidation.js.map

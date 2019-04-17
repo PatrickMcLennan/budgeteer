@@ -51,6 +51,11 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 1:
                 mongoUser = _b.sent();
                 event.id = uuid_1.default.v4();
+                event.year = Math.floor(event.year);
+                event.month = Math.floor(event.month);
+                event.date = Math.floor(event.date);
+                event.startTime = Math.floor(event.startTime);
+                event.endTime = Math.floor(event.endTime);
                 timeConflict = mongoUser.events.length >= 1
                     ? Utils_1.eventValidation(mongoUser.events, event)
                     : undefined;
