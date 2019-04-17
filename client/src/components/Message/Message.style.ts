@@ -49,13 +49,15 @@ const divAnimation = keyframes`
   }
 `;
 
-export const StyledP = styled.p<StyledPProps>`
+export const StyledP = styled.p`
   ${({ theme: { elevation } }: any) => elevation.mainInset}
   position: relative;
-  padding: 2.5rem;
-  font-size: 2rem;
+  padding: 2rem;
+  font-size: 1.85rem;
+  text-transform: uppercase;
+  font-style: italic;
   font-weight: 100;
-  letter-spacing: 0.35rem;
+  ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
   transform: translateY(100%);
 
   ${(props: StyledDivProps) =>

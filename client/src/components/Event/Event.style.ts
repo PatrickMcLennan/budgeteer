@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface StyledDivProps {
-  triggerAnimation: number;
+  triggerAnimation: boolean;
 }
 
 export const StyledButton = styled.button`
@@ -36,7 +36,7 @@ export const StyledDiv = styled.div`
       'stretch',
       'column'
     )}
-  background-color: rgba(255,255,255,.8);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 0.5rem;
   align-self: stretch;
   transition: all 0.3s ease-out;
@@ -73,15 +73,25 @@ export const StyledP = styled.p`
 
     &::before,
     &::after {
+      display: none;
       content: '';
       display: block;
       background-color: black;
       height: 1px;
       width: 25%;
+      transition: all 1.75s ease-out;
+
+      transform: scaleX(0);
+      ${(props: StyledDivProps) =>
+        props.triggerAnimation &&
+        css`
+          transform: scaleX(1);
+        `}
     }
 
     &::before {
       margin: 2.5px 30% 2.5px 45%;
+      transform-origin: 100%;
     }
 
     &::after {

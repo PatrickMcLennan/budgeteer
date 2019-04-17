@@ -68,7 +68,7 @@ class Event extends React.Component<IProps, IState> {
     }: IEvent = event;
     return (
       <StyledDiv data-testid="event" triggerAnimation={triggerAnimation}>
-        <StyledP data-testid="event__date">
+        <StyledP triggerAnimation={triggerAnimation} data-testid="event__date">
           {this.showDate(date, month, year)}
         </StyledP>
         <StyledP data-testid="event__name">{name}</StyledP>

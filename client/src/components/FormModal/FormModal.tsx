@@ -5,14 +5,10 @@ import {
   StyledForm,
   StyledLabel,
   StyledH2,
+  StyledButtonBox,
   Backdrop
 } from './FormModal.style';
-import {
-  WEEKDAYSnumber,
-  WEEKDAYSstring,
-  MONTHSnumber,
-  MONTHSstring
-} from '../../utils/datesMaps';
+import { MONTHSstring, MONTHarray } from '../../utils/datesMaps';
 
 interface IProps {
   event: IEvent | null;
@@ -44,11 +40,42 @@ class FormModal extends React.Component<IProps, IEvent> {
   }
 
   handleChange: Function = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
     let { id, value } = e.target;
     this.setState(prevState => ({
       ...prevState,
       [id]: value
     }));
+  };
+
+  handleButtonChange: Function = (key: string, value: number): void => {
+    return this.setState(prevState => ({
+      ...prevState,
+      [key]: value
+    }));
+  };
+
+  randomPlaceholders: Function = (): string[] => {
+    const placeholderMap: Map<number, string[]> = new Map();
+    placeholderMap.set(0, [
+      'Get laundry money',
+      'bank by work',
+      'loonies & quarters'
+    ]);
+    placeholderMap.set(1, [
+      'donate to LOST org',
+      'online',
+      'www.wearelost.org/'
+    ]);
+    placeholderMap.set(2, [
+      'farmers market',
+      'brant street',
+      'check for avocados'
+    ]);
+    placeholderMap.set(3, ['groceries', 'no frills', 'milk, cheese, pasta...']);
+    placeholderMap.set(4, ['oil change', 'sonic auto', 'bring a book']);
+
+    return placeholderMap.get(Math.floor(Math.random() * placeholderMap.size));
   };
 
   handleSubmit: Function = async (
@@ -78,6 +105,9 @@ class FormModal extends React.Component<IProps, IEvent> {
       endTime,
       cost
     }: IEvent = this.state;
+    const currentYear: number = Math.floor(new Date().getFullYear());
+    const placeholders: string[] = this.randomPlaceholders();
+
     return (
       <>
         <StyledForm
@@ -87,63 +117,88 @@ class FormModal extends React.Component<IProps, IEvent> {
           animateOut={currentActions === 1.25}
           render={currentActions === 2}>
           <StyledH2>{name.length >= 1 ? name : ` . . `}</StyledH2>
-          <StyledLabel htmlFor="name" data-testid="form__label">
-            <p>Name:</p>
-            <StyledInput
-              placeholder="Get laundry money"
-              data-testid="form__name"
-              type="text"
-              value={name}
-              id="name"
-              onChange={this.handleChange}
-              required
-            />
-          </StyledLabel>
-          <StyledLabel htmlFor="location" data-testid="form__label">
-            <p>Location:</p>
-            <StyledInput
-              placeholder="ATM by work"
-              data-testid="form__location"
-              type="text"
-              value={location}
-              id="location"
-              onChange={this.handleChange}
-              required
-            />
-          </StyledLabel>
-          <StyledLabel htmlFor="description" data-testid="form__label">
-            <p>Notes:</p>
-            <StyledInput
-              placeholder="loonies & quarters"
-              data-testid="form__description"
-              type="text"
-              value={description}
-              id="description"
-              onChange={this.handleChange}
-              required
-            />
+          <StyledButtonBox>
+            <StyledLabel htmlFor="name" data-testid="form__label">
+              <p>Name:</p>
+              <StyledInput
+                currentActions={currentActions}
+                placeholder={currentActions === 2 ? placeholders[0] : ''}
+                data-testid="form__name"
+                type="text"
+                value={name}
+                id="name"
+                onChange={this.handleChange}
+                required
+              />
+            </StyledLabel>
+            <StyledLabel htmlFor="location" data-testid="form__label">
+              <p>Location:</p>
+              <StyledInput
+                currentActions={currentActions}
+                placeholder={currentActions === 2 ? placeholders[1] : ''}
+                data-testid="form__location"
+                type="text"
+                value={location}
+                id="location"
+                onChange={this.handleChange}
+                required
+              />
+            </StyledLabel>
+            <StyledLabel htmlFor="description" data-testid="form__label">
+              <p>Notes:</p>
+              <StyledInput
+                currentActions={currentActions}
+                placeholder={currentActions === 2 ? placeholders[2] : ''}
+                data-testid="form__description"
+                type="text"
+                value={description}
+                id="description"
+                onChange={this.handleChange}
+                required
+              />
+            </StyledLabel>
+          </StyledButtonBox>
+          <StyledLabel htmlFor="month" data-testid="form__label">
+            <StyledButtonBox>
+              {MONTHarray.map(
+                (monthJSX: string): JSX.Element => (
+                  <StyledButtonBox
+                    data-testid="form__monthButton"
+                    id="month"
+                    colorScheme={month === MONTHSstring.get(monthJSX)}
+                    onClick={(): void =>
+                      this.handleButtonChange(
+                        'month',
+                        MONTHSstring.get(monthJSX)
+                      )
+                    }>
+                    {monthJSX}
+                  </StyledButtonBox>
+                )
+              )}
+            </StyledButtonBox>
           </StyledLabel>
           <StyledLabel htmlFor="year" data-testid="form__label">
-            <p>Year:</p>
-            <StyledInput
-              data-testid="form__year"
-              type="number"
-              value={year}
-              id="year"
-              onChange={this.handleChange}
-              required
-            />
-          </StyledLabel>
-          <StyledLabel htmlFor="month" data-testid="form__label">
-            <p>Month:</p>
-            <StyledInput
-              data-testid="form__month"
-              type="number"
-              value={month}
-              id="month"
-              onChange={this.handleChange}
-              required
-            />
+            <StyledButtonBox>
+              {[
+                currentYear,
+                currentYear + 1,
+                currentYear + 2,
+                currentYear + 3
+              ].map(
+                (mappedYear: number): JSX.Element => (
+                  <StyledButtonBox
+                    data-testid="form__yearButton"
+                    id="year"
+                    colorScheme={year === mappedYear}
+                    onClick={(): void =>
+                      this.handleButtonChange('year', mappedYear)
+                    }>
+                    {mappedYear}
+                  </StyledButtonBox>
+                )
+              )}
+            </StyledButtonBox>
           </StyledLabel>
           <StyledLabel htmlFor="datw" data-testid="form__label">
             <p>Date:</p>
@@ -178,6 +233,7 @@ class FormModal extends React.Component<IProps, IEvent> {
               required
             />
           </StyledLabel>
+
           <StyledLabel htmlFor="cost" data-testid="form__label">
             <p>$</p>
             <StyledInput
@@ -198,7 +254,12 @@ class FormModal extends React.Component<IProps, IEvent> {
             />
           </StyledLabel>
         </StyledForm>
-        <Backdrop onClick={() => returnToCalendar()} render={currentActions === 2} animateIn={currentActions === 1.75} animateOut={currentActions === 1.25}/>
+        <Backdrop
+          onClick={() => returnToCalendar()}
+          render={currentActions === 2}
+          animateIn={currentActions === 1.75}
+          animateOut={currentActions === 1.25}
+        />
       </>
     );
   }

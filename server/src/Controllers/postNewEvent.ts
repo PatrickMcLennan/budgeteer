@@ -17,10 +17,7 @@ export const postNewEvent = async (
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
   event.id = uuid.v4();
 
-  const timeConflict: IEvent =
-    mongoUser.events.length >= 1
-      ? eventValidation(mongoUser.events, event)
-      : undefined;
+  const timeConflict: IEvent = eventValidation(mongoUser.events, event);
 
   if (timeConflict !== undefined) {
     return res.send({

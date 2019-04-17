@@ -51,9 +51,7 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
             case 1:
                 mongoUser = _b.sent();
                 event.id = uuid_1.default.v4();
-                timeConflict = mongoUser.events.length >= 1
-                    ? Utils_1.eventValidation(mongoUser.events, event)
-                    : undefined;
+                timeConflict = Utils_1.eventValidation(mongoUser.events, event);
                 if (!(timeConflict !== undefined)) return [3, 2];
                 return [2, res.send({
                         success: false,
