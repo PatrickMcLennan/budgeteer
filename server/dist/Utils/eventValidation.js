@@ -15,12 +15,7 @@ exports.eventValidation = function (savedEvents, newEvent) {
     }
     else {
         for (var i = 0; i <= sameDate.length; i += 1) {
-            if (sameDate[i].startTime > newEvent.endTime &&
-                sameDate[i].endTime < newEvent.startTime) {
-                return newEvent;
-            }
-            else if (sameDate[i].endTime > newEvent.startTime &&
-                sameDate[i].startTime < newEvent.endTime) {
+            if (sameDate[i].startTime === newEvent.startTime) {
                 return newEvent;
             }
             else {
