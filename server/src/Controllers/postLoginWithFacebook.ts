@@ -23,7 +23,7 @@ export const postLoginWithFacebook = async (
       await userExists.save();
       res.json({
         success: true,
-        message: 'Logged in successfully.',
+        message: `Welcome back ${userExists.name}`,
         user: <IUser>userExists
       });
     } else {
@@ -36,7 +36,7 @@ export const postLoginWithFacebook = async (
       await newUser.save();
       res.json({
         success: true,
-        message: 'New user has been registered + logged in.',
+        message: `Welcome to budgeteer, ${newUser.name}`,
         user: <IUser>newUser
       });
     }

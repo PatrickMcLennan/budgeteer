@@ -66,7 +66,7 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
                 _b.sent();
                 res.json({
                     success: true,
-                    message: 'Logged in successfully.',
+                    message: "Welcome back " + userExists.name,
                     user: userExists
                 });
                 return [3, 7];
@@ -82,7 +82,7 @@ exports.postLoginWithFacebook = function (req, res) { return __awaiter(_this, vo
                 _b.sent();
                 res.json({
                     success: true,
-                    message: 'New user has been registered + logged in.',
+                    message: "Welcome to budgeteer, " + newUser.name,
                     user: newUser
                 });
                 _b.label = 7;

@@ -36,18 +36,21 @@ exports.eventSort = function (events) {
     var currentMonth = Math.floor(now.getFullYear());
     var currentDate = Math.floor(now.getDate());
     var dateSort = validEvents.sort(function (currentEvent, nextEvent) {
-        var currentEventTotals = currentEvent.year + currentEvent.month + currentEvent.date;
-        var nextEventTotals = nextEvent.year + nextEvent.month + nextEvent.date;
-        var currentTimeTotals = currentYear + currentMonth + currentDate;
-        var current = currentEventTotals - currentTimeTotals;
-        var next = nextEventTotals - currentTimeTotals;
-        return current - next;
+        var currentEventYear = currentEvent.year - currentYear;
+        var nextEventYear = nextEvent.year - currentYear;
+        var currentEventMonth = currentEvent.month - currentMonth;
+        var nextEventMonth = nextEvent.month - currentMonth;
+        var currentEventDate = (currentEvent.date - currentDate) * 24;
+        var nextEventDate = (nextEvent.date - currentDate) * 24;
+        var currentEventStartTime = currentEvent.startTime;
+        var nextEventStartTime = nextEvent.startTime;
+        var current = currentEventYear +
+            currentEventMonth +
+            currentEventDate +
+            currentEventStartTime;
+        var next = nextEventYear + nextEventMonth + nextEventDate + nextEventStartTime;
+        return current < next ? 0 : 1;
     });
-    var timeSort = dateSort.sort(function (currentEvent, nextEvent) {
-        return currentEvent.date === nextEvent.date
-            ? currentEvent.startTime - nextEvent.startTime
-            : 0;
-    });
-    return timeSort;
+    return dateSort;
 };
 //# sourceMappingURL=eventSort.js.map

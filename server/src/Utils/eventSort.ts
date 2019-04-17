@@ -42,25 +42,28 @@ export const eventSort = (events: IEvent[]): IEvent[] => {
 
   const dateSort: IEvent[] = validEvents.sort(
     (currentEvent: IEvent, nextEvent: IEvent): number => {
-      const currentEventTotals: number =
-        currentEvent.year + currentEvent.month + currentEvent.date;
-      const nextEventTotals: number =
-        nextEvent.year + nextEvent.month + nextEvent.date;
-      const currentTimeTotals: number =
-        currentYear + currentMonth + currentDate;
+      const currentEventYear: number = currentEvent.year - currentYear;
+      const nextEventYear: number = nextEvent.year - currentYear;
 
-      const current: number = currentEventTotals - currentTimeTotals;
-      const next: number = nextEventTotals - currentTimeTotals;
+      const currentEventMonth: number = currentEvent.month - currentMonth;
+      const nextEventMonth: number = nextEvent.month - currentMonth;
 
-      return current - next;
+      const currentEventDate: number = (currentEvent.date - currentDate) * 24;
+      const nextEventDate: number = (nextEvent.date - currentDate) * 24;
+
+      const currentEventStartTime: number = currentEvent.startTime;
+      const nextEventStartTime: number = nextEvent.startTime;
+
+      const current: number =
+        currentEventYear +
+        currentEventMonth +
+        currentEventDate +
+        currentEventStartTime;
+      const next: number =
+        nextEventYear + nextEventMonth + nextEventDate + nextEventStartTime;
+
+      return current < next ? 0 : 1;
     }
   );
-
-  const timeSort: IEvent[] = dateSort.sort(
-    (currentEvent: IEvent, nextEvent: IEvent): number =>
-      currentEvent.date === nextEvent.date
-        ? currentEvent.startTime - nextEvent.startTime
-        : 0
-  );
-  return timeSort;
+  return dateSort;
 };
