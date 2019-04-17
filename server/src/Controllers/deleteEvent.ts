@@ -13,24 +13,15 @@ export const deleteEvent = async (
 ) => {
   const { user, event } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
-  const eventValidation: IEvent[] | boolean = eventSort(user.events);
 
-  if (eventValidation) {
-    const validEvents: IEvent[] = mongoUser.events.filter(
-      (validEvent: IEvent): boolean => validEvent.id !== event.id
-    );
-    mongoUser.events = eventSort(validEvents);
-    await mongoUser.save();
-    return res.json({
-      success: true,
-      message: 'Event Deleted Successfully',
-      events: mongoUser.events
-    });
-  } else {
-    return res.json({
-      success: false,
-      message: 'No Event was found with that I.D',
-      events: user.events
-    });
-  }
+  const validEvents: IEvent[] = mongoUser.events.filter(
+    (validEvent: IEvent): boolean => validEvent.id !== event.id
+  );
+  mongoUser.events = eventSort(validEvents);
+  await mongoUser.save();
+  return res.json({
+    success: true,
+    message: `${event.name} has been deleted`,
+    events: mongoUser.events
+  });
 };

@@ -26,7 +26,15 @@ export const postNewEvent = async (
       ? eventValidation(mongoUser.events, event)
       : undefined;
 
-  if (timeConflict !== undefined) {
+  if (event.endTime < event.startTime) {
+    return res.send({
+      success: false,
+      message: `${event.name} can't end at ${event.endTime} if it starts at ${
+        event.startTime
+      }`,
+      events: user.events
+    });
+  } else if (timeConflict !== undefined) {
     return res.send({
       success: false,
       message: `${timeConflict.name} and ${event.name} have conflicting times`,

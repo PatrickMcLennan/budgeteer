@@ -59,17 +59,24 @@ exports.postNewEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 timeConflict = mongoUser.events.length >= 1
                     ? Utils_1.eventValidation(mongoUser.events, event)
                     : undefined;
-                if (!(timeConflict !== undefined)) return [3, 2];
+                if (!(event.endTime < event.startTime)) return [3, 2];
+                return [2, res.send({
+                        success: false,
+                        message: event.name + " can't end at " + event.endTime + " if it starts at " + event.startTime,
+                        events: user.events
+                    })];
+            case 2:
+                if (!(timeConflict !== undefined)) return [3, 3];
                 return [2, res.send({
                         success: false,
                         message: timeConflict.name + " and " + event.name + " have conflicting times",
                         events: user.events
                     })];
-            case 2:
+            case 3:
                 mongoUser.events.push(event);
                 mongoUser.events = Utils_1.eventSort(mongoUser.events);
                 return [4, mongoUser.save()];
-            case 3:
+            case 4:
                 _b.sent();
                 return [2, res.send({
                         success: true,

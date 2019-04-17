@@ -27,11 +27,17 @@ export const putEditEvent = async (
   otherEvents.push(event);
 
   const timeConflict: IEvent =
-    mongoUser.events.length > 1
-      ? eventValidation(mongoUser.events, event)
-      : undefined;
+    otherEvents.length > 1 ? eventValidation(otherEvents, event) : undefined;
 
-  if (timeConflict !== undefined) {
+  if (event.endTime < event.startTime) {
+    return res.send({
+      success: false,
+      message: `${event.name} can't end at ${event.endTime} if it starts at ${
+        event.startTime
+      }`,
+      events: user.events
+    });
+  } else if (timeConflict !== undefined) {
     const sortedEvents: IEvent[] = eventSort(otherEvents);
     mongoUser.events = sortedEvents;
     await mongoUser.save();

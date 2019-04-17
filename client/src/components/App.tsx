@@ -9,6 +9,17 @@ import Calendar from './Calendar/Calendar';
 import FormModal from './FormModal/FormModal';
 import Message from './Message/Message';
 
+// This entire application is based around this main App's state 'currentActions'.  Each different number dictates which component is rendered and any available actions.
+
+// wholeNumber = rendered, usable component
+// number.75 = number component animating OUT, number + 1 component is animating IN
+// number.25 = number component animating OUT, number -1 component is animating IN
+
+// currentActions index
+// 0: Log In Modal
+// 1: Calendar view, with either events or 'No Events' message
+// 2: Form view
+
 interface IState {
   user: IUser;
   currentActions: number;
@@ -79,7 +90,7 @@ class App extends React.Component<{}, IState> {
       success
         ? this.setState({
             user,
-            currentActions: 1,
+            // currentActions: 1,
             actionMessage: { success: true, error: false, message }
           })
         : this.setState({
@@ -87,6 +98,7 @@ class App extends React.Component<{}, IState> {
           });
     };
     await fbLogIn(getUserCallback);
+    this.returnToCalendar();
     setTimeout(this.resetActionMessage, 2500);
   };
 
@@ -131,7 +143,7 @@ class App extends React.Component<{}, IState> {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ facebookId, event })
+      body: JSON.stringify({ user, event })
     })
       .then(
         (response: IServerResponse): Promise<IServerResponse> => response.json()
@@ -206,14 +218,3 @@ class App extends React.Component<{}, IState> {
 }
 
 export default App;
-
-// currentActions index
-
-// Whole numbers = rest states
-// Half Numbers = animation states
-
-// 0: Log In Modal
-// 0.5: log in modal animating out, calendar animating in
-// 1: Calendar view, with either events or 'No Events' message
-// 1.5: Form animating in
-// 2: Form view

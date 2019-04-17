@@ -59,10 +59,25 @@ export const StyledDiv = styled.div`
 
 export const StyledP = styled.p`
   ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
+  position: relative;
   font-size: 2rem;
   font-weight: 100;
   text-transform: uppercase;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
+  margin-right: 0 0.5rem;
+
+  &:not([data-testid='event__date']) {
+    &::before {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background-color: ${({ theme: { colors } }: any) => colors.mainGreen};
+      content: '';
+      display: inline-block;
+    }
+  }
 
   &[data-testid='event__date'] {
     display: inline-block;

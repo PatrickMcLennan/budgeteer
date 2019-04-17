@@ -151,7 +151,7 @@ export const StyledInput = styled.input`
   background: none;
   text-align: right;
 
-  &:invalid:not([type='submit']) {
+  &:invalid {
     border-right: 3px solid red;
   }
 
@@ -160,11 +160,15 @@ export const StyledInput = styled.input`
   }
 
   &[type='submit'] {
-    text-transform: uppercase;
+    ${({ theme: { colors } }: any) => colors.mainGradient}
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
     ${({ theme: { typo } }: any) => typo.mainLetterSpacing}
+    text-transform: uppercase;
     cursor: pointer;
-    border: 1px solid red;
     padding: 1.75rem 2.5rem;
+    font-size: 2.75rem;
   }
 
   &::placeholder {
@@ -188,10 +192,6 @@ export const StyledLabel = styled.label`
   text-transform: uppercase;
   display: inline-block;
   margin: 1rem;
-
-  & > input:invalid ~ label:last-of-type {
-    border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
-  }
 `;
 
 export const StyledButtonBox = styled.div`
@@ -201,7 +201,7 @@ export const StyledButtonBox = styled.div`
   &[data-testid='form__submit'] {
     width: 100%;
   }
-
+  &[data-testid='form__deleteButton'],
   &[data-testid='form__monthButton'],
   &[data-testid='form__yearButton'] {
     ${({ theme: { elevation } }: any) => elevation.mainInset}
@@ -215,20 +215,22 @@ export const StyledButtonBox = styled.div`
     transform: scale(1);
     transition: all 0.3s;
 
-    &:hover,
-    &:active,
-    &:focus {
-      transform: scale(1.05)
-        ${({ theme: { elevation } }: any) => elevation.mainOutset};
+    &[data-testid='form__deleteButton'] {
+      text-transform: uppercase;
+      color: red;
+      opacity: 0.85;
+      border: 1px solid red;
     }
 
-    ${(props: StyledButtonProps) =>
-      props.colorScheme &&
-      css`
-        border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
-        color: ${({ theme: { colors } }: any) => colors.mainGreen};
-        transform: scale(1.05)
-          ${({ theme: { elevation } }: any) => elevation.mainOutset};
-      `}
+    &:not([data-testid='form__deleteButton']) {
+      ${(props: StyledButtonProps) =>
+        props.colorScheme &&
+        css`
+          border: 1px solid ${({ theme: { colors } }: any) => colors.mainGreen};
+          color: ${({ theme: { colors } }: any) => colors.mainGreen};
+          transform: scale(1.05)
+            ${({ theme: { elevation } }: any) => elevation.mainOutset};
+        `}
+    }
   }
 `;

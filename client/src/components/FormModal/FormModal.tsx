@@ -70,7 +70,7 @@ class FormModal extends React.Component<IProps, IEvent> {
   };
 
   render(): JSX.Element {
-    const { currentActions, returnToCalendar } = this.props;
+    const { currentActions, returnToCalendar, deleteEvent } = this.props;
     const {
       name,
       location,
@@ -92,6 +92,15 @@ class FormModal extends React.Component<IProps, IEvent> {
           animateIn={currentActions === 1.75}
           animateOut={currentActions === 1.25}
           render={currentActions === 2}>
+          {this.props.event && (
+            <StyledButtonBox>
+              <StyledButtonBox
+                data-testid="form__deleteButton"
+                onClick={(): void => deleteEvent(this.props.event)}>
+                Delete Event
+              </StyledButtonBox>
+            </StyledButtonBox>
+          )}
           <StyledH2>{name.length >= 1 ? name : ` . . `}</StyledH2>
           <StyledButtonBox>
             <StyledLabel htmlFor="name" data-testid="form__label">
