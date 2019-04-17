@@ -5,6 +5,7 @@ interface StyledFormProps {
   animateOut: boolean;
   render: boolean;
   currentActions: number;
+  animDelay: number;
 }
 
 interface StyledButtonProps {
@@ -111,8 +112,7 @@ export const StyledForm = styled.form`
   opacity: 0;
   transform: translateY(-100%);
 
-  padding: 5vw 5vw 12.5vw 5vw;
-
+  padding: 5vw;
   ${(props: StyledFormProps) =>
     props.animateIn &&
     css`
@@ -165,18 +165,16 @@ export const StyledInput = styled.input`
   }
 
   &::placeholder {
-    display: none;
-    font-style: italic;
-    opacity: 0.75;
     opacity: 0;
-    transition: all 1.5s ease-out;
-
+    transform: translateY(-100%);
+    transition: all 0.75s ease-out;
+    transition-delay: ${(props: StyledFormProps) => props.animDelay};
     ${(props: StyledFormProps) =>
-      props.currentActions > 1 &&
+      props.render &&
       css`
-        display: block;
-        opacity: 1;
-      `}
+        opacity: 0.75;
+        transform: translateY(0%);
+      `};
   }
 `;
 
@@ -189,10 +187,6 @@ export const StyledLabel = styled.label`
   margin: 1rem;
 
   &[for='submit'] {
-    position: absolute;
-    bottom: 0.5vw;
-    left: 50%;
-    transform: translateX(-50%);
     cursor: pointer;
     border: 1px solid red;
   }
@@ -205,6 +199,10 @@ export const StyledLabel = styled.label`
 export const StyledButtonBox = styled.div`
   ${({ theme: { flexin } }: any) => flexin('space-evenly')};
   flex-wrap: wrap;
+
+  &[data-testid='form__submit'] {
+    width: 100%;
+  }
 
   &[data-testid='form__monthButton'],
   &[data-testid='form__yearButton'] {

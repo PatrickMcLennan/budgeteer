@@ -55,29 +55,6 @@ class FormModal extends React.Component<IProps, IEvent> {
     }));
   };
 
-  randomPlaceholders: Function = (): string[] => {
-    const placeholderMap: Map<number, string[]> = new Map();
-    placeholderMap.set(0, [
-      'Get laundry money',
-      'bank by work',
-      'loonies & quarters'
-    ]);
-    placeholderMap.set(1, [
-      'donate to LOST org',
-      'online',
-      'www.wearelost.org/'
-    ]);
-    placeholderMap.set(2, [
-      'farmers market',
-      'brant street',
-      'check for avocados'
-    ]);
-    placeholderMap.set(3, ['groceries', 'no frills', 'milk, cheese, pasta...']);
-    placeholderMap.set(4, ['oil change', 'sonic auto', 'bring a book']);
-
-    return placeholderMap.get(Math.floor(Math.random() * placeholderMap.size));
-  };
-
   handleSubmit: Function = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -106,7 +83,6 @@ class FormModal extends React.Component<IProps, IEvent> {
       cost
     }: IEvent = this.state;
     const currentYear: number = Math.floor(new Date().getFullYear());
-    const placeholders: string[] = this.randomPlaceholders();
 
     return (
       <>
@@ -121,8 +97,9 @@ class FormModal extends React.Component<IProps, IEvent> {
             <StyledLabel htmlFor="name" data-testid="form__label">
               <p>Name:</p>
               <StyledInput
-                currentActions={currentActions}
-                placeholder={currentActions === 2 ? placeholders[0] : ''}
+                animDelay={`${0 * 0.25}s`}
+                render={currentActions === 2}
+                placeholder="what"
                 data-testid="form__name"
                 type="text"
                 value={name}
@@ -134,8 +111,9 @@ class FormModal extends React.Component<IProps, IEvent> {
             <StyledLabel htmlFor="location" data-testid="form__label">
               <p>Location:</p>
               <StyledInput
-                currentActions={currentActions}
-                placeholder={currentActions === 2 ? placeholders[1] : ''}
+                animDelay={`${1 * 0.25}s`}
+                render={currentActions === 2}
+                placeholder="where"
                 data-testid="form__location"
                 type="text"
                 value={location}
@@ -147,8 +125,9 @@ class FormModal extends React.Component<IProps, IEvent> {
             <StyledLabel htmlFor="description" data-testid="form__label">
               <p>Notes:</p>
               <StyledInput
-                currentActions={currentActions}
-                placeholder={currentActions === 2 ? placeholders[2] : ''}
+                animDelay={`${2 * 0.25}s`}
+                render={currentActions === 2}
+                placeholder="why"
                 data-testid="form__description"
                 type="text"
                 value={description}
@@ -178,81 +157,88 @@ class FormModal extends React.Component<IProps, IEvent> {
               )}
             </StyledButtonBox>
           </StyledLabel>
-          <StyledLabel htmlFor="year" data-testid="form__label">
-            <StyledButtonBox>
-              {[
-                currentYear,
-                currentYear + 1,
-                currentYear + 2,
-                currentYear + 3
-              ].map(
-                (mappedYear: number): JSX.Element => (
-                  <StyledButtonBox
-                    data-testid="form__yearButton"
-                    id="year"
-                    colorScheme={year === mappedYear}
-                    onClick={(): void =>
-                      this.handleButtonChange('year', mappedYear)
-                    }>
-                    {mappedYear}
-                  </StyledButtonBox>
-                )
-              )}
-            </StyledButtonBox>
-          </StyledLabel>
-          <StyledLabel htmlFor="datw" data-testid="form__label">
-            <p>Date:</p>
-            <StyledInput
-              data-testid="form__date"
-              type="number"
-              value={date}
-              id="date"
-              onChange={this.handleChange}
-              required
-            />
-          </StyledLabel>
-          <StyledLabel htmlFor="startTime" data-testid="form__label">
-            <p>Start:</p>
-            <StyledInput
-              data-testid="form__startTime"
-              type="number"
-              value={startTime}
-              id="startTime"
-              onChange={this.handleChange}
-              required
-            />
-          </StyledLabel>
-          <StyledLabel htmlFor="endtime" data-testid="form__label">
-            <p>End:</p>
-            <StyledInput
-              data-testid="form__endTime"
-              type="number"
-              value={endTime}
-              id="endTime"
-              onChange={this.handleChange}
-              required
-            />
-          </StyledLabel>
-
-          <StyledLabel htmlFor="cost" data-testid="form__label">
-            <p>$</p>
-            <StyledInput
-              data-testid="form__cost"
-              type="number"
-              value={cost}
-              id="cost"
-              onChange={this.handleChange}
-              required
-            />
-          </StyledLabel>
-          <StyledLabel htmlFor="submit" data-testid="form__label">
-            <StyledInput
-              data-testid="form__submit"
-              id="submit"
-              type="submit"
-              value={this.props.event ? 'Edit Event' : 'Create Event'}
-            />
-          </StyledLabel>
+          <StyledButtonBox>
+            <StyledLabel htmlFor="year" data-testid="form__label">
+              <StyledButtonBox>
+                {[
+                  currentYear,
+                  currentYear + 1,
+                  currentYear + 2,
+                  currentYear + 3
+                ].map(
+                  (mappedYear: number): JSX.Element => (
+                    <StyledButtonBox
+                      data-testid="form__yearButton"
+                      id="year"
+                      colorScheme={year === mappedYear}
+                      onClick={(): void =>
+                        this.handleButtonChange('year', mappedYear)
+                      }>
+                      {mappedYear}
+                    </StyledButtonBox>
+                  )
+                )}
+              </StyledButtonBox>
+            </StyledLabel>
+            <StyledLabel htmlFor="datw" data-testid="form__label">
+              <p>Date:</p>
+              <StyledInput
+                data-testid="form__date"
+                type="number"
+                value={date}
+                id="date"
+                onChange={this.handleChange}
+                required
+              />
+            </StyledLabel>
+          </StyledButtonBox>
+          <StyledButtonBox>
+            <StyledLabel htmlFor="startTime" data-testid="form__label">
+              <p>Start:</p>
+              <StyledInput
+                data-testid="form__startTime"
+                type="number"
+                value={startTime}
+                id="startTime"
+                onChange={this.handleChange}
+                required
+              />
+            </StyledLabel>
+            <StyledLabel htmlFor="endtime" data-testid="form__label">
+              <p>End:</p>
+              <StyledInput
+                data-testid="form__endTime"
+                type="number"
+                value={endTime}
+                id="endTime"
+                onChange={this.handleChange}
+                required
+              />
+            </StyledLabel>
+          </StyledButtonBox>
+          <StyledButtonBox>
+            <StyledLabel htmlFor="cost" data-testid="form__label">
+              <p>$</p>
+              <StyledInput
+                data-testid="form__cost"
+                type="number"
+                value={cost}
+                id="cost"
+                onChange={this.handleChange}
+                required
+              />
+            </StyledLabel>
+          </StyledButtonBox>
+          <StyledButtonBox>
+            <StyledLabel htmlFor="submit" data-testid="form__label">
+              <StyledInput
+                data-testid="form__submit"
+                id="submit"
+                type="submit"
+                value={this.props.event ? 'Edit Event' : 'Create Event'}
+              />
+            </StyledLabel>
+          </StyledButtonBox>
         </StyledForm>
         <Backdrop
           onClick={() => returnToCalendar()}
