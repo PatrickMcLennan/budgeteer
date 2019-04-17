@@ -46,6 +46,11 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 return [4, Utils_1.User.findOne({ facebookId: user.facebookId })];
             case 1:
                 mongoUser = _b.sent();
+                event.year = Math.floor(event.year);
+                event.month = Math.floor(event.month);
+                event.date = Math.floor(event.date);
+                event.startTime = Math.floor(event.startTime);
+                event.endTime = Math.floor(event.endTime);
                 otherEvents = mongoUser.events.filter(function (savedEvent) { return savedEvent.id !== event.id; });
                 otherEvents.push(event);
                 timeConflict = mongoUser.events.length > 1
@@ -59,7 +64,7 @@ exports.putEditEvent = function (req, res) { return __awaiter(_this, void 0, voi
                 _b.sent();
                 return [2, res.send({
                         success: true,
-                        message: mongoUser.events.find(function (editedEvent) { return editedEvent.id === event.id; }).name + " has been updated",
+                        message: event.name + " has been updated",
                         events: mongoUser.events
                     })];
             case 3: return [2, res.send({

@@ -1,5 +1,4 @@
 import { IEvent } from './dictionary';
-import { Event } from './schemas';
 
 export const eventValidation: Function = (
   savedEvents: IEvent[],
@@ -12,11 +11,37 @@ export const eventValidation: Function = (
       event.date === newEvent.date
   );
 
-  const sameStart: IEvent = sameDate.find(
-    (event: IEvent): boolean => event.startTime === newEvent.startTime
-  );
+  if (sameDate.length === 0) {
+    return undefined;
+  } else {
+    for (let i = 0; i <= sameDate.length; i += 1) {
+      const current: IEvent = sameDate[i];
 
-  console.log('samedate', sameDate);
-  console.log('newevent', newEvent);
-  return sameDate.length === 0 ? undefined : sameStart;
+      if (current.startTime === newEvent.startTime) {
+        return current;
+      } else if (
+        current.endTime > newEvent.startTime &&
+        current.endTime < newEvent.endTime
+      ) {
+        return current;
+      } else if (
+        current.startTime > newEvent.startTime &&
+        current.startTime < newEvent.endTime
+      ) {
+        return current;
+      } else if (
+        newEvent.endTime > current.startTime &&
+        newEvent.endTime < current.endTime
+      ) {
+        return current;
+      } else if (
+        newEvent.startTime > current.startTime &&
+        newEvent.startTime < current.endTime
+      ) {
+        return current;
+      } else {
+        return undefined;
+      }
+    }
+  }
 };

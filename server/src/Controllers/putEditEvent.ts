@@ -15,6 +15,12 @@ export const putEditEvent = async (
   const { user, event } = req.body;
   const mongoUser: IUser = await User.findOne({ facebookId: user.facebookId });
 
+  event.year = Math.floor(event.year);
+  event.month = Math.floor(event.month);
+  event.date = Math.floor(event.date);
+  event.startTime = Math.floor(event.startTime);
+  event.endTime = Math.floor(event.endTime);
+
   const otherEvents: IEvent[] = mongoUser.events.filter(
     (savedEvent: IEvent): boolean => savedEvent.id !== event.id
   );
@@ -31,11 +37,7 @@ export const putEditEvent = async (
     await mongoUser.save();
     return res.send({
       success: true,
-      message: `${
-        mongoUser.events.find(
-          (editedEvent: IEvent): boolean => editedEvent.id === event.id
-        ).name
-      } has been updated`,
+      message: `${event.name} has been updated`,
       events: mongoUser.events
     });
   } else {
